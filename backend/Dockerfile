@@ -10,6 +10,7 @@ RUN apt-get update && apt-get install -y \
     curl \
     tesseract-ocr \
     tesseract-ocr-spa \
+    poppler-utils \
     libgl1 \
     libglib2.0-0 \
     && rm -rf /var/lib/apt/lists/*
