@@ -72,10 +72,12 @@ AWS_REGION        = os.getenv("AWS_REGION", "us-east-1")
 
 # ─── CARPETA LOCAL DINÁMICA (siempre apunta a ~/Documentos del usuario actual)
 _DOCS = Path("D:/")         # Windows: C:\Users\<quien sea>\Documents
-# En Linux/Mac también existe ~/Documents; si quieres ~/Documentos (ES) usa:
-# _DOCS = Path.home() / "Documentos"
 if not _DOCS.exists():                      # fallback si no existe la carpeta
     _DOCS = Path.home()
+
+# Producción (Coolify): si SEACE_PLADIBOT_DIR está seteada, se usa DIRECTO
+# (debe ser el Destination Path del volumen persistente: /app/seace_docs)
+_CARPETA_ENV = os.getenv("SEACE_PLADIBOT_DIR")
 
 # ─── CONFIGURACIÓN MULTIEMPRESA ──────────────────────────────────────────────
 # Contraseñas en .env, no hardcodeadas. Agrega SEACE_PASSWORD_<RUC> por cada
@@ -106,7 +108,7 @@ ANIO              = 2026
 PAGE_SIZE         = 5000
 
 DESCARGAR_ARCHIVOS = True
-CARPETA_SALIDA    = _DOCS / "SEACE_PLADIBOT"          # <-- dinámica, cualquier PC
+CARPETA_SALIDA    = Path(_CARPETA_ENV) if _CARPETA_ENV else (_DOCS / "SEACE_PLADIBOT")
 ARCHIVO_JSON      = CARPETA_SALIDA / "procesos.json"
 ARCHIVO_LOG       = CARPETA_SALIDA / "log.txt"  
 
