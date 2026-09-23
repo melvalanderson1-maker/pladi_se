@@ -34,8 +34,8 @@ AWS_REGION      = os.getenv("AWS_REGION", "us-east-1")
 _DOCS = Path("D:/")
 if not _DOCS.exists():
     _DOCS = Path.home()
-CARPETA_SALIDA_LOCAL = _DOCS / "SEACE_PLADIBOT"
-
+import os as _os_dir
+CARPETA_SALIDA_LOCAL = Path(_os_dir.getenv("SEACE_PLADIBOT_DIR")) if _os_dir.getenv("SEACE_PLADIBOT_DIR") else _DOCS / "SEACE_PLADIBOT"
 
 # ─── UBIGEO → DEPARTAMENTO (código INEI, primeros 2 dígitos) ────────────────
 DEPARTAMENTOS_UBIGEO = {
