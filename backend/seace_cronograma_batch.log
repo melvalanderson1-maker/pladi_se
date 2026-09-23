@@ -1,0 +1,2152 @@
+17:01:19 [INFO] Procesos vigentes a procesar: 5
+17:01:29 [INFO] Modal genérico cerrado
+17:01:33 [INFO] Login OK
+17:01:33 [INFO] [1/5] Procesando CP-ABR-3-2026-RSSCN-CUSCO-1 (tender_id=1230060)
+17:01:41 [WARNING]   Intento 1/2 falló: Nomenclatura 'CP-ABR-3-2026-RSSCN-CUSCO-1' no apareció en resultados (0 filas coincidentes)
+17:01:50 [WARNING]   Intento 2/2 falló: Nomenclatura 'CP-ABR-3-2026-RSSCN-CUSCO-1' no apareció en resultados (0 filas coincidentes)
+17:01:51 [ERROR]   ❌ Falló definitivamente: Nomenclatura 'CP-ABR-3-2026-RSSCN-CUSCO-1' no apareció en resultados (0 filas coincidentes)
+17:01:57 [INFO] [2/5] Procesando LP-SM-17-2026-GRJ-1 (tender_id=1233719)
+17:02:03 [WARNING]   Intento 1/2 falló: Nomenclatura 'LP-SM-17-2026-GRJ-1' no apareció en resultados (0 filas coincidentes)
+17:02:11 [WARNING]   Intento 2/2 falló: Nomenclatura 'LP-SM-17-2026-GRJ-1' no apareció en resultados (0 filas coincidentes)
+17:02:12 [ERROR]   ❌ Falló definitivamente: Nomenclatura 'LP-SM-17-2026-GRJ-1' no apareció en resultados (0 filas coincidentes)
+17:02:18 [INFO] [3/5] Procesando CP-ABR-2-2026-RSSCN-CUSCO-2 (tender_id=1239517)
+17:02:31 [WARNING]   Intento 1/2 falló: Nomenclatura 'CP-ABR-2-2026-RSSCN-CUSCO-2' no apareció en resultados (0 filas coincidentes)
+17:02:41 [WARNING]   Intento 2/2 falló: Nomenclatura 'CP-ABR-2-2026-RSSCN-CUSCO-2' no apareció en resultados (0 filas coincidentes)
+17:02:43 [ERROR]   ❌ Falló definitivamente: Nomenclatura 'CP-ABR-2-2026-RSSCN-CUSCO-2' no apareció en resultados (0 filas coincidentes)
+17:02:46 [INFO] [4/5] Procesando CP SER-SM-1-2026-GR.CAJ/PROREGI-1 (tender_id=1240630)
+17:02:54 [WARNING]   Intento 1/2 falló: Nomenclatura 'CP SER-SM-1-2026-GR.CAJ/PROREGI-1' no apareció en resultados (0 filas coincidentes)
+17:03:04 [WARNING]   Intento 2/2 falló: Nomenclatura 'CP SER-SM-1-2026-GR.CAJ/PROREGI-1' no apareció en resultados (0 filas coincidentes)
+17:03:05 [ERROR]   ❌ Falló definitivamente: Nomenclatura 'CP SER-SM-1-2026-GR.CAJ/PROREGI-1' no apareció en resultados (0 filas coincidentes)
+17:03:11 [INFO] [5/5] Procesando LP-SM-2-2026-OC/MDT-1 (tender_id=1240843)
+17:03:18 [WARNING]   Intento 1/2 falló: Nomenclatura 'LP-SM-2-2026-OC/MDT-1' no apareció en resultados (0 filas coincidentes)
+17:03:28 [WARNING]   Intento 2/2 falló: Nomenclatura 'LP-SM-2-2026-OC/MDT-1' no apareció en resultados (0 filas coincidentes)
+17:03:29 [ERROR]   ❌ Falló definitivamente: Nomenclatura 'LP-SM-2-2026-OC/MDT-1' no apareció en resultados (0 filas coincidentes)
+17:03:34 [INFO] ============================================================
+17:03:34 [INFO] RESUMEN: 0/5 exitosos, 5/5 fallidos
+17:03:34 [INFO] Detalle de fallos guardado en tabla seace_cronograma_errores
+17:03:34 [INFO] ============================================================
+17:18:02 [INFO] Procesos vigentes a procesar: 1
+17:18:40 [ERROR] Login falló: Page.wait_for_selector: Target page, context or browser has been closed
+Call log:
+  - waiting for locator("a:has-text('Cerrar Sesión')") to be visible
+
+17:18:40 [CRITICAL] No se pudo iniciar sesión. Abortando batch por completo.
+17:22:03 [INFO] Procesos vigentes a procesar: 1
+17:22:13 [INFO] Modal genérico cerrado
+17:22:17 [INFO] Login OK
+17:22:17 [INFO] [1/1] Procesando LP-SM-17-2026-GRJ-1 (tender_id=1233719, entidad=GOBIERNO REGIONAL DE JUNIN SEDE CENTRAL)
+17:22:25 [INFO]   ✅ OK
+17:22:31 [INFO] ============================================================
+17:22:31 [INFO] RESUMEN: 1/1 exitosos, 0/1 fallidos
+17:22:31 [INFO] ============================================================
+08:37:24 [INFO] Procesos vigentes a procesar: 1112
+08:37:33 [INFO] Modal genérico cerrado
+08:37:38 [INFO] Login OK
+08:37:38 [INFO] [1/1112] Procesando LP-ABR-6-2026-MDY-1 (tender_id=1244729, entidad=MUNICIPALIDAD DISTRITAL DE YANAHUARA)
+08:37:44 [INFO]   ✅ OK
+08:37:48 [INFO] [2/1112] Procesando LP-ABR-7-2026-MDSPCH/CS-1 (tender_id=1236743, entidad=MUNICIPALIDAD DISTRITAL DE SAN PEDRO DE CHAULAN)
+08:37:54 [INFO]   ✅ OK
+08:37:59 [INFO] [3/1112] Procesando CP-ABR-1-2026-RISH/CS-3 (tender_id=1245297, entidad=GOBIERNO REGIONAL DE LIMA - RED DE SALUD DE HUAROCHIRI)
+08:38:06 [INFO]   ✅ OK
+08:38:09 [INFO] [4/1112] Procesando LP-ABR-5-2026-CS-MDP-1 (tender_id=1245066, entidad=MUNICIPALIDAD DISTRITAL DE PAIJAN)
+08:38:15 [INFO]   ✅ OK
+08:38:19 [INFO] [5/1112] Procesando LP-SM-8-2026-UNSA-1 (tender_id=1244760, entidad=UNIVERSIDAD NACIONAL SAN AGUSTIN)
+08:38:26 [INFO]   ✅ OK
+08:38:30 [INFO] [6/1112] Procesando CP-ABR-2-2026-MDSAC-1 (tender_id=1245017, entidad=MUNICIPALIDAD DISTRITAL DE SAN ANTONIO DE CACHI)
+08:38:37 [INFO]   ✅ OK
+08:38:41 [INFO] [7/1112] Procesando CP-ABR-6-2026-GRP-GSRLCC-G-1 (tender_id=1244316, entidad=GOBIERNO REGIONAL DE PIURA - GERENCIA SUBREGIONAL  LUCIANO CASTILLO COLONNA)
+08:38:49 [INFO]   ✅ OK
+08:38:52 [INFO] [8/1112] Procesando CP-ABR-1-2026-FAME SAC-1 (tender_id=1243537, entidad=FABRICA DE ARMAS Y MUNICIONES DEL EJERCITO SAC - FAME SAC)
+08:38:59 [INFO]   ✅ OK
+08:39:02 [INFO] [9/1112] Procesando LP-ABR-13-2026-MDM-1 (tender_id=1240719, entidad=MUNICIPALIDAD DISTRITAL DE MAZAMARI)
+08:39:10 [INFO]   ✅ OK
+08:39:13 [INFO] [10/1112] Procesando CP SER-SM-2-2026-COMITE/MDM-1 (tender_id=1244692, entidad=MUNICIPALIDAD DISTRITAL DE MACHUPICCHU)
+08:39:20 [INFO]   ✅ OK
+08:39:25 [INFO] [11/1112] Procesando LP-SM-12-2026-GRL/CS-1 (tender_id=1241229, entidad=GOBIERNO REGIONAL DE LIMA SEDE CENTRAL)
+08:39:32 [INFO]   ✅ OK
+08:39:36 [INFO] [12/1112] Procesando CP SER-SM-7-2026-PCM-1 (tender_id=1244556, entidad=PRESIDENCIA DEL CONSEJO DE MINISTROS)
+08:39:44 [INFO]   ✅ OK
+08:39:49 [INFO] [13/1112] Procesando LP-SM-3-2026-MDSPP/CS-1 (tender_id=1245366, entidad=MUNICIPALIDAD DISTRITAL DE SAN PABLO DE PILLAO)
+08:39:59 [INFO]   ✅ OK
+08:40:03 [INFO] [14/1112] Procesando CP CON-SM-2-2026-MDSPP/CS-1 (tender_id=1245057, entidad=MUNICIPALIDAD DISTRITAL DE SAN PABLO DE PILLAO)
+08:40:11 [INFO]   ✅ OK
+08:40:15 [INFO] [15/1112] Procesando CP-ABR-2-2026-GSR-H/CS-1 (tender_id=1244462, entidad=GOBIERNO REGIONAL DE HUANCAVELICA - SUB REGION HUAYTARA)
+08:40:24 [INFO]   ✅ OK
+08:40:27 [INFO] [16/1112] Procesando LP-ABR-12-2026-CS/MPT-1 (tender_id=1244580, entidad=MUNICIPALIDAD PROVINCIAL DE TARMA)
+08:40:35 [INFO]   ✅ OK
+08:40:39 [INFO] [17/1112] Procesando LP-ABR-4-2026-MDSR-CS-1 (tender_id=1245093, entidad=MUNICIPALIDAD DISTRITAL DE SANTA ROSA - LIMA)
+08:40:47 [INFO]   ✅ OK
+08:40:52 [INFO] [18/1112] Procesando LP-ABR-4-2026-MPCH/CS-1 (tender_id=1244307, entidad=MUNICIPALIDAD PROVINCIAL DE CHEPEN)
+08:40:59 [INFO]   ✅ OK
+08:41:04 [INFO] [19/1112] Procesando LP-ABR-61-2026-GRL/CS-1 (tender_id=1241234, entidad=GOBIERNO REGIONAL DE LIMA SEDE CENTRAL)
+08:41:11 [INFO]   ✅ OK
+08:41:16 [INFO] [20/1112] Procesando LP-ABR-4-2026-MDC-1 (tender_id=1245065, entidad=MUNICIPALIDAD DISTRITAL DE COCHAPETI)
+08:41:23 [INFO]   ✅ OK
+08:41:29 [INFO] [21/1112] Procesando LP-ABR-1-2026-MDCH-CS-1 (tender_id=1244248, entidad=MUNICIPALIDAD DISTRITAL DE CHORAS)
+08:41:36 [INFO]   ✅ OK
+08:41:41 [INFO] [22/1112] Procesando LP-ABR-14-2026-MDM-1 (tender_id=1245054, entidad=MUNICIPALIDAD DISTRITAL DE MAZAMARI)
+08:41:48 [INFO]   ✅ OK
+08:41:52 [INFO] [23/1112] Procesando LP-ABR-2-2026-MDT/C-1-1 (tender_id=1245155, entidad=MUNICIPALIDAD DISTRITAL DE TOMAYKICHWA)
+08:41:59 [INFO]   ✅ OK
+08:42:02 [INFO] [24/1112] Procesando CP-ABR-9-2026-MTC/20-1 (tender_id=1242995, entidad=MTC-PROYECTO ESPECIAL DE INFRAESTRUCTURA DE TRANSPORTE NACIONAL (PROVIAS NACIONAL))
+08:42:10 [INFO]   ✅ OK
+08:42:12 [INFO] [25/1112] Procesando LP-ABR-11-2026-GRH/CO-1 (tender_id=1244389, entidad=GOBIERNO REGIONAL DE HUANUCO SEDE CENTRAL)
+08:42:20 [INFO]   ✅ OK
+08:42:24 [INFO] [26/1112] Procesando LP-ABR-6-2026-MDP/C-1 (tender_id=1241756, entidad=MUNICIPALIDAD DISTRITAL DE PUCARA - JAEN)
+08:42:31 [INFO]   ✅ OK
+08:42:35 [INFO] [27/1112] Procesando LP-ABR-5-2026-CS/MDSA-1 (tender_id=1242263, entidad=MUNICIPALIDAD DISTRITAL DE SANTA ANITA)
+08:42:42 [INFO]   ✅ OK
+08:42:46 [INFO] [28/1112] Procesando LP-ABR-2-2026-INPE ORAP-1 (tender_id=1244608, entidad=INPE-DIRECCION REGIONAL ALTIPLANO PUNO)
+08:42:54 [INFO]   ✅ OK
+08:42:57 [INFO] [29/1112] Procesando LP-SM-4-2026-MPHI/C-1-1 (tender_id=1245136, entidad=MUNICIPALIDAD PROVINCIAL DE HUARI)
+08:43:04 [INFO]   ✅ OK
+08:43:10 [INFO] [30/1112] Procesando CP-ABR-2-2026-OC-DEC-MDAA-T-1 (tender_id=1245154, entidad=MUNICIPALIDAD DISTRITAL DE ALTO DE LA ALIANZA)
+08:43:17 [INFO]   ✅ OK
+08:43:21 [INFO] [31/1112] Procesando LP-ABR-14-2026-MDC/CS-1 (tender_id=1244461, entidad=MUNICIPALIDAD DISTRITAL DE COLCABAMBA - TAYACAJA)
+08:43:28 [INFO]   ✅ OK
+08:43:31 [INFO] [32/1112] Procesando LP-ABR-15-2026-MDC/CS-1 (tender_id=1244573, entidad=MUNICIPALIDAD DISTRITAL DE COLCABAMBA - TAYACAJA)
+08:43:38 [INFO]   ✅ OK
+08:43:42 [INFO] [33/1112] Procesando LP-ABR-16-2026-MDC/CS-1 (tender_id=1244605, entidad=MUNICIPALIDAD DISTRITAL DE COLCABAMBA - TAYACAJA)
+08:43:50 [INFO]   ✅ OK
+08:43:55 [INFO] [34/1112] Procesando LP-ABR-17-2026-MDC/CS-1 (tender_id=1244997, entidad=MUNICIPALIDAD DISTRITAL DE COLCABAMBA - TAYACAJA)
+08:44:02 [INFO]   ✅ OK
+08:44:07 [INFO] [35/1112] Procesando LP-ABR-18-2026-MDC/CS-1 (tender_id=1245222, entidad=MUNICIPALIDAD DISTRITAL DE COLCABAMBA - TAYACAJA)
+08:44:14 [INFO]   ✅ OK
+08:44:19 [INFO] [36/1112] Procesando LP-ABR-5-2026-MDP/C-1 (tender_id=1241753, entidad=MUNICIPALIDAD DISTRITAL DE PUCARA - JAEN)
+08:44:27 [INFO]   ✅ OK
+08:44:32 [INFO] [37/1112] Procesando LP-ABR-4-2026-MDP/C-1 (tender_id=1241764, entidad=MUNICIPALIDAD DISTRITAL DE PUCARA - JAEN)
+08:44:40 [INFO]   ✅ OK
+08:44:42 [INFO] [38/1112] Procesando CP-ABR-3-2026-MDP/C-1 (tender_id=1241750, entidad=MUNICIPALIDAD DISTRITAL DE PUCARA - JAEN)
+08:44:50 [INFO]   ✅ OK
+08:44:53 [INFO] [39/1112] Procesando CP-ABR-5-2026-MDP/C-1 (tender_id=1241755, entidad=MUNICIPALIDAD DISTRITAL DE PUCARA - JAEN)
+08:45:00 [INFO]   ✅ OK
+08:45:03 [INFO] [40/1112] Procesando LP-ABR-4-2026-MDCH/CS-1 (tender_id=1240778, entidad=MUNICIPALIDAD DISTRITAL DE CHUGUR)
+08:45:11 [INFO]   ✅ OK
+08:45:14 [INFO] [41/1112] Procesando CP-ABR-4-2026-MDP/C-1 (tender_id=1241765, entidad=MUNICIPALIDAD DISTRITAL DE PUCARA - JAEN)
+08:45:22 [INFO]   ✅ OK
+08:45:27 [INFO] [42/1112] Procesando CP-ABR-1-2026-MDH-1 (tender_id=1245039, entidad=MUNICIPALIDAD DISTRITAL DE HUANUARA)
+08:45:35 [INFO]   ✅ OK
+08:45:38 [INFO] [43/1112] Procesando CP-ABR-4-2026-MPS-C-1 (tender_id=1229192, entidad=MUNICIPALIDAD PROVINCIAL DE SULLANA)
+08:45:45 [INFO]   ✅ OK
+08:45:49 [INFO] [44/1112] Procesando LP-ABR-3-2026-HBT-2 (tender_id=1232498, entidad=GOBIERNO REGIONAL DE LA LIBERTAD - U.E. 403-SALUD TRUJILLO-SUR OESTE)
+08:45:57 [INFO]   ✅ OK
+08:46:02 [INFO] [45/1112] Procesando LP-ABR-4-2026-EP/UO 0875-1 (tender_id=1241820, entidad=EJERCITO PERUANO)
+08:46:09 [INFO]   ✅ OK
+08:46:13 [INFO] [46/1112] Procesando CP-ABR-2-2026-HNDAC-2 (tender_id=1243019, entidad=GOBIERNO REGIONAL DEL CALLAO - HOSPITAL DANIEL ALCIDES CARRION)
+08:46:23 [INFO]   ✅ OK
+08:46:28 [INFO] [47/1112] Procesando CP-ABR-34-2026-ELECTROCENTRO S.A.-1 (tender_id=1245013, entidad=EMPRESA REGIONAL DE SERVICIO PUBLICO DE ELECTRICIDAD DEL CENTRO SA ELECTROCENTRO S.A.)
+08:46:36 [INFO]   ✅ OK
+08:46:40 [INFO] [48/1112] Procesando CP-ABR-25-2025-C-MPC-2 (tender_id=1245128, entidad=MUNICIPALIDAD PROVINCIAL DEL CUSCO)
+08:46:47 [INFO]   ✅ OK
+08:46:52 [INFO] [49/1112] Procesando CP-ABR-14-2026-SMV-1 (tender_id=1242582, entidad=SUPERINTENDENCIA DEL MERCADO DE VALORES)
+08:47:00 [INFO]   ✅ OK
+08:47:05 [INFO] [50/1112] Procesando LP-ABR-4-2026-C/MPH-3 (tender_id=1242210, entidad=MUNICIPALIDAD PROVINCIAL DE HUANCAYO)
+08:47:13 [INFO]   ✅ OK
+08:47:17 [INFO] [51/1112] Procesando CP CON-SM-1-2026-MPCH-1 (tender_id=1237621, entidad=MUNICIPALIDAD PROVINCIAL DE CHUPACA)
+08:47:25 [INFO]   ✅ OK
+08:47:28 [INFO] [52/1112] Procesando CP-ABR-1-2026-MDAB/DEC-1 (tender_id=1240449, entidad=MUNICIPALIDAD DISTRITAL DE AGUA BLANCA)
+08:47:36 [INFO]   ✅ OK
+08:47:41 [INFO] [53/1112] Procesando LP-ABR-1-2026-MDSACH-1 (tender_id=1245769, entidad=MUNICIPALIDAD DISTRITAL DE SAN ANTONIO DE CHUCA)
+08:47:48 [INFO]   ✅ OK
+08:47:51 [INFO] [54/1112] Procesando CP-ABR-27-2026-MDCC-2 (tender_id=1245693, entidad=MUNICIPALIDAD DISTRITAL DE CERRO COLORADO)
+08:47:59 [INFO]   ✅ OK
+08:48:04 [INFO] [55/1112] Procesando LP-ABR-12-2026-MDP/CS-1 (tender_id=1245512, entidad=MUNICIPALIDAD DISTRITAL DE PIMENTEL)
+08:48:12 [INFO]   ✅ OK
+08:48:14 [INFO] [56/1112] Procesando LP-ABR-5-2026-MDASA-2 (tender_id=1245747, entidad=MUNICIPALIDAD DISTRITAL DE ALTO SELVA ALEGRE)
+08:48:22 [INFO]   ✅ OK
+08:48:27 [INFO] [57/1112] Procesando LP-ABR-1-2026-CTBI-1 (tender_id=1245787, entidad=COMPLEJO TURISTICO BAÑOS DEL INCA)
+08:48:34 [INFO]   ✅ OK
+08:48:38 [INFO] [58/1112] Procesando CP-ABR-4-2026-MDJM/C-2 (tender_id=1245599, entidad=MUNICIPALIDAD DISTRITAL DE JESUS MARIA)
+08:48:45 [INFO]   ✅ OK
+08:48:50 [INFO] [59/1112] Procesando CP-ABR-98-2026-MDSM/CS-2 (tender_id=1245820, entidad=MUNICIPALIDAD DISTRITAL DE SAN MARCOS)
+08:48:57 [INFO]   ✅ OK
+08:49:02 [INFO] [60/1112] Procesando LP-ABR-39-2026-RPSA-2 (tender_id=1245795, entidad=GOBIERNO REGIONAL DE AREQUIPA - SALUD RED PERIFERICA AREQUIPA)
+08:49:09 [INFO]   ✅ OK
+08:49:12 [INFO] [61/1112] Procesando CP-ABR-47-2026-BCRPLIM-1 (tender_id=1245801, entidad=BANCO CENTRAL DE RESERVA DEL PERÚ)
+08:49:19 [INFO]   ✅ OK
+08:49:22 [INFO] [62/1112] Procesando LP-ABR-6-2026-MDA/CS-2 (tender_id=1245824, entidad=MUNICIPALIDAD DISTRITAL DE ACORIA)
+08:49:30 [INFO]   ✅ OK
+08:49:34 [INFO] [63/1112] Procesando LP-ABR-64-2026-GRAP/OC-1 (tender_id=1245803, entidad=GOBIERNO REGIONAL DE APURIMAC SEDE CENTRAL)
+08:49:42 [INFO]   ✅ OK
+08:49:45 [INFO] [64/1112] Procesando LP-ABR-15-2026-MPA-1 (tender_id=1245532, entidad=MUNICIPALIDAD PROVINCIAL DE ABANCAY)
+08:49:52 [INFO]   ✅ OK
+08:49:57 [INFO] [65/1112] Procesando LP-ABR-2-2026-MDT/C-1 (tender_id=1245779, entidad=MUNICIPALIDAD DISTRITAL DE TAMBURCO)
+08:50:07 [INFO]   ✅ OK
+08:50:12 [INFO] [66/1112] Procesando CP-ABR-6-2026-UNT/CS-2 (tender_id=1245827, entidad=UNIVERSIDAD NACIONAL DE TRUJILLO)
+08:50:20 [INFO]   ✅ OK
+08:50:24 [INFO] [67/1112] Procesando LP-ABR-7-2026-MDM/C-1 (tender_id=1245438, entidad=MUNICIPALIDAD DISTRITAL DE MOLLEBAYA)
+08:50:33 [INFO]   ✅ OK
+08:50:38 [INFO] [68/1112] Procesando CP-ABR-3-2026-MDC/CS-1 (tender_id=1245445, entidad=MUNICIPALIDAD DISTRITAL DE CAHUAPANAS)
+08:50:45 [INFO]   ✅ OK
+08:50:50 [INFO] [69/1112] Procesando LP-ABR-10-2026-SEDAPAL-1 (tender_id=1245633, entidad=SERVICIO DE AGUA POTABLE Y ALCANTARILLADO DE LIMA - SEDAPAL)
+08:50:58 [INFO]   ✅ OK
+08:51:02 [INFO] [70/1112] Procesando LP-ABR-1-2026-MDM-1 (tender_id=1245654, entidad=MUNICIPALIDAD DISTRITAL DE MAJES - VILLA EL PEDREGAL)
+08:51:10 [INFO]   ✅ OK
+08:51:14 [INFO] [71/1112] Procesando CP-ABR-4-2026-MDC/CS-1 (tender_id=1245478, entidad=MUNICIPALIDAD DISTRITAL DE CAHUAPANAS)
+08:51:21 [INFO]   ✅ OK
+08:51:25 [INFO] [72/1112] Procesando CP-ABR-5-2026-MDC/CS-1 (tender_id=1245485, entidad=MUNICIPALIDAD DISTRITAL DE CAHUAPANAS)
+08:51:32 [INFO]   ✅ OK
+08:51:37 [INFO] [73/1112] Procesando CP SER-SM-1-2026-EP/ UO 0806-1 (tender_id=1245813, entidad=EJERCITO PERUANO)
+08:51:43 [WARNING]   Intento 1/2 falló: Nomenclatura 'CP SER-SM-1-2026-EP/ UO 0806-1' no apareció en resultados (0 filas coincidentes)
+08:51:50 [WARNING]   Intento 2/2 falló: Nomenclatura 'CP SER-SM-1-2026-EP/ UO 0806-1' no apareció en resultados (0 filas coincidentes)
+08:51:52 [ERROR]   ❌ Falló definitivamente: Nomenclatura 'CP SER-SM-1-2026-EP/ UO 0806-1' no apareció en resultados (0 filas coincidentes)
+08:51:58 [INFO] [74/1112] Procesando LP-ABR-24-2026-SEDAPAR-1 (tender_id=1245775, entidad=SERVICIO DE AGUA POTABLE Y ALCANTARILLADO DE AREQUIPA)
+08:52:05 [INFO]   ✅ OK
+08:52:09 [INFO] [75/1112] Procesando LP-ABR-2-2026-MDV/CS-1 (tender_id=1245756, entidad=MUNICIPALIDAD DISTRITAL DE VILQUE)
+08:52:17 [INFO]   ✅ OK
+08:52:21 [INFO] [76/1112] Procesando CP-ABR-6-2026-MDC/CS-1 (tender_id=1245507, entidad=MUNICIPALIDAD DISTRITAL DE CAHUAPANAS)
+08:52:29 [INFO]   ✅ OK
+08:52:33 [INFO] [77/1112] Procesando LP-SM-1-2026-ESSALUD/RAPUNO-1 (tender_id=1245807, entidad=SEGURO SOCIAL DE  SALUD)
+08:52:38 [INFO] Modal genérico cerrado
+08:52:54 [WARNING]   Intento 1/2 falló: Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:dtProcedimiento") to be visible
+
+08:53:00 [INFO] Modal genérico cerrado
+08:53:15 [WARNING]   Intento 2/2 falló: Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:dtProcedimiento") to be visible
+
+08:53:17 [ERROR]   ❌ Falló definitivamente: Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:dtProcedimiento") to be visible
+
+08:53:22 [INFO] [78/1112] Procesando LP-ABR-244-2026-MDSM/CS-1 (tender_id=1245796, entidad=MUNICIPALIDAD DISTRITAL DE SAN MARCOS)
+08:53:30 [INFO]   ✅ OK
+08:53:34 [INFO] [79/1112] Procesando LP-ABR-243-2026-MDSM/CS-1 (tender_id=1245793, entidad=MUNICIPALIDAD DISTRITAL DE SAN MARCOS)
+08:53:42 [INFO]   ✅ OK
+08:53:47 [INFO] [80/1112] Procesando CP-ABR-7-2026-UGEL/PURUS-C-1 (tender_id=1245819, entidad=GOBIERNO REGIONAL DE UCAYALI - UNIDAD DE GESTION EDUCATIVA LOCAL DE PURUS)
+08:53:55 [INFO]   ✅ OK
+08:53:58 [INFO] [81/1112] Procesando LP-ABR-14-2026-MDI/C-1 (tender_id=1245604, entidad=MUNICIPALIDAD DISTRITAL DE INDEPENDENCIA - HUARAZ)
+08:54:06 [INFO]   ✅ OK
+08:54:11 [INFO] [82/1112] Procesando CP-ABR-7-2026-MDC/CS-1 (tender_id=1245511, entidad=MUNICIPALIDAD DISTRITAL DE CAHUAPANAS)
+08:54:18 [INFO]   ✅ OK
+08:54:23 [INFO] [83/1112] Procesando CP-ABR-1-2026-MDCC/CS-1 (tender_id=1245810, entidad=MUNICIPALIDAD DISTRITAL DE CCOCHACCASA)
+08:54:31 [INFO]   ✅ OK
+08:54:36 [INFO] [84/1112] Procesando LP-ABR-20-2026-MPCP-OF/COM-LPA-1 (tender_id=1245806, entidad=MUNICIPALIDAD PROVINCIAL DE CORONEL PORTILLO)
+08:54:43 [INFO]   ✅ OK
+08:54:48 [INFO] [85/1112] Procesando CP-ABR-10-2026-EPSEL S.A.-1 (tender_id=1245608, entidad=ENTIDAD PRESTADORA DE SERVICIO DE SANEAMIENTO DE LAMBAYEQUE S.A.)
+08:54:54 [INFO] Modal genérico cerrado
+08:55:09 [WARNING]   Intento 1/2 falló: Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:dtProcedimiento") to be visible
+
+08:55:16 [INFO] Modal genérico cerrado
+08:55:32 [WARNING]   Intento 2/2 falló: Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:dtProcedimiento") to be visible
+
+08:55:33 [ERROR]   ❌ Falló definitivamente: Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:dtProcedimiento") to be visible
+
+08:55:38 [INFO] [86/1112] Procesando CP-ABR-9-2026-SENASA-1 (tender_id=1245808, entidad=SERVICIO NACIONAL DE SANIDAD AGRARIA)
+08:55:46 [INFO]   ✅ OK
+08:55:51 [INFO] [87/1112] Procesando LP-ABR-5-2026-ESSALUD/RAMOQ-1 (tender_id=1245520, entidad=SEGURO SOCIAL DE  SALUD)
+08:55:56 [INFO] Modal genérico cerrado
+08:56:11 [WARNING]   Intento 1/2 falló: Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:dtProcedimiento") to be visible
+
+08:56:18 [INFO] Modal genérico cerrado
+08:56:33 [WARNING]   Intento 2/2 falló: Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:dtProcedimiento") to be visible
+
+08:56:35 [ERROR]   ❌ Falló definitivamente: Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:dtProcedimiento") to be visible
+
+08:56:38 [INFO] [88/1112] Procesando CP-ABR-4-2026-INDECOPI-2 (tender_id=1245832, entidad=INSTITUTO NACIONAL DE DEFENSA DE LA COMPETENCIA Y DE LA PROTECCION DE LA PROPIEDAD INTELECTUAL)
+08:56:46 [INFO]   ✅ OK
+08:56:50 [INFO] [89/1112] Procesando CP-ABR-12-2026-EP/UO 0875-1 (tender_id=1245786, entidad=EJERCITO PERUANO)
+08:56:58 [INFO]   ✅ OK
+08:57:01 [INFO] [90/1112] Procesando CP-ABR-40-2026-MDCC-1 (tender_id=1245627, entidad=MUNICIPALIDAD DISTRITAL DE CERRO COLORADO)
+08:57:09 [INFO]   ✅ OK
+08:57:15 [INFO] [91/1112] Procesando LP-ABR-7-2026-MDI/COMITE-1 (tender_id=1245553, entidad=MUNICIPALIDAD DISTRITAL DE INAMBARI)
+08:57:23 [INFO]   ✅ OK
+08:57:28 [INFO] [92/1112] Procesando LP-SM-1-2026-GRML-1 (tender_id=1245686, entidad=PROGRAMA DEL GOBIERNO REGIONAL DE LIMA METROPOLITANA)
+08:57:33 [INFO] Modal genérico cerrado
+08:57:49 [WARNING]   Intento 1/2 falló: Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:dtProcedimiento") to be visible
+
+08:57:55 [INFO] Modal genérico cerrado
+08:58:11 [WARNING]   Intento 2/2 falló: Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:dtProcedimiento") to be visible
+
+08:58:12 [ERROR]   ❌ Falló definitivamente: Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:dtProcedimiento") to be visible
+
+08:58:16 [INFO] [93/1112] Procesando LP-SM-13-2026-CENARES/MINSA-1 (tender_id=1245729, entidad=CENTRO NACIONAL DE ABASTECIMIENTO DE RECURSOS ESTRATEGICOS EN SALUD)
+08:58:24 [INFO]   ✅ OK
+08:58:27 [INFO] [94/1112] Procesando CP-ABR-10-2026-EP/UO 0875-1 (tender_id=1245784, entidad=EJERCITO PERUANO)
+08:58:34 [INFO]   ✅ OK
+08:58:39 [INFO] [95/1112] Procesando CP-ABR-1-2026-MDCDP/CS-1 (tender_id=1245748, entidad=MUNICIPALIDAD DISTRITAL DE CODO DE POZUZO)
+08:58:47 [INFO]   ✅ OK
+08:58:50 [INFO] [96/1112] Procesando LP-ABR-10-2026-MDB-1 (tender_id=1245752, entidad=MUNICIPALIDAD DISTRITAL DE BARRANCO)
+08:58:58 [INFO]   ✅ OK
+08:59:02 [INFO] [97/1112] Procesando LP-SM-1-2026-UE-022-XI-DIRTE-1 (tender_id=1245782, entidad=JEFATURA DE LA XI RPNP-AREQUIPA)
+08:59:07 [INFO] Modal genérico cerrado
+08:59:23 [WARNING]   Intento 1/2 falló: Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:dtProcedimiento") to be visible
+
+08:59:30 [INFO] Modal genérico cerrado
+08:59:45 [WARNING]   Intento 2/2 falló: Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:dtProcedimiento") to be visible
+
+08:59:47 [ERROR]   ❌ Falló definitivamente: Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:dtProcedimiento") to be visible
+
+08:59:52 [INFO] [98/1112] Procesando LP-ABR-6-2026-MDH/C-1 (tender_id=1245405, entidad=MUNICIPALIDAD DISTRITAL DE HUACHON)
+08:59:59 [INFO]   ✅ OK
+09:00:04 [INFO] [99/1112] Procesando CP SER-SM-5-2026-CORPAC S.A-1 (tender_id=1245568, entidad=CORPORACION PERUANA DE AEROPUERTOS Y AVIACION COMERCIAL S.A.- CORPAC)
+09:00:12 [INFO]   ✅ OK
+09:00:17 [INFO] [100/1112] Procesando LP-ABR-7-2026-EMAPA-SM-SA/OC-1 (tender_id=1245467, entidad=EMPRESA MUNICIPAL DE AGUA POTABLE Y ALCANTARILLADO DE SAN MARTIN S.A.)
+09:00:25 [INFO]   ✅ OK
+09:00:30 [INFO] [101/1112] Procesando LP-ABR-9-2026-MDSRS/CS-1 (tender_id=1245826, entidad=MUNICIPALIDAD DISTRITAL DE SANTA ROSA DE SACCO)
+09:00:38 [INFO]   ✅ OK
+09:00:42 [INFO] [102/1112] Procesando LP-ABR-14-2026-DEC-GSRC-1 (tender_id=1245598, entidad=GOBIERNO REGIONAL DE APURIMAC  - UNIDAD EJECUTORA GERENCIA SUB REGIONAL DE COTABAMBAS)
+09:00:50 [INFO]   ✅ OK
+09:00:53 [INFO] [103/1112] Procesando LP-ABR-4-2026-MDLV/OC-1 (tender_id=1245662, entidad=MUNICIPALIDAD DISTRITAL DE LA VICTORIA - CHICLAYO)
+09:01:01 [INFO]   ✅ OK
+09:01:06 [INFO] [104/1112] Procesando CP-ABR-11-2026-EP/UO 0875-1 (tender_id=1245785, entidad=EJERCITO PERUANO)
+09:01:13 [INFO]   ✅ OK
+09:23:57 [INFO] Procesos vigentes a procesar: 946
+09:24:06 [INFO] Modal genérico cerrado
+09:24:10 [INFO] Login OK
+09:24:11 [INFO] [w0] Procesando LP-SM-8-2026-UNSA-1 (tender_id=1244760)
+09:24:11 [INFO] [w1] Procesando CP SER-SM-2-2026-COMITE/MDM-1 (tender_id=1244692)
+09:24:11 [INFO] [w2] Procesando LP-SM-12-2026-GRL/CS-1 (tender_id=1241229)
+09:24:11 [INFO] [w3] Procesando CP SER-SM-7-2026-PCM-1 (tender_id=1244556)
+09:24:11 [INFO] [w4] Procesando LP-SM-3-2026-MDSPP/CS-1 (tender_id=1245366)
+09:24:11 [INFO] [w5] Procesando CP CON-SM-2-2026-MDSPP/CS-1 (tender_id=1245057)
+09:24:21 [WARNING] [w0]   Intento 1/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:24:21 [WARNING] [w1]   Intento 1/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:24:21 [WARNING] [w2]   Intento 1/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:24:21 [WARNING] [w3]   Intento 1/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:24:21 [WARNING] [w4]   Intento 1/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:24:21 [WARNING] [w5]   Intento 1/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:24:32 [WARNING] [w0]   Intento 2/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:24:32 [WARNING] [w1]   Intento 2/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:24:32 [WARNING] [w2]   Intento 2/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:24:32 [WARNING] [w3]   Intento 2/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:24:32 [WARNING] [w4]   Intento 2/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:24:32 [WARNING] [w5]   Intento 2/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:24:34 [ERROR] [w0]   ❌ Falló definitivamente: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:24:34 [ERROR] [w1]   ❌ Falló definitivamente: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:24:34 [ERROR] [w2]   ❌ Falló definitivamente: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:24:34 [ERROR] [w3]   ❌ Falló definitivamente: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:24:34 [ERROR] [w4]   ❌ Falló definitivamente: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:24:34 [ERROR] [w5]   ❌ Falló definitivamente: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:24:37 [INFO] [w4] Procesando LP-ABR-4-2026-MPCH/CS-1 (tender_id=1244307)
+09:24:38 [INFO] [w3] Procesando LP-ABR-61-2026-GRL/CS-1 (tender_id=1241234)
+09:24:38 [INFO] [w1] Procesando LP-ABR-4-2026-MDC-1 (tender_id=1245065)
+09:24:39 [INFO] [w2] Procesando LP-ABR-1-2026-MDCH-CS-1 (tender_id=1244248)
+09:24:39 [INFO] [w0] Procesando LP-ABR-14-2026-MDM-1 (tender_id=1245054)
+09:24:39 [INFO] [w5] Procesando LP-ABR-2-2026-MDT/C-1-1 (tender_id=1245155)
+09:24:47 [WARNING] [w4]   Intento 1/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:24:48 [WARNING] [w3]   Intento 1/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:24:48 [WARNING] [w1]   Intento 1/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:24:49 [WARNING] [w2]   Intento 1/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:24:49 [WARNING] [w0]   Intento 1/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:24:49 [WARNING] [w5]   Intento 1/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:24:58 [WARNING] [w4]   Intento 2/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:24:59 [WARNING] [w3]   Intento 2/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:24:59 [WARNING] [w1]   Intento 2/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:25:00 [ERROR] [w4]   ❌ Falló definitivamente: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:25:00 [WARNING] [w2]   Intento 2/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:25:01 [WARNING] [w0]   Intento 2/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:25:01 [WARNING] [w5]   Intento 2/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:25:01 [ERROR] [w3]   ❌ Falló definitivamente: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:25:01 [ERROR] [w1]   ❌ Falló definitivamente: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:25:02 [ERROR] [w2]   ❌ Falló definitivamente: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:25:02 [ERROR] [w0]   ❌ Falló definitivamente: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:25:02 [ERROR] [w5]   ❌ Falló definitivamente: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:25:03 [INFO] [w3] Procesando CP-ABR-9-2026-MTC/20-1 (tender_id=1242995)
+09:25:04 [INFO] [w4] Procesando LP-ABR-11-2026-GRH/CO-1 (tender_id=1244389)
+09:25:05 [INFO] [w0] Procesando LP-ABR-6-2026-MDP/C-1 (tender_id=1241756)
+09:25:06 [INFO] [w1] Procesando LP-ABR-5-2026-CS/MDSA-1 (tender_id=1242263)
+09:25:06 [INFO] [w5] Procesando LP-ABR-2-2026-INPE ORAP-1 (tender_id=1244608)
+09:25:07 [INFO] [w2] Procesando LP-SM-4-2026-MPHI/C-1-1 (tender_id=1245136)
+09:25:13 [WARNING] [w3]   Intento 1/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:25:14 [WARNING] [w4]   Intento 1/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:25:15 [WARNING] [w0]   Intento 1/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:25:16 [WARNING] [w1]   Intento 1/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:25:16 [WARNING] [w5]   Intento 1/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:25:17 [WARNING] [w2]   Intento 1/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:27:06 [INFO] Procesos vigentes a procesar: 946
+09:27:15 [INFO] Modal genérico cerrado
+09:27:20 [INFO] Login OK
+09:27:49 [CRITICAL] [w0] No se pudo cargar la sesión en esta pestaña: Page.wait_for_selector: Timeout 20000ms exceeded.
+Call log:
+  - waiting for locator("a:has-text('Cerrar Sesión')") to be visible
+
+09:28:17 [CRITICAL] [w1] No se pudo cargar la sesión en esta pestaña: Page.wait_for_selector: Timeout 20000ms exceeded.
+Call log:
+  - waiting for locator("a:has-text('Cerrar Sesión')") to be visible
+
+09:28:46 [CRITICAL] [w2] No se pudo cargar la sesión en esta pestaña: Page.wait_for_selector: Timeout 20000ms exceeded.
+Call log:
+  - waiting for locator("a:has-text('Cerrar Sesión')") to be visible
+
+09:29:14 [CRITICAL] [w3] No se pudo cargar la sesión en esta pestaña: Page.wait_for_selector: Timeout 20000ms exceeded.
+Call log:
+  - waiting for locator("a:has-text('Cerrar Sesión')") to be visible
+
+09:29:43 [CRITICAL] [w4] No se pudo cargar la sesión en esta pestaña: Page.wait_for_selector: Timeout 20000ms exceeded.
+Call log:
+  - waiting for locator("a:has-text('Cerrar Sesión')") to be visible
+
+09:30:11 [CRITICAL] [w5] No se pudo cargar la sesión en esta pestaña: Page.wait_for_selector: Timeout 20000ms exceeded.
+Call log:
+  - waiting for locator("a:has-text('Cerrar Sesión')") to be visible
+
+09:30:11 [INFO] [w0] Procesando LP-SM-8-2026-UNSA-1 (tender_id=1244760)
+09:30:11 [INFO] [w1] Procesando CP SER-SM-2-2026-COMITE/MDM-1 (tender_id=1244692)
+09:30:11 [INFO] [w2] Procesando LP-SM-12-2026-GRL/CS-1 (tender_id=1241229)
+09:30:11 [INFO] [w3] Procesando CP SER-SM-7-2026-PCM-1 (tender_id=1244556)
+09:30:11 [INFO] [w4] Procesando LP-SM-3-2026-MDSPP/CS-1 (tender_id=1245366)
+09:30:11 [INFO] [w5] Procesando CP CON-SM-2-2026-MDSPP/CS-1 (tender_id=1245057)
+09:30:21 [WARNING] [w0]   Intento 1/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:30:21 [WARNING] [w1]   Intento 1/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:30:21 [WARNING] [w2]   Intento 1/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:30:21 [WARNING] [w3]   Intento 1/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:30:21 [WARNING] [w4]   Intento 1/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:30:21 [WARNING] [w5]   Intento 1/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:30:33 [WARNING] [w0]   Intento 2/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:30:33 [WARNING] [w1]   Intento 2/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:30:33 [WARNING] [w2]   Intento 2/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:30:33 [WARNING] [w3]   Intento 2/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:30:33 [WARNING] [w4]   Intento 2/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:30:33 [WARNING] [w5]   Intento 2/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:30:34 [ERROR] [w0]   ❌ Falló definitivamente: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:30:34 [ERROR] [w1]   ❌ Falló definitivamente: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:30:34 [ERROR] [w2]   ❌ Falló definitivamente: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:30:34 [ERROR] [w3]   ❌ Falló definitivamente: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:30:34 [ERROR] [w4]   ❌ Falló definitivamente: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:30:34 [ERROR] [w5]   ❌ Falló definitivamente: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:30:37 [INFO] [w3] Procesando LP-ABR-4-2026-MPCH/CS-1 (tender_id=1244307)
+09:30:39 [INFO] [w0] Procesando LP-ABR-61-2026-GRL/CS-1 (tender_id=1241234)
+09:30:39 [INFO] [w2] Procesando LP-ABR-4-2026-MDC-1 (tender_id=1245065)
+09:30:39 [INFO] [w1] Procesando LP-ABR-1-2026-MDCH-CS-1 (tender_id=1244248)
+09:30:39 [INFO] [w5] Procesando LP-ABR-14-2026-MDM-1 (tender_id=1245054)
+09:30:40 [INFO] [w4] Procesando LP-ABR-2-2026-MDT/C-1-1 (tender_id=1245155)
+09:30:47 [WARNING] [w3]   Intento 1/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:30:49 [WARNING] [w0]   Intento 1/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:30:49 [WARNING] [w2]   Intento 1/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:30:49 [WARNING] [w1]   Intento 1/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:30:49 [WARNING] [w5]   Intento 1/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:30:50 [WARNING] [w4]   Intento 1/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:30:58 [WARNING] [w3]   Intento 2/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:31:00 [ERROR] [w3]   ❌ Falló definitivamente: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:31:00 [WARNING] [w0]   Intento 2/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:31:01 [WARNING] [w2]   Intento 2/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:31:01 [WARNING] [w1]   Intento 2/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:31:01 [WARNING] [w5]   Intento 2/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:31:01 [WARNING] [w4]   Intento 2/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:31:02 [ERROR] [w0]   ❌ Falló definitivamente: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:31:02 [ERROR] [w2]   ❌ Falló definitivamente: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:31:02 [ERROR] [w1]   ❌ Falló definitivamente: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:31:02 [ERROR] [w5]   ❌ Falló definitivamente: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:31:03 [ERROR] [w4]   ❌ Falló definitivamente: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:31:04 [INFO] [w3] Procesando CP-ABR-9-2026-MTC/20-1 (tender_id=1242995)
+09:31:04 [INFO] [w0] Procesando LP-ABR-11-2026-GRH/CO-1 (tender_id=1244389)
+09:31:06 [INFO] [w5] Procesando LP-ABR-6-2026-MDP/C-1 (tender_id=1241756)
+09:31:06 [INFO] [w1] Procesando LP-ABR-5-2026-CS/MDSA-1 (tender_id=1242263)
+09:31:07 [INFO] [w2] Procesando LP-ABR-2-2026-INPE ORAP-1 (tender_id=1244608)
+09:31:07 [INFO] [w4] Procesando LP-SM-4-2026-MPHI/C-1-1 (tender_id=1245136)
+09:31:14 [WARNING] [w3]   Intento 1/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:31:14 [WARNING] [w0]   Intento 1/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:31:16 [WARNING] [w5]   Intento 1/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:31:16 [WARNING] [w1]   Intento 1/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:31:17 [WARNING] [w2]   Intento 1/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:31:17 [WARNING] [w4]   Intento 1/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:31:26 [WARNING] [w3]   Intento 2/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:31:26 [WARNING] [w0]   Intento 2/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:31:27 [ERROR] [w3]   ❌ Falló definitivamente: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:31:27 [WARNING] [w5]   Intento 2/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:31:27 [ERROR] [w0]   ❌ Falló definitivamente: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:31:28 [WARNING] [w1]   Intento 2/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:31:28 [WARNING] [w2]   Intento 2/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:31:29 [ERROR] [w5]   ❌ Falló definitivamente: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:31:29 [WARNING] [w4]   Intento 2/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:31:29 [ERROR] [w1]   ❌ Falló definitivamente: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:31:30 [ERROR] [w2]   ❌ Falló definitivamente: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:31:30 [ERROR] [w4]   ❌ Falló definitivamente: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:31:30 [INFO] [w0] Procesando CP-ABR-2-2026-OC-DEC-MDAA-T-1 (tender_id=1245154)
+09:31:31 [INFO] [w3] Procesando LP-ABR-14-2026-MDC/CS-1 (tender_id=1244461)
+09:31:33 [INFO] [w5] Procesando LP-ABR-15-2026-MDC/CS-1 (tender_id=1244573)
+09:31:35 [INFO] [w1] Procesando LP-ABR-16-2026-MDC/CS-1 (tender_id=1244605)
+09:31:35 [INFO] [w2] Procesando LP-ABR-17-2026-MDC/CS-1 (tender_id=1244997)
+09:31:35 [INFO] [w4] Procesando LP-ABR-18-2026-MDC/CS-1 (tender_id=1245222)
+09:31:40 [WARNING] [w0]   Intento 1/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:31:41 [WARNING] [w3]   Intento 1/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:31:43 [WARNING] [w5]   Intento 1/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:33:37 [INFO] Procesos vigentes a procesar: 946
+09:33:53 [ERROR] Login falló: Page.wait_for_selector: Target page, context or browser has been closed
+09:33:53 [CRITICAL] No se pudo iniciar sesión. Abortando batch por completo.
+09:34:16 [INFO] Procesos vigentes a procesar: 946
+09:34:25 [INFO] Modal genérico cerrado
+09:34:30 [INFO] Login OK
+09:34:58 [CRITICAL] [w0] No se pudo cargar la sesión en esta pestaña: Page.wait_for_selector: Timeout 20000ms exceeded.
+Call log:
+  - waiting for locator("a:has-text('Cerrar Sesión')") to be visible
+
+09:34:58 [CRITICAL] [w0] DEBUG -> url=https://prod1.seace.gob.pe/portal/ | boton_iniciar_sesion_visible=0 | coincidencias_texto_'Cerrar'=0 | texto_pagina='	 | Inicio | Contáctenos | Mapa | Reclamos y Consultas | 	 | 	 |  |   | 	AÑO DE LA ESPERANZA Y EL FORTALECIMIENTO DE LA DEMOCRACIA	 | Viernes, 04 Setiembre 2026 9:34 AM | Inicio |  |  |  |  | Certificado SEACE |  |  |  |  |  | Usuario | Clave | ¿Olvidó su clave? | (Solo para entidades y órganos de control) | Recordarme |  |  |  |  |  |  |  |  |  |  | Si usted es proveedor y olvidó su clave RNP: clic aquí | Central de Consultas: 6143636 | Horario de Atención: 08:30 A'
+09:35:15 [INFO] Procesos vigentes a procesar: 946
+09:35:23 [INFO] Modal genérico cerrado
+09:35:28 [INFO] Login OK
+09:35:28 [INFO] [1/946] Procesando LP-SM-8-2026-UNSA-1 (tender_id=1244760, entidad=UNIVERSIDAD NACIONAL SAN AGUSTIN)
+09:35:34 [INFO]   ✅ OK
+09:35:38 [INFO] [2/946] Procesando CP SER-SM-2-2026-COMITE/MDM-1 (tender_id=1244692, entidad=MUNICIPALIDAD DISTRITAL DE MACHUPICCHU)
+09:35:44 [INFO]   ✅ OK
+09:41:20 [INFO] Procesos vigentes a procesar: 946
+09:41:29 [INFO] Modal genérico cerrado
+09:41:34 [INFO] Login OK
+09:41:34 [INFO] [w2] [1/946] Procesando LP-SM-8-2026-UNSA-1 (tender_id=1244760, entidad=UNIVERSIDAD NACIONAL SAN AGUSTIN)
+09:41:44 [WARNING] [w2]   Intento 1/2 falló: Timeout de Playwright: Locator.wait_for: Timeout 10000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:41:54 [ERROR] Login falló: Page.wait_for_selector: Target page, context or browser has been closed
+Call log:
+  - waiting for locator("a:has-text('Cerrar Sesión')") to be visible
+
+09:41:54 [CRITICAL] [w3] No pudo loguearse. Este worker no procesará nada.
+09:41:55 [WARNING] [w2]   Intento 2/2 falló: Error inesperado: Locator.wait_for: Target page, context or browser has been closed
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first to be visible
+
+09:59:38 [INFO] Cuentas seleccionadas para esta corrida: 20611043873, 20608980963
+09:59:38 [INFO] Cuentas SEACE en el .env: 3 | usando en esta corrida: 2
+09:59:38 [INFO] Procesos vigentes a procesar: 946
+09:59:38 [INFO] Arrancando con 2 cuenta(s) en paralelo: 20611043873, 20608980963
+09:59:49 [INFO] Modal genérico cerrado
+09:59:49 [INFO] Modal genérico cerrado
+09:59:53 [INFO] [20611043873] Login OK
+09:59:54 [INFO] [20608980963] Login OK
+10:00:06 [INFO] [w1/20611043873] ✅ OK (1/946) LP-SM-8-2026-UNSA-1
+10:00:07 [INFO] [w2/20608980963] ✅ OK (2/946) CP SER-SM-2-2026-COMITE/MDM-1
+10:00:15 [INFO] [w1/20611043873] ✅ OK (3/946) LP-SM-12-2026-GRL/CS-1
+10:00:16 [INFO] [w2/20608980963] ✅ OK (4/946) CP SER-SM-7-2026-PCM-1
+10:00:25 [INFO] [w2/20608980963] ✅ OK (5/946) CP CON-SM-2-2026-MDSPP/CS-1
+10:00:26 [INFO] [w1/20611043873] ✅ OK (6/946) LP-SM-3-2026-MDSPP/CS-1
+10:00:34 [INFO] [w2/20608980963] ✅ OK (7/946) LP-ABR-4-2026-MPCH/CS-1
+10:00:35 [INFO] [w1/20611043873] ✅ OK (8/946) LP-ABR-61-2026-GRL/CS-1
+10:00:43 [INFO] [w2/20608980963] ✅ OK (9/946) LP-ABR-4-2026-MDC-1
+10:00:45 [INFO] [w1/20611043873] ✅ OK (10/946) LP-ABR-1-2026-MDCH-CS-1
+10:00:51 [INFO] [w2/20608980963] ✅ OK (11/946) LP-ABR-14-2026-MDM-1
+10:00:55 [INFO] [w1/20611043873] ✅ OK (12/946) LP-ABR-2-2026-MDT/C-1-1
+10:01:00 [INFO] [w2/20608980963] ✅ OK (13/946) CP-ABR-9-2026-MTC/20-1
+10:01:04 [INFO] [w1/20611043873] ✅ OK (14/946) LP-ABR-11-2026-GRH/CO-1
+10:01:10 [INFO] [w2/20608980963] ✅ OK (15/946) LP-ABR-6-2026-MDP/C-1
+10:01:14 [INFO] [w1/20611043873] ✅ OK (16/946) LP-ABR-5-2026-CS/MDSA-1
+10:01:20 [INFO] [w2/20608980963] ✅ OK (17/946) LP-ABR-2-2026-INPE ORAP-1
+10:01:22 [INFO] [w1/20611043873] ✅ OK (18/946) LP-SM-4-2026-MPHI/C-1-1
+10:01:30 [INFO] [w2/20608980963] ✅ OK (19/946) CP-ABR-2-2026-OC-DEC-MDAA-T-1
+10:01:32 [INFO] [w1/20611043873] ✅ OK (20/946) LP-ABR-14-2026-MDC/CS-1
+10:01:42 [INFO] [w2/20608980963] ✅ OK (21/946) LP-ABR-15-2026-MDC/CS-1
+10:01:45 [INFO] [w1/20611043873] ✅ OK (22/946) LP-ABR-16-2026-MDC/CS-1
+10:01:52 [INFO] [w2/20608980963] ✅ OK (23/946) LP-ABR-17-2026-MDC/CS-1
+10:01:54 [INFO] [w1/20611043873] ✅ OK (24/946) LP-ABR-18-2026-MDC/CS-1
+10:02:02 [INFO] [w2/20608980963] ✅ OK (25/946) LP-ABR-5-2026-MDP/C-1
+10:02:02 [INFO] [w1/20611043873] ✅ OK (26/946) LP-ABR-4-2026-MDP/C-1
+10:02:11 [INFO] [w2/20608980963] ✅ OK (27/946) CP-ABR-3-2026-MDP/C-1
+10:02:12 [INFO] [w1/20611043873] ✅ OK (28/946) CP-ABR-5-2026-MDP/C-1
+10:02:20 [INFO] [w2/20608980963] ✅ OK (29/946) LP-ABR-4-2026-MDCH/CS-1
+10:02:21 [INFO] [w1/20611043873] ✅ OK (30/946) CP-ABR-4-2026-MDP/C-1
+10:02:30 [INFO] [w2/20608980963] ✅ OK (31/946) CP-ABR-1-2026-MDH-1
+10:02:31 [INFO] [w1/20611043873] ✅ OK (32/946) CP-ABR-4-2026-MPS-C-1
+10:02:39 [INFO] [w2/20608980963] ✅ OK (33/946) LP-ABR-3-2026-HBT-2
+10:02:40 [INFO] [w1/20611043873] ✅ OK (34/946) LP-ABR-4-2026-EP/UO 0875-1
+10:02:53 [INFO] [w2/20608980963] ✅ OK (35/946) CP-ABR-2-2026-HNDAC-2
+10:02:53 [INFO] [w1/20611043873] ✅ OK (36/946) CP-ABR-34-2026-ELECTROCENTRO S.A.-1
+10:03:02 [INFO] [w1/20611043873] ✅ OK (37/946) CP-ABR-25-2025-C-MPC-2
+10:03:04 [INFO] [w2/20608980963] ✅ OK (38/946) CP-ABR-14-2026-SMV-1
+10:03:17 [INFO] [w1/20611043873] ✅ OK (39/946) LP-ABR-4-2026-C/MPH-3
+10:03:19 [INFO] [w2/20608980963] ✅ OK (40/946) CP CON-SM-1-2026-MPCH-1
+10:03:27 [INFO] [w1/20611043873] ✅ OK (41/946) CP-ABR-1-2026-MDAB/DEC-1
+10:03:28 [INFO] [w2/20608980963] ✅ OK (42/946) LP-ABR-2-2026-MDT/C-1
+10:03:36 [INFO] [w1/20611043873] ✅ OK (43/946) LP-ABR-10-2026-SEDAPAL-1
+10:03:37 [WARNING]   [w2/20608980963] Intento 1/2 falló (CP SER-SM-1-2026-EP/ UO 0806-1): Nomenclatura 'CP SER-SM-1-2026-EP/ UO 0806-1' no apareció en resultados (0 filas coincidentes)
+10:03:45 [WARNING]   [w2/20608980963] Intento 2/2 falló (CP SER-SM-1-2026-EP/ UO 0806-1): Nomenclatura 'CP SER-SM-1-2026-EP/ UO 0806-1' no apareció en resultados (0 filas coincidentes)
+10:03:45 [INFO] Modal genérico cerrado
+10:03:46 [ERROR] [w2/20608980963] ❌ Falló definitivamente (44/946) CP SER-SM-1-2026-EP/ UO 0806-1: Nomenclatura 'CP SER-SM-1-2026-EP/ UO 0806-1' no apareció en resultados (0 filas coincidentes)
+10:03:56 [INFO] [w2/20608980963] ✅ OK (45/946) LP-ABR-7-2026-MDI/COMITE-1
+10:04:00 [WARNING]   [w1/20611043873] Intento 1/2 falló (LP-SM-1-2026-ESSALUD/RAPUNO-1): Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:dtProcedimiento") to be visible
+
+10:04:02 [INFO] Modal genérico cerrado
+10:04:07 [INFO] Modal genérico cerrado
+10:04:18 [WARNING]   [w2/20608980963] Intento 1/2 falló (LP-SM-1-2026-GRML-1): Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:dtProcedimiento") to be visible
+
+10:04:22 [WARNING]   [w1/20611043873] Intento 2/2 falló (LP-SM-1-2026-ESSALUD/RAPUNO-1): Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:dtProcedimiento") to be visible
+
+10:04:24 [ERROR] [w1/20611043873] ❌ Falló definitivamente (46/946) LP-SM-1-2026-ESSALUD/RAPUNO-1: Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:dtProcedimiento") to be visible
+
+10:04:24 [INFO] Modal genérico cerrado
+10:04:33 [INFO] [w1/20611043873] ✅ OK (47/946) LP-SM-13-2026-CENARES/MINSA-1
+10:04:40 [WARNING]   [w2/20608980963] Intento 2/2 falló (LP-SM-1-2026-GRML-1): Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:dtProcedimiento") to be visible
+
+10:04:41 [INFO] Modal genérico cerrado
+10:04:41 [ERROR] [w2/20608980963] ❌ Falló definitivamente (48/946) LP-SM-1-2026-GRML-1: Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:dtProcedimiento") to be visible
+
+10:04:51 [INFO] [w2/20608980963] ✅ OK (49/946) CP SER-SM-5-2026-CORPAC S.A-1
+10:04:56 [WARNING]   [w1/20611043873] Intento 1/2 falló (LP-SM-1-2026-UE-022-XI-DIRTE-1): Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:dtProcedimiento") to be visible
+
+10:05:00 [INFO] [w2/20608980963] ✅ OK (50/946) LP-ABR-7-2026-EMAPA-SM-SA/OC-1
+10:05:03 [INFO] Modal genérico cerrado
+10:05:10 [INFO] [w2/20608980963] ✅ OK (51/946) LP-ABR-9-2026-MDSRS/CS-1
+10:05:18 [WARNING]   [w1/20611043873] Intento 2/2 falló (LP-SM-1-2026-UE-022-XI-DIRTE-1): Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:dtProcedimiento") to be visible
+
+10:05:19 [INFO] [w2/20608980963] ✅ OK (52/946) LP-ABR-14-2026-DEC-GSRC-1
+10:05:20 [ERROR] [w1/20611043873] ❌ Falló definitivamente (53/946) LP-SM-1-2026-UE-022-XI-DIRTE-1: Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:dtProcedimiento") to be visible
+
+10:05:29 [INFO] [w1/20611043873] ✅ OK (54/946) LP-ABR-4-2026-MDLV/OC-1
+10:05:30 [INFO] [w2/20608980963] ✅ OK (55/946) CP-ABR-11-2026-EP/UO 0875-1
+10:05:38 [INFO] [w1/20611043873] ✅ OK (56/946) CP-ABR-156-2026-MDSM/CS-1
+10:05:40 [INFO] [w2/20608980963] ✅ OK (57/946) CP-ABR-2-2026-MPAL/C-1
+10:05:47 [INFO] [w1/20611043873] ✅ OK (58/946) CP-ABR-8-2026-MDC/CS-1
+10:05:54 [INFO] [w2/20608980963] ✅ OK (59/946) LP-ABR-2-2026-CTBI-1
+10:05:58 [INFO] [w1/20611043873] ✅ OK (60/946) LP-ABR-10-2026-MDM/CS-1
+10:06:05 [INFO] Modal genérico cerrado
+10:06:15 [WARNING]   [w2/20608980963] Intento 1/2 falló (LP-ABR-1-2026-MDH/CS-1): Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:j_id271") to be visible
+
+10:06:20 [WARNING]   [w1/20611043873] Intento 1/2 falló (CP-ABR-30-2026-II-DIRTEPOL-CHICLAYO-4): Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:dtProcedimiento") to be visible
+
+10:06:27 [INFO] Modal genérico cerrado
+10:06:35 [WARNING]   [w2/20608980963] Intento 2/2 falló (LP-ABR-1-2026-MDH/CS-1): Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:j_id271") to be visible
+
+10:06:36 [ERROR] [w2/20608980963] ❌ Falló definitivamente (61/946) LP-ABR-1-2026-MDH/CS-1: Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:j_id271") to be visible
+
+10:06:42 [WARNING]   [w1/20611043873] Intento 2/2 falló (CP-ABR-30-2026-II-DIRTEPOL-CHICLAYO-4): Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:dtProcedimiento") to be visible
+
+10:06:44 [ERROR] [w1/20611043873] ❌ Falló definitivamente (62/946) CP-ABR-30-2026-II-DIRTEPOL-CHICLAYO-4: Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:dtProcedimiento") to be visible
+
+10:06:53 [INFO] [w1/20611043873] ✅ OK (63/946) CP-ABR-19-2026-ES-1
+10:06:57 [WARNING]   [w2/20608980963] Intento 1/2 falló (CP-ABR-3-2026-MPH/C-1): Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:j_id271") to be visible
+
+10:07:00 [INFO] Modal genérico cerrado
+10:07:16 [WARNING]   [w1/20611043873] Intento 1/2 falló (CP SER-SM-43-2026-ELSE-1): Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:dtProcedimiento") to be visible
+
+10:07:16 [WARNING]   [w2/20608980963] Intento 2/2 falló (CP-ABR-3-2026-MPH/C-1): Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:j_id271") to be visible
+
+10:07:18 [ERROR] [w2/20608980963] ❌ Falló definitivamente (64/946) CP-ABR-3-2026-MPH/C-1: Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:j_id271") to be visible
+
+10:07:23 [INFO] Modal genérico cerrado
+10:07:38 [WARNING]   [w1/20611043873] Intento 2/2 falló (CP SER-SM-43-2026-ELSE-1): Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:dtProcedimiento") to be visible
+
+10:07:38 [WARNING]   [w2/20608980963] Intento 1/2 falló (CP SER-SM-2-2026-MPFN-GA-LL-1): Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:j_id271") to be visible
+
+10:07:40 [ERROR] [w1/20611043873] ❌ Falló definitivamente (65/946) CP SER-SM-43-2026-ELSE-1: Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:dtProcedimiento") to be visible
+
+10:07:54 [INFO] [w1/20611043873] ✅ OK (66/946) CP-ABR-21-2026-ES-1
+10:07:58 [WARNING]   [w2/20608980963] Intento 2/2 falló (CP SER-SM-2-2026-MPFN-GA-LL-1): Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:j_id271") to be visible
+
+10:08:00 [ERROR] [w2/20608980963] ❌ Falló definitivamente (67/946) CP SER-SM-2-2026-MPFN-GA-LL-1: Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:j_id271") to be visible
+
+10:08:03 [INFO] [w1/20611043873] ✅ OK (68/946) CP-ABR-8-2026-DEC/CAFED-1
+10:08:12 [INFO] [w1/20611043873] ✅ OK (69/946) LP-SM-3-2026-MPSCH/CS-1
+10:08:21 [WARNING]   [w2/20608980963] Intento 1/2 falló (LP-SM-4-2026-OEFA-1): Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:j_id271") to be visible
+
+10:08:22 [INFO] [w1/20611043873] ✅ OK (70/946) CP-ABR-3-2026-GRSM-UGELSM/CS-1
+10:08:31 [INFO] [w1/20611043873] ✅ OK (71/946) LP-SM-4-2026-GRL-GSRAA/18.CS-1
+10:08:38 [INFO] Modal genérico cerrado
+10:08:41 [WARNING]   [w2/20608980963] Intento 2/2 falló (LP-SM-4-2026-OEFA-1): Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:j_id271") to be visible
+
+10:08:42 [ERROR] [w2/20608980963] ❌ Falló definitivamente (72/946) LP-SM-4-2026-OEFA-1: Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:j_id271") to be visible
+
+10:08:53 [WARNING]   [w1/20611043873] Intento 1/2 falló (CP SER-SM-1-2026-ESSALUD/RAAR-1): Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:dtProcedimiento") to be visible
+
+10:09:00 [INFO] Modal genérico cerrado
+10:09:02 [WARNING]   [w2/20608980963] Intento 1/2 falló (CP-ABR-4-2026-GRL-DRSL/30.01-2): Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:j_id271") to be visible
+
+10:09:15 [WARNING]   [w1/20611043873] Intento 2/2 falló (CP SER-SM-1-2026-ESSALUD/RAAR-1): Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:dtProcedimiento") to be visible
+
+10:09:17 [ERROR] [w1/20611043873] ❌ Falló definitivamente (73/946) CP SER-SM-1-2026-ESSALUD/RAAR-1: Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:dtProcedimiento") to be visible
+
+10:09:22 [WARNING]   [w2/20608980963] Intento 2/2 falló (CP-ABR-4-2026-GRL-DRSL/30.01-2): Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:j_id271") to be visible
+
+10:09:24 [ERROR] [w2/20608980963] ❌ Falló definitivamente (74/946) CP-ABR-4-2026-GRL-DRSL/30.01-2: Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:j_id271") to be visible
+
+10:09:27 [INFO] [w1/20611043873] ✅ OK (75/946) LP-ABR-36-2026-COMITE-MDM-1
+10:09:37 [INFO] [w1/20611043873] ✅ OK (76/946) LP-ABR-7-2026-MDC/CS-1
+10:09:44 [WARNING]   [w2/20608980963] Intento 1/2 falló (LP-SM-3-2026-HDNA-1): Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:j_id271") to be visible
+
+10:09:47 [INFO] [w1/20611043873] ✅ OK (77/946) CP SER-SM-6-2026-MGP/DIRCOMAR-1
+10:09:56 [INFO] [w1/20611043873] ✅ OK (78/946) CP-ABR-27-2026-GR CUSCO-2
+10:10:04 [WARNING]   [w2/20608980963] Intento 2/2 falló (LP-SM-3-2026-HDNA-1): Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:j_id271") to be visible
+
+10:10:06 [ERROR] [w2/20608980963] ❌ Falló definitivamente (79/946) LP-SM-3-2026-HDNA-1: Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:j_id271") to be visible
+
+10:10:06 [INFO] [w1/20611043873] ✅ OK (80/946) LP-ABR-4-2026-MDH-CS-1
+10:10:16 [INFO] [w1/20611043873] ✅ OK (81/946) LP-SM-1-2026-MDAB/DEC-1
+10:10:24 [INFO] Modal genérico cerrado
+10:10:26 [WARNING]   [w2/20608980963] Intento 1/2 falló (CP-ABR-3-2026-EMSAPUNO S.A.-1): Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:j_id271") to be visible
+
+10:10:40 [WARNING]   [w1/20611043873] Intento 1/2 falló (LP-SM-2-2026-ESSALUD/RAPUNO-1): Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:dtProcedimiento") to be visible
+
+10:10:46 [WARNING]   [w2/20608980963] Intento 2/2 falló (CP-ABR-3-2026-EMSAPUNO S.A.-1): Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:j_id271") to be visible
+
+10:10:47 [INFO] Modal genérico cerrado
+10:10:48 [ERROR] [w2/20608980963] ❌ Falló definitivamente (82/946) CP-ABR-3-2026-EMSAPUNO S.A.-1: Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:j_id271") to be visible
+
+10:11:02 [WARNING]   [w1/20611043873] Intento 2/2 falló (LP-SM-2-2026-ESSALUD/RAPUNO-1): Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:dtProcedimiento") to be visible
+
+10:11:04 [ERROR] [w1/20611043873] ❌ Falló definitivamente (83/946) LP-SM-2-2026-ESSALUD/RAPUNO-1: Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:dtProcedimiento") to be visible
+
+10:11:08 [WARNING]   [w2/20608980963] Intento 1/2 falló (CP-ABR-61-2026-GRL/CS-1): Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:j_id271") to be visible
+
+10:11:15 [INFO] [w1/20611043873] ✅ OK (84/946) LP-SM-3-2026-COMITE-GRL-1
+10:11:25 [INFO] [w1/20611043873] ✅ OK (85/946) CP CON-SM-1-2026-MDVA/C-1
+10:11:28 [WARNING]   [w2/20608980963] Intento 2/2 falló (CP-ABR-61-2026-GRL/CS-1): Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:j_id271") to be visible
+
+10:11:29 [ERROR] [w2/20608980963] ❌ Falló definitivamente (86/946) CP-ABR-61-2026-GRL/CS-1: Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:j_id271") to be visible
+
+10:11:35 [INFO] [w1/20611043873] ✅ OK (87/946) LP-SM-4-2026-MPSCH/CS-1
+10:11:44 [INFO] [w1/20611043873] ✅ OK (88/946) CP SER-SM-3-2026-COMITE-MDM-1
+10:11:50 [WARNING]   [w2/20608980963] Intento 1/2 falló (LP-SM-7-2026-MPSCH/CS-1): Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:j_id271") to be visible
+
+10:11:55 [INFO] [w1/20611043873] ✅ OK (89/946) CP SER-SM-4-2026-SEDACHIMBOTE S.A.-1
+10:12:05 [INFO] [w1/20611043873] ✅ OK (90/946) LP-ABR-61-2026-C/MPC-2
+10:12:10 [WARNING]   [w2/20608980963] Intento 2/2 falló (LP-SM-7-2026-MPSCH/CS-1): Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:j_id271") to be visible
+
+10:12:12 [ERROR] [w2/20608980963] ❌ Falló definitivamente (91/946) LP-SM-7-2026-MPSCH/CS-1: Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:j_id271") to be visible
+
+10:12:14 [INFO] [w1/20611043873] ✅ OK (92/946) LP-ABR-12-2026-GRH/CO-1
+10:12:24 [INFO] [w1/20611043873] ✅ OK (93/946) LP-SM-1-2026-HD-HVCA/C-1
+10:12:33 [WARNING]   [w2/20608980963] Intento 1/2 falló (CP SER-SM-1-2026-HBT-1): Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:j_id271") to be visible
+
+10:12:35 [INFO] [w1/20611043873] ✅ OK (94/946) CP SER-SM-12-2026-EO-L-1
+10:12:46 [INFO] [w1/20611043873] ✅ OK (95/946) LP-SM-2-2026-HD-HVCA/C-1
+10:12:53 [WARNING]   [w2/20608980963] Intento 2/2 falló (CP SER-SM-1-2026-HBT-1): Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:j_id271") to be visible
+
+10:12:54 [ERROR] [w2/20608980963] ❌ Falló definitivamente (96/946) CP SER-SM-1-2026-HBT-1: Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:j_id271") to be visible
+
+10:12:56 [INFO] [w1/20611043873] ✅ OK (97/946) LP-SM-3-2026-HD-HVCA/C-1
+10:13:06 [INFO] [w1/20611043873] ✅ OK (98/946) LP-ABR-4-2026-MDU/CE-1
+10:13:15 [WARNING]   [w2/20608980963] Intento 1/2 falló (LP-SM-4-2026-HD-HVCA/C-1): Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:j_id271") to be visible
+
+10:13:17 [INFO] [w1/20611043873] ✅ OK (99/946) LP-ABR-31-2026-HD-HVCA/C-1
+10:13:28 [INFO] [w1/20611043873] ✅ OK (100/946) LP-ABR-32-2026-HD-HVCA/C-1
+10:13:34 [WARNING]   [w2/20608980963] Intento 2/2 falló (LP-SM-4-2026-HD-HVCA/C-1): Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:j_id271") to be visible
+
+10:13:36 [ERROR] [w2/20608980963] ❌ Falló definitivamente (101/946) LP-SM-4-2026-HD-HVCA/C-1: Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:j_id271") to be visible
+
+10:13:39 [INFO] [w1/20611043873] ✅ OK (102/946) CP-ABR-1-2026-MDP/C-1
+10:14:16 [INFO] Cuentas seleccionadas para esta corrida: 20611043873, 20608980963
+10:14:16 [INFO] Cuentas SEACE en el .env: 3 | usando en esta corrida: 2
+10:14:16 [INFO] Procesos vigentes a procesar: 946
+10:14:16 [INFO] Arrancando con 2 cuenta(s) en paralelo: 20611043873, 20608980963
+10:14:25 [INFO] Modal genérico cerrado
+10:14:30 [INFO] [20611043873] Login OK
+10:14:33 [INFO]   [20608980963] No apareció modal de Términos y Condiciones (normal si ya se aceptó antes).
+10:14:39 [INFO] [w1/20611043873] ✅ OK (1/946) LP-SM-8-2026-UNSA-1
+10:15:02 [INFO] Cuentas seleccionadas para esta corrida: 20611043873, 20608980963
+10:15:02 [INFO] Cuentas SEACE en el .env: 3 | usando en esta corrida: 2
+10:15:02 [INFO] Procesos vigentes a procesar: 946
+10:15:02 [INFO] Arrancando con 2 cuenta(s) en paralelo: 20611043873, 20608980963
+10:15:17 [INFO]   [20611043873] No apareció modal de Términos y Condiciones (normal si ya se aceptó antes).
+10:15:19 [INFO]   [20608980963] No apareció modal de Términos y Condiciones (normal si ya se aceptó antes).
+10:15:49 [INFO] Cuentas seleccionadas para esta corrida: 20611043873, 20608980963
+10:15:49 [INFO] Cuentas SEACE en el .env: 3 | usando en esta corrida: 2
+10:15:49 [INFO] Procesos vigentes a procesar: 946
+10:15:49 [INFO] Arrancando con 2 cuenta(s) en paralelo: 20611043873, 20608980963
+10:16:02 [INFO] Modal genérico cerrado
+10:16:07 [INFO]   [20611043873] No apareció modal de Términos y Condiciones (normal si ya se aceptó antes).
+10:16:07 [INFO] [20608980963] Login OK
+10:16:14 [INFO] [w2/20608980963] ✅ OK (1/946) LP-SM-8-2026-UNSA-1
+10:16:25 [INFO] [w2/20608980963] ✅ OK (2/946) CP SER-SM-2-2026-COMITE/MDM-1
+10:16:41 [INFO] Cuentas seleccionadas para esta corrida: 20611043873, 20608980963
+10:16:41 [INFO] Cuentas SEACE en el .env: 3 | usando en esta corrida: 2
+10:16:41 [INFO] Procesos vigentes a procesar: 946
+10:16:41 [INFO] Arrancando con 2 cuenta(s) en paralelo: 20611043873, 20608980963
+10:16:50 [INFO] Modal genérico cerrado
+10:16:53 [INFO] Modal genérico cerrado
+10:16:55 [INFO] [20611043873] Login OK
+10:16:57 [INFO] [20608980963] Login OK
+10:17:02 [INFO] [w1/20611043873] ✅ OK (1/946) LP-SM-8-2026-UNSA-1
+10:17:05 [INFO] [w2/20608980963] ✅ OK (2/946) CP SER-SM-2-2026-COMITE/MDM-1
+10:17:12 [INFO] [w1/20611043873] ✅ OK (3/946) LP-SM-12-2026-GRL/CS-1
+10:17:16 [INFO] [w2/20608980963] ✅ OK (4/946) CP SER-SM-7-2026-PCM-1
+10:17:23 [INFO] [w1/20611043873] ✅ OK (5/946) LP-SM-3-2026-MDSPP/CS-1
+10:17:25 [INFO] [w2/20608980963] ✅ OK (6/946) CP CON-SM-2-2026-MDSPP/CS-1
+10:17:34 [ERROR] Future exception was never retrieved
+future: <Future finished exception=TargetClosedError('Target page, context or browser has been closed')>
+playwright._impl._errors.TargetClosedError: Target page, context or browser has been closed
+10:21:52 [INFO] Cuentas seleccionadas para esta corrida: 20611043873, 20608980963
+10:21:52 [INFO] Cuentas SEACE en el .env: 3 | usando en esta corrida: 2
+10:21:52 [INFO] Procesos vigentes a procesar: 946
+10:21:52 [INFO] Arrancando con 2 cuenta(s) en paralelo: 20611043873, 20608980963
+10:21:59 [INFO]   [20608980963] Modal de Términos y Condiciones detectado, procesando...
+10:21:59 [INFO]   [20611043873] Modal de Términos y Condiciones detectado, procesando...
+10:22:00 [INFO]   [20608980963] Checkbox de T&C marcado (estrategia 1, intento 1).
+10:22:00 [INFO]   [20611043873] Checkbox de T&C marcado (estrategia 1, intento 1).
+10:22:00 [INFO]   [20608980963] Botón 'Acepto' clickeado (estrategia 1, intento 1).
+10:22:00 [INFO]   [20611043873] Botón 'Acepto' clickeado (estrategia 1, intento 1).
+10:22:02 [INFO]   [20611043873] Modal de T&C confirmado cerrado.
+10:22:02 [INFO] Modal genérico cerrado
+10:22:06 [INFO] [20611043873] Login OK
+10:22:07 [WARNING]   [20608980963] Intento 1: el modal de T&C sigue visible después de aceptar.
+10:22:08 [INFO]   [20608980963] Checkbox de T&C marcado (estrategia 1, intento 2).
+10:22:08 [INFO]   [20608980963] Botón 'Acepto' clickeado (estrategia 1, intento 2).
+10:22:10 [INFO]   [20608980963] Modal de T&C confirmado cerrado.
+10:22:12 [INFO] Modal genérico cerrado
+10:22:14 [INFO] [w1/20611043873] ✅ OK (1/946) LP-SM-8-2026-UNSA-1
+10:22:23 [INFO] [w1/20611043873] ✅ OK (2/946) CP SER-SM-2-2026-COMITE/MDM-1
+10:22:33 [INFO] [w1/20611043873] ✅ OK (3/946) LP-SM-12-2026-GRL/CS-1
+10:22:37 [ERROR] [20608980963] Login falló: Page.wait_for_selector: Timeout 20000ms exceeded.
+Call log:
+  - waiting for locator("a:has-text('Cerrar Sesión')") to be visible
+
+10:22:37 [CRITICAL] [w2/20608980963] No pudo loguearse. Este worker no procesará nada.
+10:22:42 [INFO] [w1/20611043873] ✅ OK (4/946) CP SER-SM-7-2026-PCM-1
+10:22:52 [INFO] [w1/20611043873] ✅ OK (5/946) LP-SM-3-2026-MDSPP/CS-1
+10:26:25 [INFO] Cuentas seleccionadas para esta corrida: 20611043873, 20608980963
+10:26:25 [INFO] Cuentas SEACE en el .env: 3 | usando en esta corrida: 2
+10:26:25 [INFO] Procesos vigentes a procesar: 946
+10:26:25 [INFO] Arrancando con 2 cuenta(s) en paralelo: 20611043873, 20608980963
+10:26:32 [INFO]   [20608980963] Modal de Términos y Condiciones detectado, procesando...
+10:26:32 [INFO]   [20608980963] Checkbox de T&C marcado (estrategia 1, intento 1).
+10:26:32 [INFO]   [20608980963] Botón 'Acepto' clickeado (estrategia 1, intento 1).
+10:26:34 [INFO]   [20608980963] Modal de T&C confirmado cerrado.
+10:26:34 [INFO] Modal genérico cerrado
+10:26:39 [INFO] [20608980963] Login OK (intento 1/3)
+10:26:46 [INFO] [w2/20608980963] ✅ OK (1/946) LP-SM-8-2026-UNSA-1
+10:26:56 [INFO] [w2/20608980963] ✅ OK (2/946) CP SER-SM-2-2026-COMITE/MDM-1
+10:27:06 [INFO] [w2/20608980963] ✅ OK (3/946) LP-SM-12-2026-GRL/CS-1
+10:27:11 [WARNING] [20611043873] Intento 1/3: login se colgó más de 45s.
+10:27:11 [INFO] [20611043873] Reintentando login desde cero (usuario y contraseña de nuevo)...
+10:27:16 [INFO] [w2/20608980963] ✅ OK (4/946) CP SER-SM-7-2026-PCM-1
+10:27:23 [WARNING] [20611043873] Intento 2/3: login falló (Page.click: Timeout 10000ms exceeded.
+Call log:
+  - waiting for locator("#frmLogin input[type='submit'][value='Acceder']")
+    - locator resolved to <input type="submit" tabindex="-1" value="Acceder" class="iceCmdBtn" id="frmLogin:j_id113" onblur="setFocus('');" name="frmLogin:j_id113" onfocus="setFocus(this.id);" onclick="iceSubmit(form,this,event);return false;"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div>…</div> from <form method="post" class="iceFrm" action="javascript:;" id="terminosCondiciones" onsubmit="return false;" enctype="application/x-www-form-urlencoded">…</form> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    - waiting for element to be visible, enabled and stable
+    - element is visible, enabled and stable
+    - scrolling into view if needed
+    - done scrolling
+    - <div>…</div> from <form method="post" class="iceFrm" action="javascript:;" id="terminosCondiciones" onsubmit="return false;" enctype="application/x-www-form-urlencoded">…</form> subtree intercepts pointer events
+  - retrying click action
+    - waiting 100ms
+    - waiting for element to be visible, enabled and stable
+    - element is visible, enabled and stable
+    - scrolling into view if needed
+    - done scrolling
+    - <div id="contenidoDisposiciones" class="contenidoColapsadoDisposiciones">…</div> from <form method="post" class="iceFrm" action="javascript:;" id="terminosCondiciones" onsubmit="return false;" enctype="application/x-www-form-urlencoded">…</form> subtree intercepts pointer events
+  - retrying click action
+    - waiting 100ms
+    - waiting for element to be visible, enabled and stable
+    - element is visible, enabled and stable
+    - scrolling into view if needed
+    - done scrolling
+    - <div></div> from <form method="post" class="iceFrm" action="javascript:;" id="terminosCondiciones" onsubmit="return false;" enctype="application/x-www-form-urlencoded">…</form> subtree intercepts pointer events
+  2 × retrying click action
+      - waiting 500ms
+      - waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div>…</div> from <form method="post" class="iceFrm" action="javascript:;" id="terminosCondiciones" onsubmit="return false;" enctype="application/x-www-form-urlencoded">…</form> subtree intercepts pointer events
+  4 × retrying click action
+      - waiting 500ms
+      - waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div id="contenidoDisposiciones" class="contenidoColapsadoDisposiciones">…</div> from <form method="post" class="iceFrm" action="javascript:;" id="terminosCondiciones" onsubmit="return false;" enctype="application/x-www-form-urlencoded">…</form> subtree intercepts pointer events
+    - retrying click action
+      - waiting 500ms
+      - waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div></div> from <form method="post" class="iceFrm" action="javascript:;" id="terminosCondiciones" onsubmit="return false;" enctype="application/x-www-form-urlencoded">…</form> subtree intercepts pointer events
+    - retrying click action
+      - waiting 500ms
+      - waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div></div> from <form method="post" class="iceFrm" action="javascript:;" id="terminosCondiciones" onsubmit="return false;" enctype="application/x-www-form-urlencoded">…</form> subtree intercepts pointer events
+    - retrying click action
+      - waiting 500ms
+      - waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div>…</div> from <form method="post" class="iceFrm" action="javascript:;" id="terminosCondiciones" onsubmit="return false;" enctype="application/x-www-form-urlencoded">…</form> subtree intercepts pointer events
+  - retrying click action
+    - waiting 500ms
+).
+10:27:23 [INFO] [20611043873] Reintentando login desde cero (usuario y contraseña de nuevo)...
+10:27:26 [INFO] [w2/20608980963] ✅ OK (5/946) LP-SM-3-2026-MDSPP/CS-1
+10:27:36 [INFO] [w2/20608980963] ✅ OK (6/946) CP CON-SM-2-2026-MDSPP/CS-1
+10:27:36 [WARNING] [20611043873] Intento 3/3: login falló (Page.click: Timeout 10000ms exceeded.
+Call log:
+  - waiting for locator("#frmLogin input[type='submit'][value='Acceder']")
+    - locator resolved to <input type="submit" tabindex="-1" value="Acceder" class="iceCmdBtn" id="frmLogin:j_id113" onblur="setFocus('');" name="frmLogin:j_id113" onfocus="setFocus(this.id);" onclick="iceSubmit(form,this,event);return false;"/>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div>…</div> from <form method="post" class="iceFrm" action="javascript:;" id="terminosCondiciones" onsubmit="return false;" enctype="application/x-www-form-urlencoded">…</form> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    - waiting for element to be visible, enabled and stable
+    - element is visible, enabled and stable
+    - scrolling into view if needed
+    - done scrolling
+    - <div>…</div> from <form method="post" class="iceFrm" action="javascript:;" id="terminosCondiciones" onsubmit="return false;" enctype="application/x-www-form-urlencoded">…</form> subtree intercepts pointer events
+  - retrying click action
+    - waiting 100ms
+    - waiting for element to be visible, enabled and stable
+    - element is visible, enabled and stable
+    - scrolling into view if needed
+    - done scrolling
+    - <div id="contenidoDisposiciones" class="contenidoColapsadoDisposiciones">…</div> from <form method="post" class="iceFrm" action="javascript:;" id="terminosCondiciones" onsubmit="return false;" enctype="application/x-www-form-urlencoded">…</form> subtree intercepts pointer events
+  - retrying click action
+    - waiting 100ms
+    4 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div></div> from <form method="post" class="iceFrm" action="javascript:;" id="terminosCondiciones" onsubmit="return false;" enctype="application/x-www-form-urlencoded">…</form> subtree intercepts pointer events
+    - retrying click action
+      - waiting 500ms
+      - waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div></div> from <form method="post" class="iceFrm" action="javascript:;" id="terminosCondiciones" onsubmit="return false;" enctype="application/x-www-form-urlencoded">…</form> subtree intercepts pointer events
+    - retrying click action
+      - waiting 500ms
+      - waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div>…</div> from <form method="post" class="iceFrm" action="javascript:;" id="terminosCondiciones" onsubmit="return false;" enctype="application/x-www-form-urlencoded">…</form> subtree intercepts pointer events
+    - retrying click action
+      - waiting 500ms
+      - waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div id="contenidoDisposiciones" class="contenidoColapsadoDisposiciones">…</div> from <form method="post" class="iceFrm" action="javascript:;" id="terminosCondiciones" onsubmit="return false;" enctype="application/x-www-form-urlencoded">…</form> subtree intercepts pointer events
+    - retrying click action
+      - waiting 500ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div></div> from <form method="post" class="iceFrm" action="javascript:;" id="terminosCondiciones" onsubmit="return false;" enctype="application/x-www-form-urlencoded">…</form> subtree intercepts pointer events
+    - retrying click action
+      - waiting 500ms
+    - waiting for element to be visible, enabled and stable
+    - element is visible, enabled and stable
+    - scrolling into view if needed
+    - done scrolling
+    - <div>…</div> from <form method="post" class="iceFrm" action="javascript:;" id="terminosCondiciones" onsubmit="return false;" enctype="application/x-www-form-urlencoded">…</form> subtree intercepts pointer events
+  - retrying click action
+    - waiting 500ms
+).
+10:27:36 [ERROR] [20611043873] Login falló definitivamente tras 3 intentos.
+10:27:36 [CRITICAL] [w1/20611043873] No pudo loguearse. Este worker no procesará nada.
+10:32:03 [INFO] Cuentas seleccionadas para esta corrida: 20611043873, 20608980963
+10:32:03 [INFO] Cuentas SEACE en el .env: 3 | usando en esta corrida: 2
+10:32:03 [INFO] Procesos vigentes a procesar: 946
+10:32:03 [INFO] Arrancando con 2 cuenta(s) en paralelo: 20611043873, 20608980963
+10:32:29 [WARNING] [20611043873] Intento 1/4: login se colgó más de 25s.
+10:32:29 [INFO] [20611043873] Reintentando login desde cero (usuario y contraseña de nuevo)...
+10:32:29 [WARNING] [20608980963] Intento 1/4: login se colgó más de 25s.
+10:32:29 [INFO] [20608980963] Reintentando login desde cero (usuario y contraseña de nuevo)...
+10:32:33 [INFO]   [20611043873] Modal de Términos y Condiciones detectado, procesando...
+10:32:33 [INFO]   [20608980963] Modal de Términos y Condiciones detectado, procesando...
+10:32:34 [INFO]   [20611043873] Checkbox de T&C marcado (estrategia 1, intento 1).
+10:32:34 [INFO]   [20608980963] Checkbox de T&C marcado (estrategia 1, intento 1).
+10:32:34 [INFO]   [20611043873] Botón 'Acepto' clickeado (estrategia 1, intento 1).
+10:32:34 [INFO]   [20608980963] Botón 'Acepto' clickeado (estrategia 1, intento 1).
+10:32:36 [INFO]   [20611043873] Modal de T&C confirmado cerrado.
+10:32:36 [INFO]   [20608980963] Modal de T&C confirmado cerrado.
+10:32:36 [INFO] Modal genérico cerrado
+10:32:36 [INFO] Modal genérico cerrado
+10:32:41 [INFO] [20611043873] Login OK (intento 2/4)
+10:32:41 [INFO] [20608980963] Login OK (intento 2/4)
+10:32:48 [INFO] [w1/20611043873] ✅ OK (1/946) LP-SM-8-2026-UNSA-1
+10:32:49 [INFO] [w2/20608980963] ✅ OK (2/946) CP SER-SM-2-2026-COMITE/MDM-1
+10:32:58 [INFO] [w1/20611043873] ✅ OK (3/946) LP-SM-12-2026-GRL/CS-1
+10:32:59 [INFO] [w2/20608980963] ✅ OK (4/946) CP SER-SM-7-2026-PCM-1
+10:33:08 [INFO] [w1/20611043873] ✅ OK (5/946) LP-SM-3-2026-MDSPP/CS-1
+10:33:09 [INFO] [w2/20608980963] ✅ OK (6/946) CP CON-SM-2-2026-MDSPP/CS-1
+10:33:17 [INFO] [w1/20611043873] ✅ OK (7/946) LP-ABR-4-2026-MPCH/CS-1
+10:33:19 [INFO] [w2/20608980963] ✅ OK (8/946) LP-ABR-61-2026-GRL/CS-1
+10:33:26 [INFO] [w1/20611043873] ✅ OK (9/946) LP-ABR-4-2026-MDC-1
+10:33:29 [INFO] [w2/20608980963] ✅ OK (10/946) LP-ABR-1-2026-MDCH-CS-1
+10:33:40 [INFO] [w2/20608980963] ✅ OK (11/946) LP-ABR-2-2026-MDT/C-1-1
+10:33:40 [INFO] [w1/20611043873] ✅ OK (12/946) LP-ABR-14-2026-MDM-1
+10:33:49 [INFO] [w2/20608980963] ✅ OK (13/946) CP-ABR-9-2026-MTC/20-1
+10:33:51 [INFO] [w1/20611043873] ✅ OK (14/946) LP-ABR-11-2026-GRH/CO-1
+10:33:59 [INFO] [w2/20608980963] ✅ OK (15/946) LP-ABR-6-2026-MDP/C-1
+10:34:01 [INFO] [w1/20611043873] ✅ OK (16/946) LP-ABR-5-2026-CS/MDSA-1
+10:34:09 [INFO] [w2/20608980963] ✅ OK (17/946) LP-ABR-2-2026-INPE ORAP-1
+10:34:11 [INFO] [w1/20611043873] ✅ OK (18/946) LP-SM-4-2026-MPHI/C-1-1
+10:34:20 [INFO] [w2/20608980963] ✅ OK (19/946) CP-ABR-2-2026-OC-DEC-MDAA-T-1
+10:34:21 [INFO] [w1/20611043873] ✅ OK (20/946) LP-ABR-14-2026-MDC/CS-1
+10:34:29 [INFO] [w2/20608980963] ✅ OK (21/946) LP-ABR-15-2026-MDC/CS-1
+10:34:31 [INFO] [w1/20611043873] ✅ OK (22/946) LP-ABR-16-2026-MDC/CS-1
+10:34:39 [INFO] [w2/20608980963] ✅ OK (23/946) LP-ABR-17-2026-MDC/CS-1
+10:34:42 [INFO] [w1/20611043873] ✅ OK (24/946) LP-ABR-18-2026-MDC/CS-1
+10:34:49 [INFO] [w2/20608980963] ✅ OK (25/946) LP-ABR-5-2026-MDP/C-1
+10:34:53 [INFO] [w1/20611043873] ✅ OK (26/946) LP-ABR-4-2026-MDP/C-1
+10:34:59 [INFO] [w2/20608980963] ✅ OK (27/946) CP-ABR-3-2026-MDP/C-1
+10:35:03 [INFO] [w1/20611043873] ✅ OK (28/946) CP-ABR-5-2026-MDP/C-1
+10:35:09 [INFO] [w2/20608980963] ✅ OK (29/946) LP-ABR-4-2026-MDCH/CS-1
+10:35:13 [INFO] [w1/20611043873] ✅ OK (30/946) CP-ABR-4-2026-MDP/C-1
+10:35:21 [INFO] [w2/20608980963] ✅ OK (31/946) CP-ABR-1-2026-MDH-1
+10:35:24 [INFO] [w1/20611043873] ✅ OK (32/946) CP-ABR-4-2026-MPS-C-1
+10:35:31 [INFO] [w2/20608980963] ✅ OK (33/946) LP-ABR-3-2026-HBT-2
+10:35:34 [INFO] [w1/20611043873] ✅ OK (34/946) LP-ABR-4-2026-EP/UO 0875-1
+10:35:42 [INFO] [w2/20608980963] ✅ OK (35/946) CP-ABR-2-2026-HNDAC-2
+10:35:44 [INFO] [w1/20611043873] ✅ OK (36/946) CP-ABR-34-2026-ELECTROCENTRO S.A.-1
+10:35:52 [INFO] [w2/20608980963] ✅ OK (37/946) CP-ABR-25-2025-C-MPC-2
+10:35:54 [INFO] [w1/20611043873] ✅ OK (38/946) CP-ABR-14-2026-SMV-1
+10:36:03 [INFO] [w2/20608980963] ✅ OK (39/946) LP-ABR-4-2026-C/MPH-3
+10:36:04 [INFO] [w1/20611043873] ✅ OK (40/946) CP CON-SM-1-2026-MPCH-1
+10:36:13 [INFO] [w1/20611043873] ✅ OK (41/946) LP-ABR-2-2026-MDT/C-1
+10:36:13 [INFO] [w2/20608980963] ✅ OK (42/946) CP-ABR-1-2026-MDAB/DEC-1
+10:36:21 [WARNING]   [w1/20611043873] Intento 1/2 falló (CP SER-SM-1-2026-EP/ UO 0806-1): Nomenclatura 'CP SER-SM-1-2026-EP/ UO 0806-1' no apareció en resultados (0 filas coincidentes)
+10:36:22 [INFO] [w2/20608980963] ✅ OK (43/946) LP-ABR-10-2026-SEDAPAL-1
+10:36:29 [WARNING]   [w1/20611043873] Intento 2/2 falló (CP SER-SM-1-2026-EP/ UO 0806-1): Nomenclatura 'CP SER-SM-1-2026-EP/ UO 0806-1' no apareció en resultados (0 filas coincidentes)
+10:36:30 [INFO] Modal genérico cerrado
+10:36:31 [ERROR] [w1/20611043873] ❌ Falló definitivamente (44/946) CP SER-SM-1-2026-EP/ UO 0806-1: Nomenclatura 'CP SER-SM-1-2026-EP/ UO 0806-1' no apareció en resultados (0 filas coincidentes)
+10:36:41 [INFO] [w1/20611043873] ✅ OK (45/946) LP-ABR-7-2026-MDI/COMITE-1
+10:36:45 [WARNING]   [w2/20608980963] Intento 1/2 falló (LP-SM-1-2026-ESSALUD/RAPUNO-1): Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:dtProcedimiento") to be visible
+
+10:36:49 [INFO] Modal genérico cerrado
+10:36:52 [INFO] Modal genérico cerrado
+10:37:04 [WARNING]   [w1/20611043873] Intento 1/2 falló (LP-SM-1-2026-GRML-1): Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:dtProcedimiento") to be visible
+
+10:37:08 [WARNING]   [w2/20608980963] Intento 2/2 falló (LP-SM-1-2026-ESSALUD/RAPUNO-1): Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:dtProcedimiento") to be visible
+
+10:37:09 [ERROR] [w2/20608980963] ❌ Falló definitivamente (46/946) LP-SM-1-2026-ESSALUD/RAPUNO-1: Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:dtProcedimiento") to be visible
+
+10:37:11 [INFO] Modal genérico cerrado
+10:37:20 [INFO] [w2/20608980963] ✅ OK (47/946) LP-SM-13-2026-CENARES/MINSA-1
+10:37:26 [WARNING]   [w1/20611043873] Intento 2/2 falló (LP-SM-1-2026-GRML-1): Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:dtProcedimiento") to be visible
+
+10:37:27 [INFO] Modal genérico cerrado
+10:37:28 [ERROR] [w1/20611043873] ❌ Falló definitivamente (48/946) LP-SM-1-2026-GRML-1: Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:dtProcedimiento") to be visible
+
+10:37:38 [INFO] [w1/20611043873] ✅ OK (49/946) CP SER-SM-5-2026-CORPAC S.A-1
+10:37:43 [WARNING]   [w2/20608980963] Intento 1/2 falló (LP-SM-1-2026-UE-022-XI-DIRTE-1): Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:dtProcedimiento") to be visible
+
+10:37:48 [INFO] [w1/20611043873] ✅ OK (50/946) LP-ABR-7-2026-EMAPA-SM-SA/OC-1
+10:37:50 [INFO] Modal genérico cerrado
+10:38:03 [INFO] [w1/20611043873] ✅ OK (51/946) LP-ABR-9-2026-MDSRS/CS-1
+10:38:06 [WARNING]   [w2/20608980963] Intento 2/2 falló (LP-SM-1-2026-UE-022-XI-DIRTE-1): Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:dtProcedimiento") to be visible
+
+10:38:07 [ERROR] [w2/20608980963] ❌ Falló definitivamente (52/946) LP-SM-1-2026-UE-022-XI-DIRTE-1: Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:dtProcedimiento") to be visible
+
+10:38:12 [INFO] [w1/20611043873] ✅ OK (53/946) LP-ABR-14-2026-DEC-GSRC-1
+10:38:17 [INFO] [w2/20608980963] ✅ OK (54/946) LP-ABR-4-2026-MDLV/OC-1
+10:38:23 [INFO] [w1/20611043873] ✅ OK (55/946) CP-ABR-11-2026-EP/UO 0875-1
+10:38:28 [INFO] [w2/20608980963] ✅ OK (56/946) CP-ABR-156-2026-MDSM/CS-1
+10:38:33 [INFO] [w1/20611043873] ✅ OK (57/946) CP-ABR-2-2026-MPAL/C-1
+10:38:39 [INFO] [w2/20608980963] ✅ OK (58/946) CP-ABR-8-2026-MDC/CS-1
+10:38:43 [INFO] [w1/20611043873] ✅ OK (59/946) LP-ABR-2-2026-CTBI-1
+10:38:49 [INFO] [w2/20608980963] ✅ OK (60/946) LP-ABR-10-2026-MDM/CS-1
+10:38:55 [INFO] [w1/20611043873] ✅ OK (61/946) LP-ABR-1-2026-MDH/CS-1
+10:38:57 [INFO] Modal genérico cerrado
+10:39:04 [INFO] [w1/20611043873] ✅ OK (62/946) CP-ABR-3-2026-MPH/C-1
+10:39:12 [WARNING]   [w2/20608980963] Intento 1/2 falló (CP-ABR-30-2026-II-DIRTEPOL-CHICLAYO-4): Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:dtProcedimiento") to be visible
+
+10:39:15 [INFO] [w1/20611043873] ✅ OK (63/946) CP-ABR-19-2026-ES-1
+10:39:19 [INFO] Modal genérico cerrado
+10:39:23 [INFO] Modal genérico cerrado
+10:39:35 [WARNING]   [w2/20608980963] Intento 2/2 falló (CP-ABR-30-2026-II-DIRTEPOL-CHICLAYO-4): Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:dtProcedimiento") to be visible
+
+10:39:36 [ERROR] [w2/20608980963] ❌ Falló definitivamente (64/946) CP-ABR-30-2026-II-DIRTEPOL-CHICLAYO-4: Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:dtProcedimiento") to be visible
+
+10:39:38 [WARNING]   [w1/20611043873] Intento 1/2 falló (CP SER-SM-43-2026-ELSE-1): Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:dtProcedimiento") to be visible
+
+10:39:45 [INFO] Modal genérico cerrado
+10:39:47 [INFO] [w2/20608980963] ✅ OK (65/946) CP SER-SM-2-2026-MPFN-GA-LL-1
+10:39:57 [INFO] [w2/20608980963] ✅ OK (66/946) CP-ABR-21-2026-ES-1
+10:40:01 [WARNING]   [w1/20611043873] Intento 2/2 falló (CP SER-SM-43-2026-ELSE-1): Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:dtProcedimiento") to be visible
+
+10:40:02 [ERROR] [w1/20611043873] ❌ Falló definitivamente (67/946) CP SER-SM-43-2026-ELSE-1: Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:dtProcedimiento") to be visible
+
+10:40:07 [INFO] [w2/20608980963] ✅ OK (68/946) CP-ABR-8-2026-DEC/CAFED-1
+10:40:13 [INFO] [w1/20611043873] ✅ OK (69/946) LP-SM-4-2026-OEFA-1
+10:40:17 [INFO] [w2/20608980963] ✅ OK (70/946) LP-SM-3-2026-MPSCH/CS-1
+10:40:24 [INFO] [w1/20611043873] ✅ OK (71/946) CP-ABR-3-2026-GRSM-UGELSM/CS-1
+10:40:27 [INFO] [w2/20608980963] ✅ OK (72/946) LP-SM-4-2026-GRL-GSRAA/18.CS-1
+10:40:31 [INFO] Modal genérico cerrado
+10:40:37 [INFO] [w2/20608980963] ✅ OK (73/946) CP-ABR-4-2026-GRL-DRSL/30.01-2
+10:40:47 [WARNING]   [w1/20611043873] Intento 1/2 falló (CP SER-SM-1-2026-ESSALUD/RAAR-1): Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:dtProcedimiento") to be visible
+
+10:40:49 [INFO] [w2/20608980963] ✅ OK (74/946) LP-ABR-36-2026-COMITE-MDM-1
+10:40:54 [INFO] Modal genérico cerrado
+10:41:01 [INFO] [w2/20608980963] ✅ OK (75/946) LP-SM-3-2026-HDNA-1
+10:41:09 [WARNING]   [w1/20611043873] Intento 2/2 falló (CP SER-SM-1-2026-ESSALUD/RAAR-1): Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:dtProcedimiento") to be visible
+
+10:41:11 [ERROR] [w1/20611043873] ❌ Falló definitivamente (76/946) CP SER-SM-1-2026-ESSALUD/RAAR-1: Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:dtProcedimiento") to be visible
+
+10:41:12 [INFO] [w2/20608980963] ✅ OK (77/946) LP-ABR-7-2026-MDC/CS-1
+10:41:20 [INFO] [w1/20611043873] ✅ OK (78/946) CP SER-SM-6-2026-MGP/DIRCOMAR-1
+10:41:22 [INFO] [w2/20608980963] ✅ OK (79/946) CP-ABR-27-2026-GR CUSCO-2
+10:41:31 [INFO] [w2/20608980963] ✅ OK (80/946) CP-ABR-3-2026-EMSAPUNO S.A.-1
+10:41:31 [INFO] [w1/20611043873] ✅ OK (81/946) LP-ABR-4-2026-MDH-CS-1
+10:41:46 [INFO] [w2/20608980963] ✅ OK (82/946) LP-SM-1-2026-MDAB/DEC-1
+10:41:55 [WARNING]   [w1/20611043873] Intento 1/2 falló (LP-SM-2-2026-ESSALUD/RAPUNO-1): Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:dtProcedimiento") to be visible
+
+10:41:55 [INFO] [w2/20608980963] ✅ OK (83/946) CP-ABR-61-2026-GRL/CS-1
+10:42:06 [INFO] [w2/20608980963] ✅ OK (84/946) LP-SM-3-2026-COMITE-GRL-1
+10:42:17 [INFO] [w2/20608980963] ✅ OK (85/946) CP CON-SM-1-2026-MDVA/C-1
+10:42:27 [WARNING]   [w1/20611043873] Intento 2/2 falló (LP-SM-2-2026-ESSALUD/RAPUNO-1): Timeout de Playwright: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first
+    - locator resolved to <div class="nuevoDiv">Buscar Procedimientos</div>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div></div> from <td valign="top" width="100%">…</td> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div></div> from <td valign="top" width="100%">…</td> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div></div> from <td valign="top" width="100%">…</td> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+10:42:27 [INFO] [w2/20608980963] ✅ OK (86/946) LP-SM-4-2026-MPSCH/CS-1
+10:42:28 [ERROR] [w1/20611043873] ❌ Falló definitivamente (87/946) LP-SM-2-2026-ESSALUD/RAPUNO-1: Timeout de Playwright: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first
+    - locator resolved to <div class="nuevoDiv">Buscar Procedimientos</div>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div></div> from <td valign="top" width="100%">…</td> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div></div> from <td valign="top" width="100%">…</td> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div></div> from <td valign="top" width="100%">…</td> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+10:42:38 [INFO] [w2/20608980963] ✅ OK (88/946) LP-SM-7-2026-MPSCH/CS-1
+10:42:48 [INFO] [w2/20608980963] ✅ OK (89/946) CP SER-SM-4-2026-SEDACHIMBOTE S.A.-1
+10:43:00 [INFO] [w2/20608980963] ✅ OK (90/946) LP-ABR-61-2026-C/MPC-2
+10:43:00 [WARNING]   [w1/20611043873] Intento 1/2 falló (CP SER-SM-3-2026-COMITE-MDM-1): Timeout de Playwright: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first
+    - locator resolved to <div class="nuevoDiv">Buscar Procedimientos</div>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div></div> from <td valign="top" width="100%">…</td> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div></div> from <td valign="top" width="100%">…</td> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div></div> from <td valign="top" width="100%">…</td> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+10:43:10 [INFO] [w2/20608980963] ✅ OK (91/946) LP-ABR-12-2026-GRH/CO-1
+10:43:19 [INFO] [w2/20608980963] ✅ OK (92/946) CP SER-SM-1-2026-HBT-1
+10:43:32 [WARNING]   [w1/20611043873] Intento 2/2 falló (CP SER-SM-3-2026-COMITE-MDM-1): Timeout de Playwright: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first
+    - locator resolved to <div class="nuevoDiv">Buscar Procedimientos</div>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div></div> from <td valign="top" width="100%">…</td> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div></div> from <td valign="top" width="100%">…</td> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    57 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div></div> from <td valign="top" width="100%">…</td> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+10:43:33 [INFO] [w2/20608980963] ✅ OK (93/946) LP-SM-1-2026-HD-HVCA/C-1
+10:43:33 [ERROR] [w1/20611043873] ❌ Falló definitivamente (94/946) CP SER-SM-3-2026-COMITE-MDM-1: Timeout de Playwright: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first
+    - locator resolved to <div class="nuevoDiv">Buscar Procedimientos</div>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div></div> from <td valign="top" width="100%">…</td> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div></div> from <td valign="top" width="100%">…</td> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    57 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div></div> from <td valign="top" width="100%">…</td> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+10:43:44 [INFO] [w2/20608980963] ✅ OK (95/946) CP SER-SM-12-2026-EO-L-1
+10:43:58 [INFO] [w2/20608980963] ✅ OK (96/946) LP-SM-3-2026-HD-HVCA/C-1
+10:44:05 [WARNING]   [w1/20611043873] Intento 1/2 falló (LP-SM-2-2026-HD-HVCA/C-1): Timeout de Playwright: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first
+    - locator resolved to <div class="nuevoDiv">Buscar Procedimientos</div>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div></div> from <td valign="top" width="100%">…</td> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div></div> from <td valign="top" width="100%">…</td> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    57 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div></div> from <td valign="top" width="100%">…</td> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+10:44:08 [INFO] [w2/20608980963] ✅ OK (97/946) LP-SM-4-2026-HD-HVCA/C-1
+10:44:19 [INFO] [w2/20608980963] ✅ OK (98/946) LP-ABR-4-2026-MDU/CE-1
+10:44:29 [INFO] [w2/20608980963] ✅ OK (99/946) LP-ABR-31-2026-HD-HVCA/C-1
+10:44:37 [WARNING]   [w1/20611043873] Intento 2/2 falló (LP-SM-2-2026-HD-HVCA/C-1): Timeout de Playwright: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first
+    - locator resolved to <div class="nuevoDiv">Buscar Procedimientos</div>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div></div> from <td valign="top" width="100%">…</td> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div></div> from <td valign="top" width="100%">…</td> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div></div> from <td valign="top" width="100%">…</td> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+10:44:38 [ERROR] [w1/20611043873] ❌ Falló definitivamente (100/946) LP-SM-2-2026-HD-HVCA/C-1: Timeout de Playwright: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first
+    - locator resolved to <div class="nuevoDiv">Buscar Procedimientos</div>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div></div> from <td valign="top" width="100%">…</td> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div></div> from <td valign="top" width="100%">…</td> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div></div> from <td valign="top" width="100%">…</td> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+10:44:39 [INFO] [w2/20608980963] ✅ OK (101/946) LP-ABR-32-2026-HD-HVCA/C-1
+10:44:49 [INFO] [w2/20608980963] ✅ OK (102/946) CP-ABR-1-2026-MDP/C-1
+10:44:59 [INFO] [w2/20608980963] ✅ OK (103/946) CP-ABR-4-2026-MDC/CS-1
+10:45:10 [INFO] [w2/20608980963] ✅ OK (104/946) LP-SM-2-2026-DSRTC-CH-1
+10:45:11 [WARNING]   [w1/20611043873] Intento 1/2 falló (LP-ABR-4-2026-ESSALUD-RPR-1): Timeout de Playwright: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first
+    - locator resolved to <div class="nuevoDiv">Buscar Procedimientos</div>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div></div> from <td valign="top" width="100%">…</td> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div></div> from <td valign="top" width="100%">…</td> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    57 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div></div> from <td valign="top" width="100%">…</td> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+10:45:21 [INFO] [w2/20608980963] ✅ OK (105/946) CP SER-SM-2-2026-UNJ/CS-1
+10:45:31 [INFO] [w2/20608980963] ✅ OK (106/946) LP-SM-9-2026-CS/GRP-1
+10:45:42 [INFO] [w2/20608980963] ✅ OK (107/946) CP CON-SM-1-2026-MDSMCH-1
+10:45:42 [WARNING]   [w1/20611043873] Intento 2/2 falló (LP-ABR-4-2026-ESSALUD-RPR-1): Timeout de Playwright: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first
+    - locator resolved to <div class="nuevoDiv">Buscar Procedimientos</div>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div></div> from <td valign="top" width="100%">…</td> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div></div> from <td valign="top" width="100%">…</td> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    57 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div></div> from <td valign="top" width="100%">…</td> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+10:45:44 [ERROR] [w1/20611043873] ❌ Falló definitivamente (108/946) LP-ABR-4-2026-ESSALUD-RPR-1: Timeout de Playwright: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first
+    - locator resolved to <div class="nuevoDiv">Buscar Procedimientos</div>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div></div> from <td valign="top" width="100%">…</td> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div></div> from <td valign="top" width="100%">…</td> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    57 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div></div> from <td valign="top" width="100%">…</td> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+10:46:16 [WARNING]   [w1/20611043873] Intento 1/2 falló (LP-SM-4-2026-MDSPP/CS-1): Timeout de Playwright: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first
+    - locator resolved to <div class="nuevoDiv">Buscar Procedimientos</div>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div></div> from <td valign="top" width="100%">…</td> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div></div> from <td valign="top" width="100%">…</td> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div></div> from <td valign="top" width="100%">…</td> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+10:46:18 [INFO]   El formulario de búsqueda tardó en aparecer, reintentando el clic...
+10:46:29 [WARNING]   [w2/20608980963] Intento 1/2 falló (CP CON-SM-3-2026-MDSPP/CS-1): TIMEOUT (> 45s)
+10:46:47 [WARNING]   [w1/20611043873] Intento 2/2 falló (LP-SM-4-2026-MDSPP/CS-1): Timeout de Playwright: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first
+    - locator resolved to <div class="nuevoDiv">Buscar Procedimientos</div>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div></div> from <td valign="top" width="100%">…</td> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div></div> from <td valign="top" width="100%">…</td> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div></div> from <td valign="top" width="100%">…</td> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+10:46:49 [ERROR] [w1/20611043873] ❌ Falló definitivamente (109/946) LP-SM-4-2026-MDSPP/CS-1: Timeout de Playwright: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first
+    - locator resolved to <div class="nuevoDiv">Buscar Procedimientos</div>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div></div> from <td valign="top" width="100%">…</td> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div></div> from <td valign="top" width="100%">…</td> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div></div> from <td valign="top" width="100%">…</td> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+10:47:04 [INFO]   El formulario de búsqueda tardó en aparecer, reintentando el clic...
+10:47:16 [WARNING]   [w2/20608980963] Intento 2/2 falló (CP CON-SM-3-2026-MDSPP/CS-1): TIMEOUT (> 45s)
+10:47:17 [ERROR] [w2/20608980963] ❌ Falló definitivamente (110/946) CP CON-SM-3-2026-MDSPP/CS-1: TIMEOUT (> 45s)
+10:47:21 [WARNING]   [w1/20611043873] Intento 1/2 falló (LP-SM-2-2026-MPHZ/C-1): Timeout de Playwright: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first
+    - locator resolved to <div class="nuevoDiv">Buscar Procedimientos</div>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div></div> from <td valign="top" width="100%">…</td> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div></div> from <td valign="top" width="100%">…</td> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div></div> from <td valign="top" width="100%">…</td> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+10:47:52 [WARNING]   [w1/20611043873] Intento 2/2 falló (LP-SM-2-2026-MPHZ/C-1): Timeout de Playwright: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first
+    - locator resolved to <div class="nuevoDiv">Buscar Procedimientos</div>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div></div> from <td valign="top" width="100%">…</td> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div></div> from <td valign="top" width="100%">…</td> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div></div> from <td valign="top" width="100%">…</td> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+10:47:53 [INFO]   El formulario de búsqueda tardó en aparecer, reintentando el clic...
+10:47:54 [ERROR] [w1/20611043873] ❌ Falló definitivamente (111/946) LP-SM-2-2026-MPHZ/C-1: Timeout de Playwright: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_text("Buscar Procedimientos", exact=True).first
+    - locator resolved to <div class="nuevoDiv">Buscar Procedimientos</div>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div></div> from <td valign="top" width="100%">…</td> subtree intercepts pointer events
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - <div></div> from <td valign="top" width="100%">…</td> subtree intercepts pointer events
+    - retrying click action
+      - waiting 100ms
+    56 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - <div></div> from <td valign="top" width="100%">…</td> subtree intercepts pointer events
+     - retrying click action
+       - waiting 500ms
+
+11:02:54 [INFO] Cuentas seleccionadas para esta corrida: 20611043873
+11:02:54 [INFO] Cuentas SEACE en el .env: 3 | usando en esta corrida: 1
+11:02:54 [INFO] Procesos vigentes a procesar: 946
+11:02:54 [INFO] Arrancando con 1 cuenta(s) en paralelo: 20611043873
+11:03:22 [WARNING] [20611043873] Intento 1/4: login se colgó más de 25s.
+11:03:22 [INFO] [20611043873] Reintentando login desde cero (usuario y contraseña de nuevo)...
+11:03:26 [INFO]   [20611043873] Modal de Términos y Condiciones detectado, procesando...
+11:03:26 [INFO]   [20611043873] Checkbox de T&C marcado (estrategia 1, intento 1).
+11:03:26 [INFO]   [20611043873] Botón 'Acepto' clickeado (estrategia 1, intento 1).
+11:03:28 [INFO]   [20611043873] Modal de T&C confirmado cerrado.
+11:03:28 [INFO] Modal genérico cerrado
+11:03:33 [INFO] [20611043873] Login OK (intento 2/4)
+11:03:44 [INFO] [w1/20611043873] ✅ OK (1/946) LP-SM-8-2026-UNSA-1
+11:03:55 [INFO] [w1/20611043873] ✅ OK (2/946) CP SER-SM-2-2026-COMITE/MDM-1
+11:04:08 [INFO] [w1/20611043873] ✅ OK (3/946) LP-SM-12-2026-GRL/CS-1
+11:04:20 [INFO] [w1/20611043873] ✅ OK (4/946) CP SER-SM-7-2026-PCM-1
+11:04:31 [INFO] [w1/20611043873] ✅ OK (5/946) LP-SM-3-2026-MDSPP/CS-1
+11:04:45 [INFO] [w1/20611043873] ✅ OK (6/946) CP CON-SM-2-2026-MDSPP/CS-1
+11:05:22 [WARNING]   No se pudo setear Modalidad de Selección para 'LP-ABR-4-2026-MPCH/CS-1'
+11:05:23 [INFO] Modal genérico cerrado
+11:05:31 [WARNING]   [w1/20611043873] Intento 1/2 falló (LP-ABR-4-2026-MPCH/CS-1): TIMEOUT (> 45s)
+11:06:08 [WARNING]   No se pudo setear Modalidad de Selección para 'LP-ABR-4-2026-MPCH/CS-1'
+11:06:10 [INFO] Modal genérico cerrado
+11:06:18 [WARNING]   [w1/20611043873] Intento 2/2 falló (LP-ABR-4-2026-MPCH/CS-1): TIMEOUT (> 45s)
+11:06:20 [ERROR] [w1/20611043873] ❌ Falló definitivamente (7/946) LP-ABR-4-2026-MPCH/CS-1: TIMEOUT (> 45s)
+11:06:58 [WARNING]   No se pudo setear Modalidad de Selección para 'LP-ABR-61-2026-GRL/CS-1'
+11:06:59 [INFO] Modal genérico cerrado
+11:07:07 [WARNING]   [w1/20611043873] Intento 1/2 falló (LP-ABR-61-2026-GRL/CS-1): TIMEOUT (> 45s)
+11:07:44 [WARNING]   No se pudo setear Modalidad de Selección para 'LP-ABR-61-2026-GRL/CS-1'
+11:07:46 [INFO] Modal genérico cerrado
+11:10:20 [INFO] Cuentas seleccionadas para esta corrida: 20606951711, 20611043873, 20608980963
+11:10:20 [INFO] Cuentas SEACE en el .env: 3 | usando en esta corrida: 3
+11:10:20 [INFO] Procesos vigentes a procesar: 946
+11:10:20 [INFO] Arrancando con 3 cuenta(s) en paralelo: 20606951711, 20611043873, 20608980963
+11:10:46 [WARNING] [20606951711] Intento 1/4: login se colgó más de 25s.
+11:10:46 [INFO] [20606951711] Reintentando login desde cero (usuario y contraseña de nuevo)...
+11:10:46 [WARNING] [20611043873] Intento 1/4: login se colgó más de 25s.
+11:10:46 [INFO] [20611043873] Reintentando login desde cero (usuario y contraseña de nuevo)...
+11:10:46 [WARNING] [20608980963] Intento 1/4: login se colgó más de 25s.
+11:10:46 [INFO] [20608980963] Reintentando login desde cero (usuario y contraseña de nuevo)...
+11:10:50 [INFO]   [20606951711] Modal de Términos y Condiciones detectado, procesando...
+11:10:51 [INFO]   [20606951711] Checkbox de T&C marcado (estrategia 1, intento 1).
+11:10:51 [INFO]   [20606951711] Botón 'Acepto' clickeado (estrategia 1, intento 1).
+11:10:53 [INFO]   [20606951711] Modal de T&C confirmado cerrado.
+11:10:53 [INFO] Modal genérico cerrado
+11:10:57 [INFO] [20606951711] Login OK (intento 2/4)
+11:11:12 [INFO] [w1/20606951711] ✅ OK (1/946) LP-SM-8-2026-UNSA-1
+11:11:13 [WARNING] [20611043873] Intento 2/4: login se colgó más de 25s.
+11:11:13 [INFO] [20611043873] Reintentando login desde cero (usuario y contraseña de nuevo)...
+11:11:13 [WARNING] [20608980963] Intento 2/4: login se colgó más de 25s.
+11:11:13 [INFO] [20608980963] Reintentando login desde cero (usuario y contraseña de nuevo)...
+11:11:24 [INFO] [w1/20606951711] ✅ OK (2/946) CP SER-SM-2-2026-COMITE/MDM-1
+11:11:25 [INFO] Modal genérico cerrado
+11:11:25 [INFO] Modal genérico cerrado
+11:11:36 [INFO] [w1/20606951711] ✅ OK (3/946) LP-SM-12-2026-GRL/CS-1
+11:11:40 [WARNING] [20611043873] Intento 3/4: login se colgó más de 25s.
+11:11:40 [INFO] [20611043873] Reintentando login desde cero (usuario y contraseña de nuevo)...
+11:11:40 [WARNING] [20608980963] Intento 3/4: login se colgó más de 25s.
+11:11:40 [INFO] [20608980963] Reintentando login desde cero (usuario y contraseña de nuevo)...
+11:11:44 [INFO]   [20611043873] Modal de Términos y Condiciones detectado, procesando...
+11:11:44 [INFO]   [20608980963] Modal de Términos y Condiciones detectado, procesando...
+11:11:45 [INFO]   [20611043873] Checkbox de T&C marcado (estrategia 1, intento 1).
+11:11:45 [INFO]   [20608980963] Checkbox de T&C marcado (estrategia 1, intento 1).
+11:11:45 [INFO]   [20611043873] Botón 'Acepto' clickeado (estrategia 1, intento 1).
+11:11:45 [INFO]   [20608980963] Botón 'Acepto' clickeado (estrategia 1, intento 1).
+11:11:47 [INFO]   [20611043873] Modal de T&C confirmado cerrado.
+11:11:47 [INFO]   [20608980963] Modal de T&C confirmado cerrado.
+11:11:47 [INFO] Modal genérico cerrado
+11:11:47 [INFO] Modal genérico cerrado
+11:11:48 [INFO] [w1/20606951711] ✅ OK (4/946) CP SER-SM-7-2026-PCM-1
+11:11:51 [INFO] [20611043873] Login OK (intento 4/4)
+11:11:51 [INFO] [20608980963] Login OK (intento 4/4)
+11:11:56 [INFO]   Modalidad '1816' no aplica para el Tipo elegido de 'LP-ABR-4-2026-MPCH/CS-1' (se omite; el filtro por Tipo ya alcanza)
+11:11:58 [INFO] Modal genérico cerrado
+11:12:00 [INFO] [w1/20606951711] ✅ OK (5/946) LP-SM-3-2026-MDSPP/CS-1
+11:12:02 [INFO] [w2/20611043873] ✅ OK (6/946) CP CON-SM-2-2026-MDSPP/CS-1
+11:12:08 [INFO]   Modalidad '1816' no aplica para el Tipo elegido de 'LP-ABR-61-2026-GRL/CS-1' (se omite; el filtro por Tipo ya alcanza)
+11:12:09 [INFO]   Modalidad '1816' no aplica para el Tipo elegido de 'LP-ABR-4-2026-MDC-1' (se omite; el filtro por Tipo ya alcanza)
+11:12:09 [INFO] Modal genérico cerrado
+11:12:10 [INFO] Modal genérico cerrado
+11:12:14 [WARNING]   [w3/20608980963] Intento 1/2 falló (LP-ABR-4-2026-MPCH/CS-1): Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:dtProcedimiento") to be visible
+
+11:12:20 [INFO]   Modalidad '1816' no aplica para el Tipo elegido de 'LP-ABR-4-2026-MPCH/CS-1' (se omite; el filtro por Tipo ya alcanza)
+11:12:22 [INFO] Modal genérico cerrado
+11:12:25 [WARNING]   [w1/20606951711] Intento 1/2 falló (LP-ABR-61-2026-GRL/CS-1): Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:dtProcedimiento") to be visible
+
+11:12:26 [WARNING]   [w2/20611043873] Intento 1/2 falló (LP-ABR-4-2026-MDC-1): Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:dtProcedimiento") to be visible
+
+11:12:32 [INFO]   Modalidad '1816' no aplica para el Tipo elegido de 'LP-ABR-61-2026-GRL/CS-1' (se omite; el filtro por Tipo ya alcanza)
+11:12:33 [INFO]   Modalidad '1816' no aplica para el Tipo elegido de 'LP-ABR-4-2026-MDC-1' (se omite; el filtro por Tipo ya alcanza)
+11:12:33 [INFO] Modal genérico cerrado
+11:12:34 [INFO] Modal genérico cerrado
+11:12:37 [WARNING]   [w3/20608980963] Intento 2/2 falló (LP-ABR-4-2026-MPCH/CS-1): Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:dtProcedimiento") to be visible
+
+11:12:39 [ERROR] [w3/20608980963] ❌ Falló definitivamente (7/946) LP-ABR-4-2026-MPCH/CS-1: Timeout de Playwright: Page.wait_for_selector: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator("#frmVisualizarRepresentantesPostor\\:dtProcedimiento") to be visible
+

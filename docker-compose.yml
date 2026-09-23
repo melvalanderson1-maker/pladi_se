@@ -1,0 +1,31 @@
+services:
+  onlyoffice:
+    image: onlyoffice/documentserver:7.5
+    container_name: onlyoffice-pladibot
+    ports:
+      - "8080:80"
+    environment:
+      - JWT_ENABLED=false
+      - ALLOW_PRIVATE_IP_ADDRESS=true 
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - onlyoffice_data:/var/www/onlyoffice/Data
+      - onlyoffice_logs:/var/log/onlyoffice
+    restart: unless-stopped
+
+  # frontend:
+  #   build:
+  #     context: ./frontend
+  #     dockerfile: Dockerfile
+  #   container_name: pladibot-frontend
+  #   ports:
+  #     - "3000:3000"
+  #   environment:
+  #     - NEXT_PUBLIC_API_URL=http://192.168.1.63:8000
+  #     - NEXT_PUBLIC_ONLYOFFICE_URL=http://192.168.1.63:8080
+  #   restart: unless-stopped
+
+volumes:
+  onlyoffice_data:
+  onlyoffice_logs:

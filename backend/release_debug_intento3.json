@@ -1,0 +1,1074 @@
+{
+  "version": "1.1",
+  "extensions": [
+    "https://devops11.oece.gob.pe/bitbucket/projects/PROYEC/repos/ocds_currencyname_extension/raw/extension.json",
+    "https://devops11.oece.gob.pe/bitbucket/projects/PROYEC/repos/ocds_department_extension/raw/extension.json",
+    "https://devops11.oece.gob.pe/bitbucket/projects/PROYEC/repos/ocds_datasegmentation_extension/raw/extension.json",
+    "https://bitbucket.org/ONCAETI/ocds_releasesource_extension/raw/c22448e1789f3e62631a93c1fee228e4ca9ef6e5/extension.json",
+    "https://raw.githubusercontent.com/open-contracting-extensions/ocds_exchangeRate_extension/master/extension.json",
+    "https://raw.githubusercontent.com/open-contracting-extensions/ocds_contract_completion_extension/master/extension.json",
+    "https://devops11.oece.gob.pe/bitbucket/projects/PROYEC/repos/ocds_datasegmentation_extension/raw/extension.json",
+    "https://devops11.oece.gob.pe/bitbucket/projects/PROYEC/repos/ocds_tenderinformation_extension/raw/extension.json",
+    "https://devops11.oece.gob.pe/bitbucket/projects/PROYEC/repos/ocds_itemstatus_extension/raw/extension.json",
+    "https://devops11.oece.gob.pe/bitbucket/projects/PROYEC/repos/ocds_releasepublisheddate_extension/raw/extension.json",
+    "https://devops11.oece.gob.pe/bitbucket/projects/PROYEC/repos/ocds_itemtotalvalue_extension/raw/extension.json",
+    "https://gitlab.com/dncp-opendata/ocds_statusdetails_extension/-/raw/master/extension.json"
+  ],
+  "publishedDate": "2026-09-02T16:01:04.281712-05:00",
+  "publisher": {
+    "name": "Organismo Supervisor de las Contrataciones del Estado"
+  },
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "publicationPolicy": "https://contratacionesabiertas.oece.gob.pe/downloads/politica_publicacion.pdf",
+  "releases": [
+    {
+      "ocid": "ocds-dgv273-seacev3-1233719",
+      "id": "ocds-dgv273-seacev3-1233719-2026-08-26T10:29:15.446689-05:00",
+      "date": "2026-08-26T10:29:15.446676-05:00",
+      "publishedDate": "2026-08-26T10:29:15.446695-05:00",
+      "tag": [
+        "planning",
+        "tender"
+      ],
+      "initiationType": "tender",
+      "buyer": {
+        "id": "PE-CONSUCODE-41",
+        "name": "GOBIERNO REGIONAL DE JUNIN SEDE CENTRAL"
+      },
+      "planning": {
+        "budget": {
+          "description": "Fondos Públicos"
+        }
+      },
+      "tender": {
+        "id": "1233719",
+        "title": "LP-SM-17-2026-GRJ-1",
+        "description": "ADQUISICIÓN DE TOSTADORA PARA LOS DIFERENTES PLANES DE NEGOCIO DEL GOBIERNO REGIONAL DE JUNÍN.",
+        "procuringEntity": {
+          "id": "PE-CONSUCODE-41",
+          "name": "GOBIERNO REGIONAL DE JUNIN SEDE CENTRAL"
+        },
+        "datePublished": "2026-08-25T16:04:00-05:00",
+        "procurementMethod": "open",
+        "procurementMethodDetails": "Licitación Pública",
+        "mainProcurementCategory": "goods",
+        "additionalProcurementCategories": [
+          "goods"
+        ],
+        "value": {
+          "amount": 0.0,
+          "currency": "PEN",
+          "currencyName": "Soles",
+          "amount_PEN": 0.0
+        },
+        "tenderPeriod": {
+          "startDate": "2026-08-25T00:00:00-05:00",
+          "endDate": "2026-08-25T00:00:00-05:00"
+        },
+        "enquiryPeriod": {
+          "startDate": "2026-08-26T00:01:00-05:00",
+          "endDate": "2026-09-03T23:59:00-05:00",
+          "durationInDays": 8
+        },
+        "items": [
+          {
+            "id": "21354778",
+            "position": "1",
+            "description": "TOSTADORA INDUSTRIAL - CAPACIDAD 5 Kg/Batch",
+            "statusDetails": "CONVOCADO",
+            "status": "active",
+            "quantity": 5.0,
+            "totalValue": {
+              "amount": 0.0,
+              "currency": "PEN",
+              "currencyName": "Soles"
+            },
+            "unit": {
+              "id": "40",
+              "name": "Unidad",
+              "scheme": "PE-SEACE3-UnidadMedida"
+            }
+          },
+          {
+            "id": "21354783",
+            "position": "2",
+            "description": "TOSTADORA INDUSTRIAL - CAPACIDAD 8 Kg/Batch",
+            "statusDetails": "CONVOCADO",
+            "status": "active",
+            "quantity": 2.0,
+            "totalValue": {
+              "amount": 0.0,
+              "currency": "PEN",
+              "currencyName": "Soles"
+            },
+            "unit": {
+              "id": "40",
+              "name": "Unidad",
+              "scheme": "PE-SEACE3-UnidadMedida"
+            }
+          },
+          {
+            "id": "21354790",
+            "position": "3",
+            "description": "TOSTADORA INDUSTRIAL - CAPACIDAD 10 Kg/Batch",
+            "statusDetails": "CONVOCADO",
+            "status": "active",
+            "quantity": 8.0,
+            "totalValue": {
+              "amount": 0.0,
+              "currency": "PEN",
+              "currencyName": "Soles"
+            },
+            "unit": {
+              "id": "40",
+              "name": "Unidad",
+              "scheme": "PE-SEACE3-UnidadMedida"
+            }
+          },
+          {
+            "id": "21354832",
+            "position": "5",
+            "description": "TOSTADORA INDUSTRIAL ¿ CAPACIDAD 20 Kg/Batch",
+            "statusDetails": "CONVOCADO",
+            "status": "active",
+            "classification": {
+              "id": "4810152500360093",
+              "description": "TOSTADORA INDUSTRIAL DE GRANOS DE CACAO",
+              "scheme": "CUBSO"
+            },
+            "additionalClassifications": [
+              {
+                "id": "48101525",
+                "description": "Tostadores de uso comercial",
+                "scheme": "UNSPSC"
+              }
+            ],
+            "quantity": 1.0,
+            "totalValue": {
+              "amount": 0.0,
+              "currency": "PEN",
+              "currencyName": "Soles"
+            },
+            "unit": {
+              "id": "40",
+              "name": "Unidad",
+              "scheme": "PE-SEACE3-UnidadMedida"
+            }
+          },
+          {
+            "id": "21354833",
+            "position": "6",
+            "description": "TOSTADORA INDUSTRIAL ¿ CAPACIDAD 30 Kg/Batch",
+            "statusDetails": "CONVOCADO",
+            "status": "active",
+            "classification": {
+              "id": "4810152500360093",
+              "description": "TOSTADORA INDUSTRIAL DE GRANOS DE CACAO",
+              "scheme": "CUBSO"
+            },
+            "additionalClassifications": [
+              {
+                "id": "48101525",
+                "description": "Tostadores de uso comercial",
+                "scheme": "UNSPSC"
+              }
+            ],
+            "quantity": 1.0,
+            "totalValue": {
+              "amount": 0.0,
+              "currency": "PEN",
+              "currencyName": "Soles"
+            },
+            "unit": {
+              "id": "40",
+              "name": "Unidad",
+              "scheme": "PE-SEACE3-UnidadMedida"
+            }
+          },
+          {
+            "id": "21354835",
+            "position": "7",
+            "description": "TOSTADORA DE LABORATORIO",
+            "statusDetails": "CONVOCADO",
+            "status": "active",
+            "quantity": 18.0,
+            "totalValue": {
+              "amount": 0.0,
+              "currency": "PEN",
+              "currencyName": "Soles"
+            },
+            "unit": {
+              "id": "40",
+              "name": "Unidad",
+              "scheme": "PE-SEACE3-UnidadMedida"
+            }
+          },
+          {
+            "id": "21354819",
+            "position": "4",
+            "description": "TOSTADORA INDUSTRIAL - CAPACIDAD 15 Kg/Batch",
+            "statusDetails": "CONVOCADO",
+            "status": "active",
+            "quantity": 12.0,
+            "totalValue": {
+              "amount": 0.0,
+              "currency": "PEN",
+              "currencyName": "Soles"
+            },
+            "unit": {
+              "id": "40",
+              "name": "Unidad",
+              "scheme": "PE-SEACE3-UnidadMedida"
+            }
+          }
+        ],
+        "documents": [
+          {
+            "id": "24831474986071046",
+            "url": "https://prod1.seace.gob.pe/SeaceWeb-PRO/SdescargarArchivoAlfresco?fileCode=8205db41-eef8-4787-b390-38d803ff829a",
+            "datePublished": "2026-08-25T16:04:00-05:00",
+            "format": "pdf",
+            "documentType": "biddingDocuments",
+            "title": "Bases Administrativas",
+            "language": "es"
+          }
+        ],
+        "hasTenderInformationProtectedByLaw": false
+      },
+      "parties": [
+        {
+          "id": "PE-CONSUCODE-41",
+          "name": "GOBIERNO REGIONAL DE JUNIN SEDE CENTRAL",
+          "identifier": {
+            "id": "41",
+            "scheme": "PE-CONSUCODE",
+            "legalName": "GOBIERNO REGIONAL DE JUNIN SEDE CENTRAL"
+          },
+          "additionalIdentifiers": [
+            {
+              "id": "20486021692",
+              "scheme": "PE-RUC",
+              "legalName": "GOBIERNO REGIONAL DE JUNIN SEDE CENTRAL"
+            }
+          ],
+          "address": {
+            "streetAddress": "JR.LORETO363-3ER PISO CENTRO CIVICO",
+            "locality": "HUANCAYO",
+            "region": "HUANCAYO",
+            "department": "JUNIN",
+            "countryName": "PERU"
+          },
+          "contactPoint": {
+            "telephone": "064-232230",
+            "url": "https://WWW.REGIONJUNIN.GOB.PE"
+          },
+          "roles": [
+            "buyer",
+            "procuringEntity"
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "id": "seace_v3",
+          "name": "Sistema Electrónico de Contrataciones del Estado - Versión 3",
+          "url": "https://prodapp2.seace.gob.pe/seacebus-uiwd-pub/buscadorPublico/buscadorPublico.xhtml"
+        }
+      ],
+      "dataSegmentation": {
+        "id": "2026-08",
+        "criteria": [
+          "añoInicioConvocatoria",
+          "mesInicioConvocatoria"
+        ]
+      }
+    },
+    {
+      "ocid": "ocds-dgv273-seacev3-1233719",
+      "id": "ocds-dgv273-seacev3-1233719-2026-08-27T10:33:21.371664-05:00",
+      "date": "2026-08-27T10:33:21.371651-05:00",
+      "publishedDate": "2026-08-27T10:33:21.371669-05:00",
+      "tag": [
+        "planning",
+        "tender"
+      ],
+      "initiationType": "tender",
+      "buyer": {
+        "id": "PE-CONSUCODE-41",
+        "name": "GOBIERNO REGIONAL DE JUNIN SEDE CENTRAL"
+      },
+      "planning": {
+        "budget": {
+          "description": "Fondos Públicos"
+        }
+      },
+      "tender": {
+        "id": "1233719",
+        "title": "LP-SM-17-2026-GRJ-1",
+        "description": "ADQUISICIÓN DE TOSTADORA PARA LOS DIFERENTES PLANES DE NEGOCIO DEL GOBIERNO REGIONAL DE JUNÍN.",
+        "procuringEntity": {
+          "id": "PE-CONSUCODE-41",
+          "name": "GOBIERNO REGIONAL DE JUNIN SEDE CENTRAL"
+        },
+        "datePublished": "2026-08-25T16:04:00-05:00",
+        "procurementMethod": "open",
+        "procurementMethodDetails": "Licitación Pública",
+        "mainProcurementCategory": "goods",
+        "additionalProcurementCategories": [
+          "goods"
+        ],
+        "value": {
+          "amount": 0.0,
+          "currency": "PEN",
+          "currencyName": "Soles",
+          "amount_PEN": 0.0
+        },
+        "tenderPeriod": {
+          "startDate": "2026-08-25T00:00:00-05:00",
+          "endDate": "2026-08-25T00:00:00-05:00"
+        },
+        "enquiryPeriod": {
+          "startDate": "2026-08-26T00:01:00-05:00",
+          "endDate": "2026-09-03T23:59:00-05:00",
+          "durationInDays": 8
+        },
+        "items": [
+          {
+            "id": "21354778",
+            "position": "1",
+            "description": "TOSTADORA INDUSTRIAL - CAPACIDAD 5 Kg/Batch",
+            "statusDetails": "CONVOCADO",
+            "status": "active",
+            "quantity": 5.0,
+            "totalValue": {
+              "amount": 0.0,
+              "currency": "PEN",
+              "currencyName": "Soles"
+            },
+            "unit": {
+              "id": "40",
+              "name": "Unidad",
+              "scheme": "PE-SEACE3-UnidadMedida"
+            }
+          },
+          {
+            "id": "21354783",
+            "position": "2",
+            "description": "TOSTADORA INDUSTRIAL - CAPACIDAD 8 Kg/Batch",
+            "statusDetails": "CONVOCADO",
+            "status": "active",
+            "quantity": 2.0,
+            "totalValue": {
+              "amount": 0.0,
+              "currency": "PEN",
+              "currencyName": "Soles"
+            },
+            "unit": {
+              "id": "40",
+              "name": "Unidad",
+              "scheme": "PE-SEACE3-UnidadMedida"
+            }
+          },
+          {
+            "id": "21354790",
+            "position": "3",
+            "description": "TOSTADORA INDUSTRIAL - CAPACIDAD 10 Kg/Batch",
+            "statusDetails": "CONVOCADO",
+            "status": "active",
+            "quantity": 8.0,
+            "totalValue": {
+              "amount": 0.0,
+              "currency": "PEN",
+              "currencyName": "Soles"
+            },
+            "unit": {
+              "id": "40",
+              "name": "Unidad",
+              "scheme": "PE-SEACE3-UnidadMedida"
+            }
+          },
+          {
+            "id": "21354832",
+            "position": "5",
+            "description": "TOSTADORA INDUSTRIAL ¿ CAPACIDAD 20 Kg/Batch",
+            "statusDetails": "CONVOCADO",
+            "status": "active",
+            "classification": {
+              "id": "4810152500360093",
+              "description": "TOSTADORA INDUSTRIAL DE GRANOS DE CACAO",
+              "scheme": "CUBSO"
+            },
+            "additionalClassifications": [
+              {
+                "id": "48101525",
+                "description": "Tostadores de uso comercial",
+                "scheme": "UNSPSC"
+              }
+            ],
+            "quantity": 1.0,
+            "totalValue": {
+              "amount": 0.0,
+              "currency": "PEN",
+              "currencyName": "Soles"
+            },
+            "unit": {
+              "id": "40",
+              "name": "Unidad",
+              "scheme": "PE-SEACE3-UnidadMedida"
+            }
+          },
+          {
+            "id": "21354833",
+            "position": "6",
+            "description": "TOSTADORA INDUSTRIAL ¿ CAPACIDAD 30 Kg/Batch",
+            "statusDetails": "CONVOCADO",
+            "status": "active",
+            "classification": {
+              "id": "4810152500360093",
+              "description": "TOSTADORA INDUSTRIAL DE GRANOS DE CACAO",
+              "scheme": "CUBSO"
+            },
+            "additionalClassifications": [
+              {
+                "id": "48101525",
+                "description": "Tostadores de uso comercial",
+                "scheme": "UNSPSC"
+              }
+            ],
+            "quantity": 1.0,
+            "totalValue": {
+              "amount": 0.0,
+              "currency": "PEN",
+              "currencyName": "Soles"
+            },
+            "unit": {
+              "id": "40",
+              "name": "Unidad",
+              "scheme": "PE-SEACE3-UnidadMedida"
+            }
+          },
+          {
+            "id": "21354835",
+            "position": "7",
+            "description": "TOSTADORA DE LABORATORIO",
+            "statusDetails": "CONVOCADO",
+            "status": "active",
+            "quantity": 18.0,
+            "totalValue": {
+              "amount": 0.0,
+              "currency": "PEN",
+              "currencyName": "Soles"
+            },
+            "unit": {
+              "id": "40",
+              "name": "Unidad",
+              "scheme": "PE-SEACE3-UnidadMedida"
+            }
+          },
+          {
+            "id": "21354819",
+            "position": "4",
+            "description": "TOSTADORA INDUSTRIAL - CAPACIDAD 15 Kg/Batch",
+            "statusDetails": "CONVOCADO",
+            "status": "active",
+            "quantity": 12.0,
+            "totalValue": {
+              "amount": 0.0,
+              "currency": "PEN",
+              "currencyName": "Soles"
+            },
+            "unit": {
+              "id": "40",
+              "name": "Unidad",
+              "scheme": "PE-SEACE3-UnidadMedida"
+            }
+          }
+        ],
+        "documents": [
+          {
+            "id": "24831474986071046",
+            "url": "https://prod1.seace.gob.pe/SeaceWeb-PRO/SdescargarArchivoAlfresco?fileCode=8205db41-eef8-4787-b390-38d803ff829a",
+            "datePublished": "2026-08-25T16:04:00-05:00",
+            "format": "pdf",
+            "documentType": "biddingDocuments",
+            "title": "Bases Administrativas",
+            "language": "es"
+          }
+        ],
+        "hasTenderInformationProtectedByLaw": true
+      },
+      "parties": [
+        {
+          "id": "PE-CONSUCODE-41",
+          "name": "GOBIERNO REGIONAL DE JUNIN SEDE CENTRAL",
+          "identifier": {
+            "id": "41",
+            "scheme": "PE-CONSUCODE",
+            "legalName": "GOBIERNO REGIONAL DE JUNIN SEDE CENTRAL"
+          },
+          "additionalIdentifiers": [
+            {
+              "id": "20486021692",
+              "scheme": "PE-RUC",
+              "legalName": "GOBIERNO REGIONAL DE JUNIN SEDE CENTRAL"
+            }
+          ],
+          "address": {
+            "streetAddress": "JR.LORETO363-3ER PISO CENTRO CIVICO",
+            "locality": "HUANCAYO",
+            "region": "HUANCAYO",
+            "department": "JUNIN",
+            "countryName": "PERU"
+          },
+          "contactPoint": {
+            "telephone": "064-232230",
+            "url": "https://WWW.REGIONJUNIN.GOB.PE"
+          },
+          "roles": [
+            "buyer",
+            "procuringEntity"
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "id": "seace_v3",
+          "name": "Sistema Electrónico de Contrataciones del Estado - Versión 3",
+          "url": "https://prodapp2.seace.gob.pe/seacebus-uiwd-pub/buscadorPublico/buscadorPublico.xhtml"
+        }
+      ],
+      "dataSegmentation": {
+        "id": "2026-08",
+        "criteria": [
+          "añoInicioConvocatoria",
+          "mesInicioConvocatoria"
+        ]
+      }
+    },
+    {
+      "ocid": "ocds-dgv273-seacev3-1233719",
+      "id": "ocds-dgv273-seacev3-1233719-2026-08-28T10:30:24.211458-05:00",
+      "date": "2026-08-28T10:30:24.211445-05:00",
+      "publishedDate": "2026-08-28T10:30:24.211463-05:00",
+      "tag": [
+        "planning",
+        "tender"
+      ],
+      "initiationType": "tender",
+      "buyer": {
+        "id": "PE-CONSUCODE-41",
+        "name": "GOBIERNO REGIONAL DE JUNIN SEDE CENTRAL"
+      },
+      "planning": {
+        "budget": {
+          "description": "Fondos Públicos"
+        }
+      },
+      "tender": {
+        "id": "1233719",
+        "title": "LP-SM-17-2026-GRJ-1",
+        "description": "ADQUISICIÓN DE TOSTADORA PARA LOS DIFERENTES PLANES DE NEGOCIO DEL GOBIERNO REGIONAL DE JUNÍN.",
+        "procuringEntity": {
+          "id": "PE-CONSUCODE-41",
+          "name": "GOBIERNO REGIONAL DE JUNIN SEDE CENTRAL"
+        },
+        "datePublished": "2026-08-25T16:04:00-05:00",
+        "procurementMethod": "open",
+        "procurementMethodDetails": "Licitación Pública",
+        "mainProcurementCategory": "goods",
+        "additionalProcurementCategories": [
+          "goods"
+        ],
+        "value": {
+          "amount": 0.0,
+          "currency": "PEN",
+          "currencyName": "Soles",
+          "amount_PEN": 0.0
+        },
+        "tenderPeriod": {
+          "startDate": "2026-08-25T00:00:00-05:00",
+          "endDate": "2026-08-25T00:00:00-05:00"
+        },
+        "enquiryPeriod": {
+          "startDate": "2026-08-26T00:01:00-05:00",
+          "endDate": "2026-09-03T23:59:00-05:00",
+          "durationInDays": 8
+        },
+        "items": [
+          {
+            "id": "21354833",
+            "position": "6",
+            "description": "TOSTADORA INDUSTRIAL ¿ CAPACIDAD 30 Kg/Batch",
+            "statusDetails": "CONVOCADO",
+            "status": "active",
+            "classification": {
+              "id": "4810152500360093",
+              "description": "TOSTADORA INDUSTRIAL DE GRANOS DE CACAO",
+              "scheme": "CUBSO"
+            },
+            "additionalClassifications": [
+              {
+                "id": "48101525",
+                "description": "Tostadores de uso comercial",
+                "scheme": "UNSPSC"
+              }
+            ],
+            "quantity": 1.0,
+            "totalValue": {
+              "amount": 0.0,
+              "currency": "PEN",
+              "currencyName": "Soles"
+            },
+            "unit": {
+              "id": "40",
+              "name": "Unidad",
+              "scheme": "PE-SEACE3-UnidadMedida"
+            }
+          },
+          {
+            "id": "21354832",
+            "position": "5",
+            "description": "TOSTADORA INDUSTRIAL ¿ CAPACIDAD 20 Kg/Batch",
+            "statusDetails": "CONVOCADO",
+            "status": "active",
+            "classification": {
+              "id": "4810152500360093",
+              "description": "TOSTADORA INDUSTRIAL DE GRANOS DE CACAO",
+              "scheme": "CUBSO"
+            },
+            "additionalClassifications": [
+              {
+                "id": "48101525",
+                "description": "Tostadores de uso comercial",
+                "scheme": "UNSPSC"
+              }
+            ],
+            "quantity": 1.0,
+            "totalValue": {
+              "amount": 0.0,
+              "currency": "PEN",
+              "currencyName": "Soles"
+            },
+            "unit": {
+              "id": "40",
+              "name": "Unidad",
+              "scheme": "PE-SEACE3-UnidadMedida"
+            }
+          },
+          {
+            "id": "21354819",
+            "position": "4",
+            "description": "TOSTADORA INDUSTRIAL - CAPACIDAD 15 Kg/Batch",
+            "statusDetails": "CONVOCADO",
+            "status": "active",
+            "quantity": 12.0,
+            "totalValue": {
+              "amount": 0.0,
+              "currency": "PEN",
+              "currencyName": "Soles"
+            },
+            "unit": {
+              "id": "40",
+              "name": "Unidad",
+              "scheme": "PE-SEACE3-UnidadMedida"
+            }
+          },
+          {
+            "id": "21354835",
+            "position": "7",
+            "description": "TOSTADORA DE LABORATORIO",
+            "statusDetails": "CONVOCADO",
+            "status": "active",
+            "quantity": 18.0,
+            "totalValue": {
+              "amount": 0.0,
+              "currency": "PEN",
+              "currencyName": "Soles"
+            },
+            "unit": {
+              "id": "40",
+              "name": "Unidad",
+              "scheme": "PE-SEACE3-UnidadMedida"
+            }
+          },
+          {
+            "id": "21354790",
+            "position": "3",
+            "description": "TOSTADORA INDUSTRIAL - CAPACIDAD 10 Kg/Batch",
+            "statusDetails": "CONVOCADO",
+            "status": "active",
+            "quantity": 8.0,
+            "totalValue": {
+              "amount": 0.0,
+              "currency": "PEN",
+              "currencyName": "Soles"
+            },
+            "unit": {
+              "id": "40",
+              "name": "Unidad",
+              "scheme": "PE-SEACE3-UnidadMedida"
+            }
+          },
+          {
+            "id": "21354783",
+            "position": "2",
+            "description": "TOSTADORA INDUSTRIAL - CAPACIDAD 8 Kg/Batch",
+            "statusDetails": "CONVOCADO",
+            "status": "active",
+            "quantity": 2.0,
+            "totalValue": {
+              "amount": 0.0,
+              "currency": "PEN",
+              "currencyName": "Soles"
+            },
+            "unit": {
+              "id": "40",
+              "name": "Unidad",
+              "scheme": "PE-SEACE3-UnidadMedida"
+            }
+          },
+          {
+            "id": "21354778",
+            "position": "1",
+            "description": "TOSTADORA INDUSTRIAL - CAPACIDAD 5 Kg/Batch",
+            "statusDetails": "CONVOCADO",
+            "status": "active",
+            "quantity": 5.0,
+            "totalValue": {
+              "amount": 0.0,
+              "currency": "PEN",
+              "currencyName": "Soles"
+            },
+            "unit": {
+              "id": "40",
+              "name": "Unidad",
+              "scheme": "PE-SEACE3-UnidadMedida"
+            }
+          }
+        ],
+        "documents": [
+          {
+            "id": "24831474986071046",
+            "url": "https://prod1.seace.gob.pe/SeaceWeb-PRO/SdescargarArchivoAlfresco?fileCode=8205db41-eef8-4787-b390-38d803ff829a",
+            "datePublished": "2026-08-25T16:04:00-05:00",
+            "format": "pdf",
+            "documentType": "biddingDocuments",
+            "title": "Bases Administrativas",
+            "language": "es"
+          }
+        ],
+        "hasTenderInformationProtectedByLaw": true
+      },
+      "parties": [
+        {
+          "id": "PE-CONSUCODE-41",
+          "name": "GOBIERNO REGIONAL DE JUNIN SEDE CENTRAL",
+          "identifier": {
+            "id": "41",
+            "scheme": "PE-CONSUCODE",
+            "legalName": "GOBIERNO REGIONAL DE JUNIN SEDE CENTRAL"
+          },
+          "additionalIdentifiers": [
+            {
+              "id": "20486021692",
+              "scheme": "PE-RUC",
+              "legalName": "GOBIERNO REGIONAL DE JUNIN SEDE CENTRAL"
+            }
+          ],
+          "address": {
+            "streetAddress": "JR.LORETO363-3ER PISO CENTRO CIVICO",
+            "locality": "HUANCAYO",
+            "region": "HUANCAYO",
+            "department": "JUNIN",
+            "countryName": "PERU"
+          },
+          "contactPoint": {
+            "telephone": "064-232230",
+            "url": "https://WWW.REGIONJUNIN.GOB.PE"
+          },
+          "roles": [
+            "buyer",
+            "procuringEntity"
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "id": "seace_v3",
+          "name": "Sistema Electrónico de Contrataciones del Estado - Versión 3",
+          "url": "https://prodapp2.seace.gob.pe/seacebus-uiwd-pub/buscadorPublico/buscadorPublico.xhtml"
+        }
+      ],
+      "dataSegmentation": {
+        "id": "2026-08",
+        "criteria": [
+          "añoInicioConvocatoria",
+          "mesInicioConvocatoria"
+        ]
+      }
+    },
+    {
+      "ocid": "ocds-dgv273-seacev3-1233719",
+      "id": "ocds-dgv273-seacev3-1233719-2026-08-29T10:11:42.636296-05:00",
+      "date": "2026-08-29T10:11:42.636283-05:00",
+      "publishedDate": "2026-08-29T10:11:42.636302-05:00",
+      "tag": [
+        "planning",
+        "tender"
+      ],
+      "initiationType": "tender",
+      "buyer": {
+        "id": "PE-CONSUCODE-41",
+        "name": "GOBIERNO REGIONAL DE JUNIN SEDE CENTRAL"
+      },
+      "planning": {
+        "budget": {
+          "description": "Fondos Públicos"
+        }
+      },
+      "tender": {
+        "id": "1233719",
+        "title": "LP-SM-17-2026-GRJ-1",
+        "description": "ADQUISICIÓN DE TOSTADORA PARA LOS DIFERENTES PLANES DE NEGOCIO DEL GOBIERNO REGIONAL DE JUNÍN.",
+        "procuringEntity": {
+          "id": "PE-CONSUCODE-41",
+          "name": "GOBIERNO REGIONAL DE JUNIN SEDE CENTRAL"
+        },
+        "datePublished": "2026-08-25T16:04:00-05:00",
+        "procurementMethod": "open",
+        "procurementMethodDetails": "Licitación Pública",
+        "mainProcurementCategory": "goods",
+        "additionalProcurementCategories": [
+          "goods"
+        ],
+        "value": {
+          "amount": 0.0,
+          "currency": "PEN",
+          "currencyName": "Soles",
+          "amount_PEN": 0.0
+        },
+        "tenderPeriod": {
+          "startDate": "2026-08-25T00:00:00-05:00",
+          "endDate": "2026-08-25T00:00:00-05:00"
+        },
+        "enquiryPeriod": {
+          "startDate": "2026-08-26T00:01:00-05:00",
+          "endDate": "2026-09-03T23:59:00-05:00",
+          "durationInDays": 8
+        },
+        "items": [
+          {
+            "id": "21354778",
+            "position": "1",
+            "description": "TOSTADORA INDUSTRIAL - CAPACIDAD 5 Kg/Batch",
+            "statusDetails": "CONVOCADO",
+            "status": "active",
+            "quantity": 5.0,
+            "totalValue": {
+              "amount": 0.0,
+              "currency": "PEN",
+              "currencyName": "Soles"
+            },
+            "unit": {
+              "id": "40",
+              "name": "Unidad",
+              "scheme": "PE-SEACE3-UnidadMedida"
+            }
+          },
+          {
+            "id": "21354783",
+            "position": "2",
+            "description": "TOSTADORA INDUSTRIAL - CAPACIDAD 8 Kg/Batch",
+            "statusDetails": "CONVOCADO",
+            "status": "active",
+            "quantity": 2.0,
+            "totalValue": {
+              "amount": 0.0,
+              "currency": "PEN",
+              "currencyName": "Soles"
+            },
+            "unit": {
+              "id": "40",
+              "name": "Unidad",
+              "scheme": "PE-SEACE3-UnidadMedida"
+            }
+          },
+          {
+            "id": "21354790",
+            "position": "3",
+            "description": "TOSTADORA INDUSTRIAL - CAPACIDAD 10 Kg/Batch",
+            "statusDetails": "CONVOCADO",
+            "status": "active",
+            "quantity": 8.0,
+            "totalValue": {
+              "amount": 0.0,
+              "currency": "PEN",
+              "currencyName": "Soles"
+            },
+            "unit": {
+              "id": "40",
+              "name": "Unidad",
+              "scheme": "PE-SEACE3-UnidadMedida"
+            }
+          },
+          {
+            "id": "21354832",
+            "position": "5",
+            "description": "TOSTADORA INDUSTRIAL ¿ CAPACIDAD 20 Kg/Batch",
+            "statusDetails": "CONVOCADO",
+            "status": "active",
+            "classification": {
+              "id": "4810152500360093",
+              "description": "TOSTADORA INDUSTRIAL DE GRANOS DE CACAO",
+              "scheme": "CUBSO"
+            },
+            "additionalClassifications": [
+              {
+                "id": "48101525",
+                "description": "Tostadores de uso comercial",
+                "scheme": "UNSPSC"
+              }
+            ],
+            "quantity": 1.0,
+            "totalValue": {
+              "amount": 0.0,
+              "currency": "PEN",
+              "currencyName": "Soles"
+            },
+            "unit": {
+              "id": "40",
+              "name": "Unidad",
+              "scheme": "PE-SEACE3-UnidadMedida"
+            }
+          },
+          {
+            "id": "21354833",
+            "position": "6",
+            "description": "TOSTADORA INDUSTRIAL ¿ CAPACIDAD 30 Kg/Batch",
+            "statusDetails": "CONVOCADO",
+            "status": "active",
+            "classification": {
+              "id": "4810152500360093",
+              "description": "TOSTADORA INDUSTRIAL DE GRANOS DE CACAO",
+              "scheme": "CUBSO"
+            },
+            "additionalClassifications": [
+              {
+                "id": "48101525",
+                "description": "Tostadores de uso comercial",
+                "scheme": "UNSPSC"
+              }
+            ],
+            "quantity": 1.0,
+            "totalValue": {
+              "amount": 0.0,
+              "currency": "PEN",
+              "currencyName": "Soles"
+            },
+            "unit": {
+              "id": "40",
+              "name": "Unidad",
+              "scheme": "PE-SEACE3-UnidadMedida"
+            }
+          },
+          {
+            "id": "21354835",
+            "position": "7",
+            "description": "TOSTADORA DE LABORATORIO",
+            "statusDetails": "CONVOCADO",
+            "status": "active",
+            "quantity": 18.0,
+            "totalValue": {
+              "amount": 0.0,
+              "currency": "PEN",
+              "currencyName": "Soles"
+            },
+            "unit": {
+              "id": "40",
+              "name": "Unidad",
+              "scheme": "PE-SEACE3-UnidadMedida"
+            }
+          },
+          {
+            "id": "21354819",
+            "position": "4",
+            "description": "TOSTADORA INDUSTRIAL - CAPACIDAD 15 Kg/Batch",
+            "statusDetails": "CONVOCADO",
+            "status": "active",
+            "quantity": 12.0,
+            "totalValue": {
+              "amount": 0.0,
+              "currency": "PEN",
+              "currencyName": "Soles"
+            },
+            "unit": {
+              "id": "40",
+              "name": "Unidad",
+              "scheme": "PE-SEACE3-UnidadMedida"
+            }
+          }
+        ],
+        "documents": [
+          {
+            "id": "24831474986071046",
+            "url": "https://prod1.seace.gob.pe/SeaceWeb-PRO/SdescargarArchivoAlfresco?fileCode=8205db41-eef8-4787-b390-38d803ff829a",
+            "datePublished": "2026-08-25T16:04:00-05:00",
+            "format": "pdf",
+            "documentType": "biddingDocuments",
+            "title": "Bases Administrativas",
+            "language": "es"
+          }
+        ],
+        "hasTenderInformationProtectedByLaw": true
+      },
+      "parties": [
+        {
+          "id": "PE-CONSUCODE-41",
+          "name": "GOBIERNO REGIONAL DE JUNIN SEDE CENTRAL",
+          "identifier": {
+            "id": "41",
+            "scheme": "PE-CONSUCODE",
+            "legalName": "GOBIERNO REGIONAL DE JUNIN SEDE CENTRAL"
+          },
+          "additionalIdentifiers": [
+            {
+              "id": "20486021692",
+              "scheme": "PE-RUC",
+              "legalName": "GOBIERNO REGIONAL DE JUNIN SEDE CENTRAL"
+            }
+          ],
+          "address": {
+            "streetAddress": "JR.LORETO363-3ER PISO CENTRO CIVICO",
+            "locality": "HUANCAYO",
+            "region": "HUANCAYO",
+            "department": "JUNIN",
+            "countryName": "PERU"
+          },
+          "contactPoint": {
+            "telephone": "064-232230",
+            "url": "https://WWW.REGIONJUNIN.GOB.PE"
+          },
+          "roles": [
+            "buyer",
+            "procuringEntity"
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "id": "seace_v3",
+          "name": "Sistema Electrónico de Contrataciones del Estado - Versión 3",
+          "url": "https://prodapp2.seace.gob.pe/seacebus-uiwd-pub/buscadorPublico/buscadorPublico.xhtml"
+        }
+      ],
+      "dataSegmentation": {
+        "id": "2026-08",
+        "criteria": [
+          "añoInicioConvocatoria",
+          "mesInicioConvocatoria"
+        ]
+      }
+    }
+  ],
+  "uri": "https://contratacionesabiertas.oece.gob.pe/api/v1/release/seace_v3/1233719"
+}
