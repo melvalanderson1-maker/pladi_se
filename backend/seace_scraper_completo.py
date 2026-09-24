@@ -470,6 +470,86 @@ def guardar_bytes_archivo(contenido: bytes, carpeta_destino: Path,
     return str(ruta.resolve()), len(contenido)
 
 
+# ─────────────────────────────────────────────────────────────────────────────
+# LIMPIEZA: solo Vigente conserva archivos. En Evaluación / Culminado se borran.
+# ─────────────────────────────────────────────────────────────────────────────
+
+def eliminar_archivos_contrato(id_contrato):
+    """Borra físicamente la carpeta de archivos de un contrato (dejó de ser
+    Vigente) y limpia ruta_local en BD. Devuelve True si OK, False si falló."""
+    import shutil
+    carpeta = CARPETA_SALIDA / "archivos" / str(id_contrato)
+    try:
+        if carpeta.exists():
+            shutil.rmtree(carpeta)
+            log(f"   🗑️ [{id_contrato}] Carpeta eliminada: {carpeta}", "INFO")
+        else:
+            log(f"   ⚪ [{id_contrato}] No había carpeta que borrar (ya estaba limpio)", "INFO")
+    except Exception as e:
+        log(f"   ❌ [{id_contrato}] ERROR borrando carpeta {carpeta}: {e}", "ERROR")
+        return False
+
+    try:
+        conn = _get_conn()
+        cur  = conn.cursor()
+        cur.execute("UPDATE archivos SET ruta_local = NULL WHERE id_contrato=%s", (id_contrato,))
+        filas = cur.rowcount
+        conn.commit()
+        cur.close()
+        conn.close()
+        log(f"   🧹 [{id_contrato}] ruta_local limpiada en BD ({filas} registros)", "INFO")
+        return True
+    except Exception as e:
+        log(f"   ❌ [{id_contrato}] ERROR limpiando ruta_local en BD: {e}", "ERROR")
+        return False
+
+
+def limpiar_archivos_no_vigentes():
+    """
+    Barre TODOS los contratos que NO están en estado Vigente (id_estado_contrato != 2)
+    y borra su carpeta de archivos si todavía existe en disco.
+    Se ejecuta al arrancar cada corrida del scraper, como red de seguridad,
+    además del borrado en tiempo real que ocurre cuando un contrato cambia de estado.
+    """
+    log("🧹 Iniciando limpieza de archivos de contratos NO vigentes...", "INFO")
+    try:
+        conn = _get_conn()
+        cur = conn.cursor()
+        cur.execute("SELECT id_contrato, nom_estado_contrato FROM contratos WHERE id_estado_contrato != 2")
+        no_vigentes = cur.fetchall()
+        cur.close()
+        conn.close()
+    except Exception as e:
+        log(f"❌ Limpieza abortada: no se pudo consultar BD: {e}", "ERROR")
+        return
+
+    carpeta_base = CARPETA_SALIDA / "archivos"
+    if not carpeta_base.exists():
+        log("🧹 Limpieza: no existe carpeta 'archivos' aún, nada que hacer.", "INFO")
+        return
+
+    encontradas = 0
+    exitosas    = 0
+    fallidas    = 0
+
+    for id_c, nom_estado in no_vigentes:
+        if (carpeta_base / str(id_c)).exists():
+            encontradas += 1
+            ok = eliminar_archivos_contrato(id_c)
+            if ok:
+                exitosas += 1
+            else:
+                fallidas += 1
+
+    log("=" * 60, "INFO")
+    if encontradas == 0:
+        log("✅ LIMPIEZA COMPLETA: no había carpetas huérfanas de no-vigentes. Todo en orden.", "INFO")
+    elif fallidas == 0:
+        log(f"✅ LIMPIEZA COMPLETA: {exitosas}/{encontradas} carpetas de no-vigentes eliminadas correctamente.", "INFO")
+    else:
+        log(f"⚠️ LIMPIEZA CON ERRORES: {exitosas} OK, {fallidas} fallaron de {encontradas} encontradas. Revisa logs arriba.", "WARN")
+    log("=" * 60, "INFO")
+
 
 # ─────────────────────────────────────────────────────────────────────────────
 # BLOQUE 1 — SELENIUM: LOGIN + T&C + CAPTURA DE TOKEN
@@ -1887,6 +1967,7 @@ async def _ejecutar_scraper(solo_vigentes=False):
 
         _init_pool()
         log("🗄️ Pool de base de datos iniciado.")
+        limpiar_archivos_no_vigentes()
 
         token, refresh = await login_playwright(RUC, PASSWORD)
         _token       = token
@@ -1990,6 +2071,11 @@ async def _ejecutar_scraper(solo_vigentes=False):
                             conn2.close()
                             cambios_estado += 1
                             log(f"   🔁 [{id_c}] {des_c[:40]} → {nom_nuevo} (antes: estado {estado_actual})")
+
+                            # Dejó de ser Vigente (pasó a Evaluación o Culminado) → borrar sus archivos
+                            if nuevo_estado != 2:
+                                log(f"   🔻 [{id_c}] Ya no es Vigente → eliminando archivos...", "INFO")
+                                eliminar_archivos_contrato(id_c)
                         except Exception as e:
                             log(f"   ❌ DB sync error {id_c}: {e}", "ERROR")
 
