@@ -281,10 +281,7 @@ async def obtener_adjudicacion(ocid: str, conn=Depends(get_db)):
     )
     fila = cur.fetchone()
     cur.close()
-    if not fila:
-        raise HTTPException(status_code=404, detail="Sin adjudicación registrada")
     return fila
-
 
 import httpx
 
@@ -350,23 +347,70 @@ async def detalle_completo(ocid: str, conn=Depends(get_db)):
 
     cur.close()
 
-    async with httpx.AsyncClient(timeout=20) as client:
-        r = await client.get(f"{BASE_OCDS}/record/{ocid}")
+    # OCDS ya no se consulta (la IP del VPS está bloqueada):
+    # todo el detalle sale de la base de datos.
+    cur2 = conn.cursor(dictionary=True)
 
-        if r.status_code == 404:
-            return {"error": "No encontrado en el portal OCDS"}
+    cur2.execute(
+        "SELECT titulo, descripcion, entidad FROM seace_procesos WHERE ocid = %s",
+        (ocid,),
+    )
+    p = cur2.fetchone()
+    if not p:
+        cur2.close()
+        return {"error": "Proceso no encontrado"}
 
-        r.raise_for_status()
-        data = r.json()
+    cur2.execute(
+        """SELECT descripcion, cantidad, unidad FROM seace_items
+           WHERE ocid = %s AND origen_item = 'tender'""",
+        (ocid,),
+    )
+    items = cur2.fetchall()
 
-    records = data.get("records", [])
+    cur2.execute(
+        """
+        SELECT tipo_compra_seleccion, normativa_aplicable, entidad_convocante,
+               direccion_legal, pagina_web, telefono_entidad,
+               monto_derecho_participacion, fecha_hora_publicacion_detalle,
+               descripcion_objeto_completa
+        FROM seace_detalle_ficha
+        WHERE ocid = %s
+        """,
+        (ocid,),
+    )
+    ficha = cur2.fetchone()
 
-    if not records:
-        return {"error": "Sin datos"}
+    cur2.execute(
+        """
+        SELECT nro, etapa, documento, archivo, fecha_publicacion, ruta_local
+        FROM seace_documentos
+        WHERE ocid = %s
+        ORDER BY nro
+        """,
+        (ocid,),
+    )
+    documentos = cur2.fetchall()
+    cur2.close()
 
-    compiled = records[0].get("compiledRelease", {})
-
-    return compiled
+    return {
+        "tender": {
+            "title": p["titulo"],
+            "description": (ficha["descripcion_objeto_completa"] if ficha else None) or p["descripcion"] or p["titulo"],
+            "items": [
+                {
+                    "id": str(i),
+                    "description": it["descripcion"],
+                    "quantity": it["cantidad"],
+                    "unit": {"name": it["unidad"]} if it["unidad"] else None,
+                }
+                for i, it in enumerate(items)
+            ],
+        },
+        "buyer": {"name": (ficha["entidad_convocante"] if ficha else None) or p["entidad"]},
+        "parties": [],
+        "detalle_ficha": ficha,
+        "documentos_scraper": documentos,
+    }
 
 
 
