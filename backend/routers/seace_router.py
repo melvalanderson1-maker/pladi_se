@@ -114,10 +114,23 @@ async def listar_vigentes(
 
     cur = conn.cursor(dictionary=True)
 
+    # Conteo aparte: sin filtros es carísimo contar 562k filas exactas
+    # en cada carga. Solo cuando NO hay filtros usamos un valor aproximado
+    # instantáneo (TABLE_ROWS de information_schema); con filtros sí
+    # contamos exacto, porque ahí el WHERE reduce mucho el universo.
+    if not where_sql:
+        cur.execute(
+            "SELECT TABLE_ROWS AS total FROM information_schema.TABLES "
+            "WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'seace_procesos'"
+        )
+        total = cur.fetchone()["total"]
+    else:
+        cur.execute(f"SELECT COUNT(*) AS total FROM seace_procesos {where_sql}", params)
+        total = cur.fetchone()["total"]
+
     cur.execute(
         f"""
         SELECT
-            SQL_CALC_FOUND_ROWS
             ocid,
             tender_id,
             nomenclatura,
@@ -145,11 +158,7 @@ async def listar_vigentes(
     )
     rows = cur.fetchall()
 
-    cur.execute("SELECT FOUND_ROWS() AS total")
-    total = cur.fetchone()["total"]
-
     cur.close()
-
     return {"total": total, "items": rows}
 
 
