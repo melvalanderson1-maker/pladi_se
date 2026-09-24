@@ -2187,7 +2187,7 @@ def get_onlyoffice_config(id_contrato: int, id_archivo: int, request: Request, i
                 "customization": {
                     "autosave": False, "forcesave": False,
                     "logo": {"visible": False},
-                    "compactHeader": True, "toolbarNoTabs": True,
+                    "toolbarNoTabs": True,
                 }
             }
         }
@@ -2230,7 +2230,7 @@ def get_onlyoffice_config(id_contrato: int, id_archivo: int, request: Request, i
             "customization": {
                 "autosave": True, "forcesave": True,
                 "logo": {"visible": False},
-                "compactHeader": True, "toolbarNoTabs": True,
+                "toolbarNoTabs": True,
             }
         }
     }
