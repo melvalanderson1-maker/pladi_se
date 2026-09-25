@@ -8,9 +8,21 @@ dbconfig = {
     "database": os.getenv("MYSQL_DATABASE"),
 }
 
-pool = pooling.MySQLConnectionPool(pool_name="pladibot_pool", pool_size=5, **dbconfig)
+from contextlib import contextmanager
+
+pool = pooling.MySQLConnectionPool(pool_name="pladibot_pool", pool_size=10, **dbconfig)
 
 def get_db():
+    """Para usar con Depends() de FastAPI — NO tocar, sigue igual."""
+    conn = pool.get_connection()
+    try:
+        yield conn
+    finally:
+        conn.close()
+
+@contextmanager
+def get_db_conn():
+    """Para usar en scripts fuera de FastAPI (scrapers, jobs), con 'with'."""
     conn = pool.get_connection()
     try:
         yield conn

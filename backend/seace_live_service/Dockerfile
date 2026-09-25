@@ -8,9 +8,6 @@ WORKDIR /app
 RUN apt-get update && apt-get install -y \
     build-essential \
     curl \
-    tesseract-ocr \
-    tesseract-ocr-spa \
-    poppler-utils \
     libgl1 \
     libglib2.0-0 \
     && rm -rf /var/lib/apt/lists/*
@@ -24,9 +21,9 @@ RUN playwright install --with-deps chromium
 
 COPY . .
 
-EXPOSE 4000
+EXPOSE 4100
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=5 \
-    CMD curl --fail http://127.0.0.1:4000/health || exit 1
+    CMD curl --fail http://127.0.0.1:4100/health || exit 1
 
-CMD ["python", "seace_scraper_completo.py"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "4100"]

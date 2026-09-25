@@ -2205,6 +2205,11 @@ def estado():
         "modo"   : _tarea_activa["modo"],
     }
 
+
+@app.get("/health", summary="Healthcheck")
+def health():
+    return {"status": "ok"}
+
 @app.post("/extraer/todo", summary="Extrae TODOS los contratos del año")
 async def extraer_todo(background_tasks: BackgroundTasks, usuario: dict = Depends(requiere_modulo("extraer_todo"))):
     if _tarea_activa["corriendo"]:
