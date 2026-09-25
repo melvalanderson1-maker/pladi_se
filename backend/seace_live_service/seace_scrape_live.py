@@ -87,6 +87,16 @@ MODALIDADES_MAYORES = [
 PAUSA_ENTRE_ACCIONES = 0.8
 TIMEOUT_MS = 20_000
 
+PROXY_SERVER = os.getenv("SEACE_PROXY_SERVER")
+PROXY_USER = os.getenv("SEACE_PROXY_USER")
+PROXY_PASS = os.getenv("SEACE_PROXY_PASS")
+
+
+def config_proxy():
+    if not PROXY_SERVER:
+        return None
+    return {"server": PROXY_SERVER, "username": PROXY_USER, "password": PROXY_PASS}
+
 # ---- descarga de documentos de la Ficha ----
 DESCARGAR_DOCUMENTOS = True     # False = no baja archivos (scraping más rápido)
 SOLO_BASES = True               # True = solo baja los documentos cuyo nombre contenga "bases"
@@ -1135,7 +1145,7 @@ def _worker_modalidad(anio, modalidad, indice, total_modalidades, job_id, headle
         try:
             con = obtener_conexion()
             with sync_playwright() as p:
-                browser = p.chromium.launch(headless=headless)
+                browser = p.chromium.launch(headless=headless, proxy=config_proxy())
                 try:
                     page = browser.new_page()
                     page.goto(URL_BUSCADOR, timeout=TIMEOUT_MS)
