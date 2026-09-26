@@ -53,6 +53,7 @@ Instalación:
 
 import argparse
 import glob
+import random
 import logging
 import os
 import re
@@ -89,13 +90,18 @@ TIMEOUT_MS = 20_000
 
 PROXY_SERVER = os.getenv("SEACE_PROXY_SERVER")
 PROXY_USER = os.getenv("SEACE_PROXY_USER")
-PROXY_PASS = os.getenv("SEACE_PROXY_PASS")
+PROXY_PASS_TEMPLATE = os.getenv("SEACE_PROXY_PASS_TEMPLATE")  # ej: dcPCczaZYNlOpAF_country-PE_session-{session}_ttl-10
 
 
 def config_proxy():
     if not PROXY_SERVER:
         return None
-    return {"server": PROXY_SERVER, "username": PROXY_USER, "password": PROXY_PASS}
+    if PROXY_PASS_TEMPLATE and "{session}" in PROXY_PASS_TEMPLATE:
+        session_id = random.randint(10_000_000, 99_999_999)
+        password = PROXY_PASS_TEMPLATE.format(session=session_id)
+    else:
+        password = PROXY_PASS_TEMPLATE
+    return {"server": PROXY_SERVER, "username": PROXY_USER, "password": password}
 
 # ---- descarga de documentos de la Ficha ----
 DESCARGAR_DOCUMENTOS = True     # False = no baja archivos (scraping más rápido)
@@ -413,7 +419,7 @@ def guardar_fila_con_reintento(con, fila: dict, intentos: int = 4):
     resuelve reintentando la transacción completa desde cero, con una
     pequeña espera aleatoria para que los procesos no choquen otra vez
     en el mismo instante."""
-    import random
+    
     for intento in range(1, intentos + 1):
         try:
             guardar_fila(con, dict(fila))

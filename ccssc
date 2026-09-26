@@ -1,0 +1,36 @@
+[33mcommit 27267e1c96e599eeeb2b02ddb437b5408a23416d[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: melvalanderson1-maker <melvalanderson1@gmail.com>
+Date:   Fri Sep 25 16:34:10 2026 -0500
+
+    Solucionado seace live con proxy
+
+[1mdiff --git a/backend/seace_live_service/seace_scrape_live.py b/backend/seace_live_service/seace_scrape_live.py[m
+[1mindex 5b39414..1d22a3f 100644[m
+[1m--- a/backend/seace_live_service/seace_scrape_live.py[m
+[1m+++ b/backend/seace_live_service/seace_scrape_live.py[m
+[36m@@ -87,6 +87,16 @@[m [mMODALIDADES_MAYORES = [[m
+ PAUSA_ENTRE_ACCIONES = 0.8[m
+ TIMEOUT_MS = 20_000[m
+ [m
+[32m+[m[32mPROXY_SERVER = os.getenv("SEACE_PROXY_SERVER")[m
+[32m+[m[32mPROXY_USER = os.getenv("SEACE_PROXY_USER")[m
+[32m+[m[32mPROXY_PASS = os.getenv("SEACE_PROXY_PASS")[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef config_proxy():[m
+[32m+[m[32m    if not PROXY_SERVER:[m
+[32m+[m[32m        return None[m
+[32m+[m[32m    return {"server": PROXY_SERVER, "username": PROXY_USER, "password": PROXY_PASS}[m
+[32m+[m
+ # ---- descarga de documentos de la Ficha ----[m
+ DESCARGAR_DOCUMENTOS = True     # False = no baja archivos (scraping más rápido)[m
+ SOLO_BASES = True               # True = solo baja los documentos cuyo nombre contenga "bases"[m
+[36m@@ -1135,7 +1145,7 @@[m [mdef _worker_modalidad(anio, modalidad, indice, total_modalidades, job_id, headle[m
+         try:[m
+             con = obtener_conexion()[m
+             with sync_playwright() as p:[m
+[31m-                browser = p.chromium.launch(headless=headless)[m
+[32m+[m[32m                browser = p.chromium.launch(headless=headless, proxy=config_proxy())[m
+                 try:[m
+                     page = browser.new_page()[m
+                     page.goto(URL_BUSCADOR, timeout=TIMEOUT_MS)[m
