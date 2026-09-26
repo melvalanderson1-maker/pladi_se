@@ -1111,9 +1111,42 @@ def buscar_modalidad(con, page, anio: str, modalidad: str, con_detalle: bool,
             logger.info("  [fin] última página (total: %s)", total_filas)
             break
 
-        boton_next.first.click()
-        page.wait_for_timeout(int(PAUSA_ENTRE_ACCIONES * 1000))
-        page.wait_for_load_state("networkidle", timeout=TIMEOUT_MS)
+        pagina_actual_antes, _, _ = parsear_resumen_paginador(resumen)
+
+        avanzo = False
+        for intento_clic in range(1, 8):  # hasta 7 reintentos de clic antes de rendirse
+            try:
+                boton_next.first.click()
+                page.wait_for_timeout(int(PAUSA_ENTRE_ACCIONES * 1000))
+                page.wait_for_load_state("networkidle", timeout=TIMEOUT_MS)
+            except Exception:
+                pass
+
+            contenedor = obtener_contenedor_tabla(page)
+            try:
+                resumen_nuevo = contenedor.locator("span.ui-paginator-current").first.inner_text(timeout=2000).strip()
+            except Exception:
+                resumen_nuevo = ""
+            pagina_nueva, _, _ = parsear_resumen_paginador(resumen_nuevo)
+
+            if pagina_nueva is not None and pagina_nueva != pagina_actual_antes:
+                avanzo = True
+                break
+
+            logger.warning("    paginación no avanzó (sigue en %s), reintentando clic %s/7...",
+                           pagina_actual_antes, intento_clic)
+            page.wait_for_timeout(1500 * intento_clic)  # espera creciente entre reintentos
+            boton_next = contenedor.locator("span.ui-paginator-next, a.ui-paginator-next")
+
+        if not avanzo:
+            # la sesión de proxy quedó degradada a mitad de camino: se
+            # relanza la modalidad entera con navegador y proxy nuevos
+            # (esto lo maneja _worker_modalidad automáticamente vía REINTENTOS)
+            raise RuntimeError(
+                f"la paginación se quedó pegada en la página {pagina_actual_antes} "
+                f"tras 7 reintentos de clic — se relanza con sesión de proxy nueva"
+            )
+
         pagina += 1
 
     return total_filas
