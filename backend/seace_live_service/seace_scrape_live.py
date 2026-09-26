@@ -69,6 +69,7 @@ import hashlib
 from dotenv import load_dotenv
 from mysql.connector import pooling, Error as MySQLError
 from playwright.sync_api import sync_playwright, TimeoutError as PWTimeout
+import requests as req_lib
 
 load_dotenv()
 
@@ -102,6 +103,30 @@ def config_proxy():
     else:
         password = PROXY_PASS_TEMPLATE
     return {"server": PROXY_SERVER, "username": PROXY_USER, "password": password}
+
+
+def obtener_proxy_verificado(max_intentos=15):
+    """Prueba sesiones aleatorias del proxy con una petición liviana
+    (requests, no navegador) hasta encontrar una que conecte a SEACE.
+    Mucho más rápido que descubrirlo abriendo Chromium cada vez."""
+    if not PROXY_SERVER:
+        return None
+    for intento in range(1, max_intentos + 1):
+        proxy_cfg = config_proxy()
+        proxies = {
+            "http": f"http://{proxy_cfg['username']}:{proxy_cfg['password']}@{proxy_cfg['server'].replace('http://', '')}",
+            "https": f"http://{proxy_cfg['username']}:{proxy_cfg['password']}@{proxy_cfg['server'].replace('http://', '')}",
+        }
+        try:
+            r = req_lib.get(URL_BUSCADOR, proxies=proxies, timeout=8)
+            if r.status_code == 200:
+                logger.info("    proxy verificado OK en intento %s/%s", intento, max_intentos)
+                return proxy_cfg
+        except Exception:
+            pass
+        logger.info("    proxy intento %s/%s no sirvió, probando otra sesión...", intento, max_intentos)
+    logger.warning("    no se encontró sesión de proxy funcional tras %s intentos", max_intentos)
+    return None
 
 # ---- descarga de documentos de la Ficha ----
 DESCARGAR_DOCUMENTOS = True     # False = no baja archivos (scraping más rápido)
@@ -1097,7 +1122,7 @@ def buscar_modalidad(con, page, anio: str, modalidad: str, con_detalle: bool,
 # ---------- ejecución en paralelo (una modalidad por navegador) ----------
 
 MAX_PARALELO = 5              # navegadores simultáneos (máx. útil = nº de modalidades)
-REINTENTOS = 2                # reintentos por modalidad si falla
+REINTENTOS = 4                # reintentos por modalidad si falla
 PAUSA_ENTRE_ARRANQUES = 4     # segundos entre el arranque de cada navegador (evita ráfaga contra el SEACE)
 
 _LOCAL = threading.local()    # flag por hilo: True mientras está en un reintento
@@ -1151,7 +1176,10 @@ def _worker_modalidad(anio, modalidad, indice, total_modalidades, job_id, headle
         try:
             con = obtener_conexion()
             with sync_playwright() as p:
-                browser = p.chromium.launch(headless=headless, proxy=config_proxy())
+                proxy_ok = obtener_proxy_verificado()
+                if proxy_ok is None:
+                    raise RuntimeError("no se pudo obtener una sesión de proxy funcional")
+                browser = p.chromium.launch(headless=headless, proxy=proxy_ok)
                 try:
                     page = browser.new_page()
                     page.goto(URL_BUSCADOR, timeout=TIMEOUT_MS)
