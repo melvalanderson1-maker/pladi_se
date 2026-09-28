@@ -30,6 +30,8 @@ from pathlib import Path
 import requests
 import mysql.connector
 from mysql.connector import pooling
+from mysql.connector.errors import PoolError
+from contextlib import contextmanager
 import openpyxl
 from openpyxl.utils import get_column_letter
 import aiohttp
@@ -174,17 +176,40 @@ DB_CONFIG = {
     "charset" : "utf8mb4",
 }
 _db_pool = None
+_db_pool_lock = threading.Lock()
 
 def _init_pool():
     global _db_pool
-    if _db_pool is not None:
-        return
-    _db_pool = pooling.MySQLConnectionPool(
-        pool_name="seace", pool_size=10, **DB_CONFIG
-    )
+    with _db_pool_lock:
+        if _db_pool is not None:
+            return
+        _db_pool = pooling.MySQLConnectionPool(
+            pool_name="seace", pool_size=20, **DB_CONFIG
+        )
 
-def _get_conn():
-    return _db_pool.get_connection()
+def _get_conn(reintentos=20, espera=0.5):
+    """Pide una conexión; si el pool está lleno espera un poco en vez de fallar."""
+    if _db_pool is None:
+        _init_pool()
+    for i in range(reintentos):
+        try:
+            return _db_pool.get_connection()
+        except PoolError:
+            if i == reintentos - 1:
+                raise
+            time.sleep(espera)
+
+@contextmanager
+def _db():
+    """Uso:  with _db() as conn:  ...   Siempre devuelve la conexión al pool."""
+    conn = _get_conn()
+    try:
+        yield conn
+    finally:
+        try:
+            conn.close()
+        except Exception:
+            pass
 
 # ─── ESTADO GLOBAL DE SESIÓN (thread-safe) ───────────────────────────────────
 _lock_token  = threading.Lock()
@@ -490,13 +515,12 @@ def eliminar_archivos_contrato(id_contrato):
         return False
 
     try:
-        conn = _get_conn()
-        cur  = conn.cursor()
-        cur.execute("UPDATE archivos SET ruta_local = NULL WHERE id_contrato=%s", (id_contrato,))
-        filas = cur.rowcount
-        conn.commit()
-        cur.close()
-        conn.close()
+        with _db() as conn:
+            cur = conn.cursor()
+            cur.execute("UPDATE archivos SET ruta_local = NULL WHERE id_contrato=%s", (id_contrato,))
+            filas = cur.rowcount
+            conn.commit()
+            cur.close()
         log(f"   🧹 [{id_contrato}] ruta_local limpiada en BD ({filas} registros)", "INFO")
         return True
     except Exception as e:
@@ -1529,6 +1553,7 @@ def procesar_contrato(item_lista):
 _save_lock = threading.Lock()
 
 def cargar_json_existente():
+    conn = None
     try:
         conn = _get_conn()
         cur  = conn.cursor()
@@ -1570,6 +1595,9 @@ def cargar_json_existente():
             ) oq ON oq.id_contrato = c.id_contrato
         """)
         rows = cur.fetchall()
+        cur.close()
+        conn.close()
+        conn = None
         resultado = {
             str(row[0]): {
                 "idContrato"              : row[0],
@@ -1587,13 +1615,32 @@ def cargar_json_existente():
         return resultado
     except Exception as e:
         log(f"⚠️ No se pudo leer BD: {e}", "WARN")
+        if conn is not None:
+            try:
+                conn.close()
+            except Exception:
+                pass
         return {}
-
+    
 def guardar_json(procesados_dict):
-    """Guarda en BD todos los contratos del dict."""
-    for item in procesados_dict.values():
-        if isinstance(item, dict) and item.get("detalle_contrato") is not None:
-            guardar_contrato_db(item)
+    """Guarda en BD solo los contratos que aún no se guardaron."""
+    guardados = 0
+    fallidos = 0
+    for item in list(procesados_dict.values()):
+        if not isinstance(item, dict):
+            continue
+        if item.get("detalle_contrato") is None:
+            continue
+        if item.get("_guardado"):
+            continue
+        if guardar_contrato_db(item):
+            item["_guardado"] = True
+            guardados += 1
+        else:
+            fallidos += 1
+    if guardados or fallidos:
+        log(f"   💾 BD: {guardados} guardados, {fallidos} con error")
+    return guardados, fallidos
 
 def guardar_excel(procesados_dict):
     """No-op: ya no usamos Excel."""
@@ -1620,6 +1667,8 @@ def guardar_contrato_db(item):
 
     mapa_rutas = {str(a["idArchivo"]): a for a in descargados}
 
+    conn = None
+    cur = None
     try:
         conn = _get_conn()
         cur  = conn.cursor()
@@ -1857,16 +1906,27 @@ def guardar_contrato_db(item):
             """, (id_contrato, str(error)[:65000]))
 
         conn.commit()
-        cur.close()
-        conn.close()
+        return True
 
     except Exception as e:
         log(f"   ❌ DB error contrato {id_contrato}: {e}", "ERROR")
         try:
-            conn.rollback()
-            cur.close()
-            conn.close()
-        except:
+            if conn is not None:
+                conn.rollback()
+        except Exception:
+            pass
+        return False
+
+    finally:
+        try:
+            if cur is not None:
+                cur.close()
+        except Exception:
+            pass
+        try:
+            if conn is not None:
+                conn.close()
+        except Exception:
             pass
 
 
@@ -2056,19 +2116,18 @@ async def _ejecutar_scraper(solo_vigentes=False):
 
                     if nuevo_estado != estado_actual:
                         try:
-                            conn2 = _get_conn()
-                            cur2  = conn2.cursor()
-                            cur2.execute("""
-                                UPDATE contratos
-                                SET id_estado_contrato  = %s,
-                                    nom_estado_contrato = %s,
-                                    cotizar             = %s,
-                                    updated_at          = CURRENT_TIMESTAMP
-                                WHERE id_contrato = %s
-                            """, (nuevo_estado, nom_nuevo, cotizar_nuevo, id_c))
-                            conn2.commit()
-                            cur2.close()
-                            conn2.close()
+                            with _db() as conn2:
+                                cur2 = conn2.cursor()
+                                cur2.execute("""
+                                    UPDATE contratos
+                                    SET id_estado_contrato  = %s,
+                                        nom_estado_contrato = %s,
+                                        cotizar             = %s,
+                                        updated_at          = CURRENT_TIMESTAMP
+                                    WHERE id_contrato = %s
+                                """, (nuevo_estado, nom_nuevo, cotizar_nuevo, id_c))
+                                conn2.commit()
+                                cur2.close()
                             cambios_estado += 1
                             log(f"   🔁 [{id_c}] {des_c[:40]} → {nom_nuevo} (antes: estado {estado_actual})")
 
