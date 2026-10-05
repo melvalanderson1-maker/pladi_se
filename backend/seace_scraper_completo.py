@@ -422,8 +422,10 @@ async def _vincular_empresa_async(ruc):
             _sesiones[ruc]["error"] = str(e)
         log(f"❌ Error vinculando empresa {ruc}: {e}", "ERROR")
 
+_stop_refresh_empresas = threading.Event()   # nunca se activa: las sesiones por empresa no dependen del scraper masivo
+
 def _auto_refresh_loop_empresa(ruc, intervalo_seg=180):
-    while not _stop_refresh.wait(timeout=intervalo_seg):
+    while not _stop_refresh_empresas.wait(timeout=intervalo_seg):
         with _lock_sesiones:
             activa = _sesiones.get(ruc, {}).get("activa")
         if not activa:
@@ -1016,10 +1018,14 @@ def _get_bytes(url, reintentos=3):
 async def _async_get_bytes(session, url):
     headers = _headers_base()
     for intento in range(3):
+        if _sesion_abortada:
+            return None, None
         try:
+            tok_usado = headers.get("authorization", "").replace("Bearer ", "")
             async with session.get(url, headers=headers, timeout=aiohttp.ClientTimeout(total=300)) as r:
                 if r.status == 401:
-                    refresh_token()
+                    if not await _recuperar_sesion(tok_usado):
+                        return None, None
                     headers = _headers_base()
                     continue
 
@@ -1053,35 +1059,91 @@ async def descargar_archivo_async(session, id_archivo, nombre_archivo, carpeta_d
 
 _semaforo_descargas = None  # se inicializa dentro del event loop
 
+# ─── RECUPERACIÓN DE SESIÓN (anti-bucle) ─────────────────────────────────────
+_relogin_lock    = None    # asyncio.Lock, se crea al iniciar cada corrida
+_sesion_abortada = False   # True = no se pudo recuperar la sesión → cortar corrida
+
+async def _recuperar_sesion(token_usado):
+    """
+    Un solo coroutine renueva la sesión; los demás esperan el lock.
+    Devuelve True si hay sesión válida, False si hay que abortar la corrida.
+    """
+    global _token, _refresh_tok, _relogin_lock, _sesion_abortada
+    if _relogin_lock is None:
+        _relogin_lock = asyncio.Lock()
+
+    async with _relogin_lock:
+        if _sesion_abortada:
+            return False
+
+        # Si mientras esperaba el lock otro ya renovó el token, no repetir
+        if _token and _token != token_usado:
+            return True
+
+        # 1) Intentar refresh (en hilo aparte para no congelar el event loop)
+        ok = await asyncio.to_thread(refresh_token)
+        if ok:
+            return True
+
+        # 2) Refresh muerto → re-login completo con Playwright
+        log("🔄 Refresh falló (sesión terminada). Haciendo re-login completo...", "WARN")
+        for intento in range(3):
+            try:
+                tok, ref = await login_playwright(RUC, PASSWORD)
+                if tok:
+                    with _lock_token:
+                        _token       = tok
+                        _refresh_tok = ref
+                    _guardar_token_disco()
+                    _session_estado["activa"] = True
+                    _session_estado["conectado_en"] = datetime.now().isoformat()
+                    _session_estado["error"] = None
+                    log("✅ Re-login exitoso, la corrida continúa.", "INFO")
+                    return True
+            except Exception as e:
+                log(f"❌ Re-login intento {intento+1}/3 falló: {e}", "ERROR")
+            await asyncio.sleep(5)
+
+        # 3) No se pudo → abortar corrida para no quedar en bucle
+        _sesion_abortada = True
+        _session_estado["activa"] = False
+        _session_estado["error"] = "Sesión SEACE perdida; corrida abortada"
+        log("🛑 No se pudo recuperar la sesión. Abortando corrida.", "ERROR")
+        return False
+
 async def _async_get_json(session, url, params=None, referer=None, ruc=None):
     """
     Si `ruc` viene dado, usa la sesión de ESA empresa (multiempresa).
-    Si `ruc` es None, usa la sesión de la cuenta principal (comportamiento
-    original, usado por el scraper masivo).
+    Si `ruc` es None, usa la cuenta principal (scraper masivo) con
+    recuperación de sesión centralizada (sin avalancha de refresh).
     """
     headers = _headers_base_empresa(ruc) if ruc else _headers_base()
     if referer:
         headers["referer"] = referer
     for intento in range(5):
+        if _sesion_abortada and not ruc:
+            return None
         try:
+            tok_usado = headers.get("authorization", "").replace("Bearer ", "")
             async with session.get(url, params=params, headers=headers,
                                    timeout=aiohttp.ClientTimeout(total=120)) as r:
                 if r.status == 401:
-                    log(f"   401 en {url[:60]} → refreshing token (ruc={ruc or RUC})...", "WARN")
+                    log(f"   401 en {url[:60]} → recuperando sesión (ruc={ruc or RUC})...", "WARN")
                     if ruc:
-                        refresh_token_empresa(ruc)
+                        await asyncio.to_thread(refresh_token_empresa, ruc)
                         headers = _headers_base_empresa(ruc)
                     else:
-                        refresh_token()
+                        if not await _recuperar_sesion(tok_usado):
+                            return None
                         headers = _headers_base()
                     if referer:
                         headers["referer"] = referer
-                    await asyncio.sleep(2)
+                    await asyncio.sleep(1)
                     continue
                 if r.status == 403:
                     log(f"🚫 403 detectado - esperando 10 segundos", "WARN")
                     await asyncio.sleep(10)
-                    continue              
+                    continue
 
                 if r.status == 200:
                     return await r.json(content_type=None)
@@ -2016,7 +2078,10 @@ def obtener_total_paginas(anio, page_size, solo_vigentes=False):
     return total, paginas
 
 async def _ejecutar_scraper(solo_vigentes=False):
-    global _token, _refresh_tok
+    global _token, _refresh_tok, _sesion_abortada, _relogin_lock
+    _sesion_abortada = False
+    _relogin_lock    = asyncio.Lock()
+    _stop_refresh.clear()   # ← arregla que el auto-refresh muera en la 2.ª corrida
     _tarea_activa["corriendo"] = True
     _tarea_activa["modo"]      = "vigentes" if solo_vigentes else "todo"
     try:
@@ -2142,7 +2207,8 @@ async def _ejecutar_scraper(solo_vigentes=False):
                         if nuevo_estado == 4:
                             log(f"   🏁 [{id_c}] Culminado → extrayendo resultados...")
                             try:
-                                detalle_nuevo = _get_json(
+                                detalle_nuevo = await asyncio.to_thread(
+                                    _get_json,
                                     URL_DETALLE,
                                     params={"id_contrato": id_c},
                                     referer=f"{BASE_URL}/cotizacion/contrataciones/contratacion-detalle/{id_c}"
@@ -2199,8 +2265,10 @@ async def _ejecutar_scraper(solo_vigentes=False):
             return
 
         for pg in range(1, total_pags + 1):
+            if _sesion_abortada:
+                break
             t0    = time.time()
-            items = obtener_pagina(ANIO, pg, PAGE_SIZE, solo_vigentes)
+            items = await asyncio.to_thread(obtener_pagina, ANIO, pg, PAGE_SIZE, solo_vigentes)
             dt    = time.time() - t0
             log(f"📄 Página {pg}/{total_pags} — {len(items)} items — {dt:.1f}s")
 
@@ -2211,6 +2279,12 @@ async def _ejecutar_scraper(solo_vigentes=False):
             guardar_json(procesados)
             log(f"   💾 Página {pg} completa — ✅ {comp} | ❌ {err} | Total: {len(procesados)}")
             await asyncio.sleep(0.1)
+
+        if _sesion_abortada:
+            guardar_json(procesados)
+            log("🛑 Corrida abortada por pérdida de sesión. Lo ya procesado quedó guardado; "
+                "vuelve a lanzar la extracción.", "ERROR")
+            return
 
         guardar_json(procesados)
         log("=" * 60)
@@ -2228,8 +2302,10 @@ async def _ejecutar_scraper(solo_vigentes=False):
 
 
 async def _vincular_sesion_async():
-    global _token, _refresh_tok
+    global _token, _refresh_tok, _sesion_abortada
     _session_estado["error"] = None
+    _sesion_abortada = False
+    _stop_refresh.clear()   # si no, el auto-refresh creado aquí muere al instante
     try:
         _init_pool()
         token, refresh = await login_playwright(RUC, PASSWORD)
@@ -2399,33 +2475,52 @@ async def _actualizar_estados_async():
     Solo consulta el buscador (sin detalle ni archivos) y actualiza
     nom_estado_contrato + cotizar en BD. Velocidad: ~500 contratos/segundo.
     """
-    global _token, _refresh_tok
+    global _token, _refresh_tok, _sesion_abortada, _relogin_lock
     _tarea_activa["corriendo"] = True
     _tarea_activa["modo"] = "estados"
+    _sesion_abortada = False
+    _relogin_lock    = asyncio.Lock()
+    _stop_refresh.clear()   # el auto-refresh no muere en corridas posteriores
     try:
         _init_pool()
         token, refresh = await login_playwright(RUC, PASSWORD)
         _token = token
         _refresh_tok = refresh
         if token:
+            _guardar_token_disco()
             _session_estado["activa"] = True
             _session_estado["conectado_en"] = datetime.now().isoformat()
             _session_estado["error"] = None
 
-        hilo_refresh = threading.Thread(target=_auto_refresh_loop, args=(180,), daemon=True)
-        hilo_refresh.start()
+        ya_corriendo = any(t.name == "auto_refresh_seace" for t in threading.enumerate())
+        if not ya_corriendo:
+            hilo_refresh = threading.Thread(
+                target=_auto_refresh_loop, args=(180,), daemon=True, name="auto_refresh_seace"
+            )
+            hilo_refresh.start()
 
         # Traer TODOS los contratos del buscador (solo metadata, sin detalle)
-        total_elem, total_pags = obtener_total_paginas(ANIO, 500, solo_vigentes=False)
+        total_elem, total_pags = await asyncio.to_thread(obtener_total_paginas, ANIO, 500, False)
+        if total_elem == 0:
+            log("❌ No se pudieron obtener datos (¿sesión caída?).", "ERROR")
+            return
         log(f"🔄 Actualizando estados de {total_elem} contratos...")
 
         actualizados = 0
         cambios = 0
 
         for pg in range(1, total_pags + 1):
-            items = obtener_pagina(ANIO, pg, 500, solo_vigentes=False)
+            if _sesion_abortada:
+                break
+
+            items = await asyncio.to_thread(obtener_pagina, ANIO, pg, 500, False)
             if not items:
-                continue
+                # Posible sesión caída: intentar recuperarla y reintentar la página una vez
+                if not await _recuperar_sesion(_token):
+                    break
+                items = await asyncio.to_thread(obtener_pagina, ANIO, pg, 500, False)
+                if not items:
+                    continue
 
             try:
                 conn = _get_conn()
@@ -2458,6 +2553,11 @@ async def _actualizar_estados_async():
                 log(f"❌ DB error página {pg}: {e}", "ERROR")
 
             log(f"   ✅ Página {pg}/{total_pags} — {actualizados} revisados, {cambios} cambios")
+
+        if _sesion_abortada:
+            log("🛑 Actualización de estados abortada por pérdida de sesión. "
+                "Lo ya actualizado quedó guardado; vuelve a lanzarla.", "ERROR")
+            return
 
         log(f"🏁 Estados actualizados: {actualizados} revisados, {cambios} con cambio real")
         enviar_email(actualizados, cambios, 0, "actualizar_estados")
