@@ -1,10 +1,12 @@
 'use client'
 
-import { useEffect, useState, useCallback, useMemo } from 'react'
+import { useEffect, useState, useCallback, useMemo, useRef, type ReactNode } from 'react'
+import { Bricolage_Grotesque } from 'next/font/google'
 import {
   Search, X, RotateCcw, ChevronLeft, ChevronRight as ChevronRightIcon, ChevronDown,
   Table2, LayoutGrid, Building2, Eye, Download, Star, History, RadioTower,
-  Package, Briefcase, HardHat, ClipboardCheck,
+  Package, Briefcase, HardHat, ClipboardCheck, SlidersHorizontal, SearchX, MapPin, Clock,
+  type LucideIcon,
 } from 'lucide-react'
 import { SidebarTrigger } from '@/components/Sidebar'
 import { getProcesosVigentes, getUbicaciones, type ProcesoSeace, type UbicacionesSeace } from '@/lib/seace-api'
@@ -14,6 +16,16 @@ import DetalleProcesoDrawer from '@/components/DetalleProcesoDrawer'
 import VincularSeace from '@/components/VincularSeace'
 import ScraperLiveLoader from '@/components/ScraperLiveLoader'
 
+/* ------------------------------------------------------------------ */
+/*  Tipografía de títulos y cifras (si tu versión de Next no trae      */
+/*  Bricolage_Grotesque, borra estas 2 líneas y cambia fontDisplay     */
+/*  por { className: '' }).                                            */
+/* ------------------------------------------------------------------ */
+const fontDisplay = Bricolage_Grotesque({ subsets: ['latin'], display: 'swap' })
+
+/* ------------------------------------------------------------------ */
+/*  Constantes                                                         */
+/* ------------------------------------------------------------------ */
 const MODALIDADES = [
   'Licitación Pública',
   'Licitación Pública Abreviada',
@@ -29,83 +41,114 @@ const MODALIDADES = [
   'Convenio',
 ]
 
+type IconType = LucideIcon
+
 // Verifica los valores reales guardados en `categoria` en tu BD y ajusta si difiere.
-const CATEGORIAS = [
+const CATEGORIAS: { value: string; label: string; icon: IconType }[] = [
   { value: 'goods', label: 'Bien', icon: Package },
   { value: 'services', label: 'Servicio', icon: Briefcase },
   { value: 'works', label: 'Obra', icon: HardHat },
   { value: 'consultoriadeobra', label: 'Consultoría de obra', icon: ClipboardCheck },
 ]
 
-const ESTADOS = [
-  { value: '', label: 'Todos' },
-  { value: 'vigente', label: 'Vigentes' },
-  { value: 'con_resultado', label: 'Con resultado' },
-  { value: 'vencido_sin_resultado', label: 'Vencidos' },
-]
+const TABS_ESTADO = [
+  { value: '', label: 'Todos', key: 'total', dot: 'bg-slate-400', bar: 'bg-[#0B3D6E]', text: 'text-[#0B3D6E]' },
+  { value: 'vigente', label: 'Vigentes', key: 'vigente', dot: 'bg-emerald-500', bar: 'bg-emerald-500', text: 'text-emerald-600' },
+  { value: 'con_resultado', label: 'Con resultado', key: 'con_resultado', dot: 'bg-blue-500', bar: 'bg-blue-500', text: 'text-blue-600' },
+  { value: 'vencido_sin_resultado', label: 'Vencidos', key: 'vencido_sin_resultado', dot: 'bg-rose-500', bar: 'bg-rose-500', text: 'text-rose-600' },
+] as const
 
 const ORDENES = [
   { value: 'reciente', label: 'Más reciente' },
   { value: 'recien_extraido', label: 'Recién extraído' },
-  { value: 'urgencia', label: 'Urgencia' },
-  { value: 'monto_desc', label: 'Monto ↓' },
-  { value: 'monto_asc', label: 'Monto ↑' },
+  { value: 'urgencia', label: 'Más urgente' },
+  { value: 'monto_desc', label: 'Monto: mayor a menor' },
+  { value: 'monto_asc', label: 'Monto: menor a mayor' },
 ] as const
 
 const TAMANOS_PAGINA = [10, 20, 32, 50]
 
-function SkeletonCard() {
-  return (
-    <div className="relative flex flex-col gap-2.5 overflow-hidden rounded-lg border border-blue-100 bg-white py-3.5 pl-4 pr-3.5">
-      <div className="absolute inset-y-0 left-0 w-1 bg-blue-50" />
-      <div className="flex items-center justify-between">
-        <div className="h-3 w-20 animate-pulse rounded bg-blue-50" />
-        <div className="h-4 w-14 animate-pulse rounded-full bg-blue-50" />
-      </div>
-      <div className="h-3.5 w-full animate-pulse rounded bg-blue-50" />
-      <div className="h-3.5 w-2/3 animate-pulse rounded bg-blue-50" />
-      <div className="h-3 w-1/2 animate-pulse rounded bg-blue-50" />
-      <div className="flex justify-between border-t border-blue-50 pt-2.5">
-        <div className="h-3 w-1/3 animate-pulse rounded bg-blue-50" />
-        <div className="h-3 w-1/4 animate-pulse rounded bg-blue-50" />
-      </div>
-    </div>
-  )
+/* ------------------------------------------------------------------ */
+/*  Estilos y animaciones                                              */
+/* ------------------------------------------------------------------ */
+const ESTILOS = `
+.sx-root{--sx-ease:cubic-bezier(.22,1,.36,1)}
+@keyframes sx-shimmer{0%{background-position:-400px 0}100%{background-position:400px 0}}
+.sx-skel{background:linear-gradient(90deg,#e8eef5 25%,#f6f9fc 50%,#e8eef5 75%);background-size:800px 100%;animation:sx-shimmer 1.4s linear infinite}
+@keyframes sx-rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.sx-rise{opacity:0;animation:sx-rise .5s var(--sx-ease) forwards}
+@keyframes sx-fade{from{opacity:0}to{opacity:1}}
+.sx-fade{opacity:0;animation:sx-fade .35s ease forwards}
+@keyframes sx-pop{0%{transform:scale(.55)}55%{transform:scale(1.4)}100%{transform:scale(1)}}
+.sx-pop{animation:sx-pop .42s var(--sx-ease)}
+@keyframes sx-ring{0%{transform:scale(1);opacity:.7}100%{transform:scale(2.7);opacity:0}}
+.sx-ring{animation:sx-ring 1.8s ease-out infinite}
+@keyframes sx-bar{0%{transform:translateX(-100%)}100%{transform:translateX(300%)}}
+.sx-bar{animation:sx-bar 1.1s ease-in-out infinite}
+@keyframes sx-toast{from{opacity:0;transform:translateY(14px) scale(.98)}to{opacity:1;transform:none}}
+.sx-toast{animation:sx-toast .4s var(--sx-ease)}
+@keyframes sx-hero{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.sx-hero-a{opacity:0;animation:sx-hero .7s var(--sx-ease) .05s forwards}
+.sx-hero-b{opacity:0;animation:sx-hero .7s var(--sx-ease) .2s forwards}
+.sx-hero-c{opacity:0;animation:sx-hero .7s var(--sx-ease) .35s forwards}
+.sx-collapse{display:grid;grid-template-rows:0fr;opacity:0;visibility:hidden;transition:grid-template-rows .32s var(--sx-ease),opacity .22s ease,visibility 0s linear .32s}
+.sx-collapse[data-open="true"]{grid-template-rows:1fr;opacity:1;visibility:visible;transition:grid-template-rows .32s var(--sx-ease),opacity .25s ease .05s,visibility 0s}
+.sx-collapse>div{min-height:0;overflow:hidden}
+.sx-dots{background-image:radial-gradient(rgba(255,255,255,.09) 1px,transparent 1px);background-size:20px 20px}
+@media (prefers-reduced-motion:reduce){
+  .sx-root *,.sx-root *::before,.sx-root *::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;transition-delay:0s!important}
+}
+`
+
+const focusRing =
+  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0B3D6E] focus-visible:ring-offset-2'
+
+const controlBase =
+  'h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 text-sm text-slate-700 transition hover:border-slate-300 focus:border-[#0B3D6E] focus:bg-white focus:outline-none focus:ring-4 focus:ring-[#0B3D6E]/10'
+
+/* ------------------------------------------------------------------ */
+/*  Utilidades                                                         */
+/* ------------------------------------------------------------------ */
+function useCountUp(target: number | null | undefined, duration = 900) {
+  const [val, setVal] = useState(0)
+  const prev = useRef(0)
+
+  useEffect(() => {
+    if (target == null) return
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (reduce) {
+      setVal(target)
+      prev.current = target
+      return
+    }
+    const from = prev.current
+    const start = performance.now()
+    let raf = 0
+    const tick = (now: number) => {
+      const t = Math.min(1, (now - start) / duration)
+      const eased = 1 - Math.pow(1 - t, 3)
+      setVal(Math.round(from + (target - from) * eased))
+      if (t < 1) raf = requestAnimationFrame(tick)
+      else prev.current = target
+    }
+    raf = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(raf)
+  }, [target, duration])
+
+  return val
 }
 
-function SkeletonRow() {
-  return (
-    <tr className="border-t border-slate-100">
-      {Array.from({ length: 6 }).map((_, i) => (
-        <td key={i} className="px-4 py-3">
-          <div className="h-3 w-full max-w-[140px] animate-pulse rounded bg-slate-100" />
-        </td>
-      ))}
-    </tr>
-  )
+function Num({ value }: { value: number | null | undefined }) {
+  const v = useCountUp(value)
+  if (value == null) return <>—</>
+  return <>{v.toLocaleString('es-PE')}</>
 }
 
-function badgeEstado(estado: string | null | undefined) {
-  const key = estado ?? ''
-  const map: Record<string, string> = {
-    vigente: 'bg-emerald-50 text-emerald-600',
-    con_resultado: 'bg-blue-50 text-blue-600',
-    vencido_sin_resultado: 'bg-rose-50 text-rose-500',
-  }
-  const label: Record<string, string> = {
-    vigente: 'Vigente',
-    con_resultado: 'Culminado',
-    vencido_sin_resultado: 'Vencido',
-  }
-  return (
-    <span className={`inline-flex rounded-full px-2.5 py-0.5 text-[11px] font-medium ${map[key] || 'bg-slate-100 text-slate-500'}`}>
-      {label[key] || key || '—'}
-    </span>
-  )
+function normCategoria(categoria: string | null | undefined) {
+  return (categoria || '').toLowerCase()
 }
 
 function etiquetaCategoria(categoria: string | null | undefined) {
-  const key = (categoria || '').toLowerCase()
   const map: Record<string, string> = {
     goods: 'Bien',
     bien: 'Bien',
@@ -118,14 +161,22 @@ function etiquetaCategoria(categoria: string | null | undefined) {
     obras: 'Obra',
     consultoriadeobra: 'Consultoría de obra',
   }
-  return map[key] || '—'
+  return map[normCategoria(categoria)] || '—'
 }
 
-function tiempoRelativo(fecha: string | null) {
+function iconoCategoria(categoria: string | null | undefined): IconType {
+  const k = normCategoria(categoria)
+  if (['services', 'servicio', 'servicios'].includes(k)) return Briefcase
+  if (['works', 'obra', 'obras'].includes(k)) return HardHat
+  if (k === 'consultoriadeobra') return ClipboardCheck
+  return Package
+}
+
+function tiempoRelativo(fecha: string | null | undefined) {
   if (!fecha) return '—'
   const d = new Date(fecha)
   if (Number.isNaN(d.getTime())) return '—'
-  const segundos = Math.floor((Date.now() - d.getTime()) / 1000)
+  const segundos = Math.max(0, Math.floor((Date.now() - d.getTime()) / 1000))
   if (segundos < 60) return `hace ${segundos} segundos`
   const minutos = Math.floor(segundos / 60)
   if (minutos < 60) return `hace ${minutos} minuto${minutos === 1 ? '' : 's'}`
@@ -145,6 +196,138 @@ function generarPaginasVisibles(actual: number, total: number): (number | '...')
   return paginas
 }
 
+const ESTADO_UI: Record<string, { label: string; badge: string; dot: string; stripe: string }> = {
+  vigente: {
+    label: 'Vigente',
+    badge: 'bg-emerald-50 text-emerald-700 ring-emerald-200',
+    dot: 'bg-emerald-500',
+    stripe: 'bg-emerald-500',
+  },
+  con_resultado: {
+    label: 'Con resultado',
+    badge: 'bg-blue-50 text-blue-700 ring-blue-200',
+    dot: 'bg-blue-500',
+    stripe: 'bg-blue-500',
+  },
+  vencido_sin_resultado: {
+    label: 'Vencido',
+    badge: 'bg-rose-50 text-rose-700 ring-rose-200',
+    dot: 'bg-rose-500',
+    stripe: 'bg-rose-400',
+  },
+}
+
+function BadgeEstado({ estado }: { estado: string | null | undefined }) {
+  const ui = ESTADO_UI[estado ?? '']
+  if (!ui) {
+    return (
+      <span className="inline-flex w-fit items-center rounded-full bg-slate-100 px-2.5 py-1 text-xs font-medium text-slate-500 ring-1 ring-inset ring-slate-200">
+        {estado || '—'}
+      </span>
+    )
+  }
+  return (
+    <span className={`inline-flex w-fit items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium ring-1 ring-inset ${ui.badge}`}>
+      <span className={`h-1.5 w-1.5 rounded-full ${ui.dot}`} />
+      {ui.label}
+    </span>
+  )
+}
+
+function BadgeOrigen({ origen }: { origen: string | null | undefined }) {
+  const vivo = origen === 'scraper'
+  return (
+    <span
+      className={`inline-flex w-fit items-center gap-1.5 rounded-full px-2 py-0.5 text-[11px] font-medium ${
+        vivo ? 'bg-amber-50 text-amber-700' : 'bg-slate-100 text-slate-500'
+      }`}
+    >
+      {vivo && (
+        <span className="relative flex h-1.5 w-1.5">
+          <span className="sx-ring absolute inline-flex h-full w-full rounded-full bg-amber-400" />
+          <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-amber-500" />
+        </span>
+      )}
+      {vivo ? 'En vivo' : 'API'}
+    </span>
+  )
+}
+
+function SelectBox({
+  value,
+  onChange,
+  label,
+  children,
+  className = '',
+}: {
+  value: string
+  onChange: (v: string) => void
+  label: string
+  children: ReactNode
+  className?: string
+}) {
+  return (
+    <div className={`relative ${className}`}>
+      <select
+        aria-label={label}
+        value={value}
+        onChange={e => onChange(e.target.value)}
+        className={`${controlBase} cursor-pointer appearance-none pr-9`}
+      >
+        {children}
+      </select>
+      <ChevronDown size={15} className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400" />
+    </div>
+  )
+}
+
+function Field({ label, children }: { label: string; children: ReactNode }) {
+  return (
+    <label className="block">
+      <span className="mb-1.5 block text-xs font-semibold text-slate-600">{label}</span>
+      {children}
+    </label>
+  )
+}
+
+/* ------------------------------------------------------------------ */
+/*  Skeletons                                                          */
+/* ------------------------------------------------------------------ */
+function SkeletonCard() {
+  return (
+    <div className="relative flex flex-col gap-3 overflow-hidden rounded-2xl border border-slate-200 bg-white py-4 pl-5 pr-4">
+      <div className="sx-skel absolute inset-y-0 left-0 w-1" />
+      <div className="flex items-center justify-between">
+        <div className="sx-skel h-3.5 w-24 rounded" />
+        <div className="sx-skel h-5 w-16 rounded-full" />
+      </div>
+      <div className="sx-skel h-4 w-full rounded" />
+      <div className="sx-skel h-4 w-2/3 rounded" />
+      <div className="sx-skel h-3 w-1/2 rounded" />
+      <div className="flex justify-between border-t border-slate-100 pt-3">
+        <div className="sx-skel h-3 w-1/3 rounded" />
+        <div className="sx-skel h-3 w-1/4 rounded" />
+      </div>
+    </div>
+  )
+}
+
+function SkeletonRow() {
+  return (
+    <tr className="border-t border-slate-100">
+      <td className="px-5 py-4"><div className="sx-skel h-4 w-28 rounded" /><div className="sx-skel mt-2 h-3 w-16 rounded" /></td>
+      <td className="px-4 py-4"><div className="sx-skel h-4 w-44 rounded" /><div className="sx-skel mt-2 h-3 w-28 rounded" /></td>
+      <td className="px-4 py-4"><div className="sx-skel h-4 w-24 rounded" /><div className="sx-skel mt-2 h-3 w-52 rounded" /></td>
+      <td className="px-4 py-4"><div className="sx-skel h-6 w-24 rounded-full" /></td>
+      <td className="px-4 py-4"><div className="sx-skel h-4 w-24 rounded" /></td>
+      <td className="px-4 py-4"><div className="sx-skel h-8 w-40 rounded-lg" /></td>
+    </tr>
+  )
+}
+
+/* ------------------------------------------------------------------ */
+/*  Página                                                             */
+/* ------------------------------------------------------------------ */
 export default function CotizarSeacePage() {
   const [items, setItems] = useState<ProcesoSeace[]>([])
   const [total, setTotal] = useState(0)
@@ -154,7 +337,7 @@ export default function CotizarSeacePage() {
   const [page, setPage] = useState(1)
   const [limit, setLimit] = useState(10)
   const [vista, setVista] = useState<'tabla' | 'cuadricula'>('tabla')
-  const [mostrarGeo, setMostrarGeo] = useState(false)
+  const [filtrosAbiertos, setFiltrosAbiertos] = useState(false)
 
   const [q, setQ] = useState('')
   const [entidadFiltro, setEntidadFiltro] = useState('')
@@ -180,12 +363,45 @@ export default function CotizarSeacePage() {
   const [jobIdActivo, setJobIdActivo] = useState<string | null>(null)
   const [iniciandoScraper, setIniciandoScraper] = useState(false)
 
-  const activeFilters = useMemo(
-    () => [categoria, modalidad, montoMin, montoMax, soloDesierto, orden !== 'reciente'].filter(Boolean).length,
-    [categoria, modalidad, montoMin, montoMax, soloDesierto, orden]
+  const [toast, setToast] = useState<{ msg: string; tipo: 'info' | 'error' } | null>(null)
+  const inputBusquedaRef = useRef<HTMLInputElement>(null)
+
+  /* ---------- filtros ---------- */
+  const filtrosAvanzadosActivos = useMemo(
+    () =>
+      [modalidad, montoMin, montoMax, entidadFiltro, region, departamento, distrito, soloDesierto].filter(Boolean).length,
+    [modalidad, montoMin, montoMax, entidadFiltro, region, departamento, distrito, soloDesierto]
   )
 
-  const limpiarFiltros = () => {
+  const chips = useMemo(() => {
+    const c: { id: string; label: string; clear: () => void }[] = []
+    if (q) c.push({ id: 'q', label: `Palabra: ${q}`, clear: () => setQ('') })
+    if (estado) {
+      const t = TABS_ESTADO.find(t => t.value === estado)
+      c.push({ id: 'estado', label: `Estado: ${t?.label ?? estado}`, clear: () => setEstado('') })
+    }
+    if (categoria) {
+      const cat = CATEGORIAS.find(x => x.value === categoria)
+      c.push({ id: 'categoria', label: `Objeto: ${cat?.label ?? categoria}`, clear: () => setCategoria('') })
+    }
+    if (modalidad) c.push({ id: 'modalidad', label: modalidad, clear: () => setModalidad('') })
+    if (entidadFiltro) c.push({ id: 'entidad', label: `Entidad: ${entidadFiltro}`, clear: () => setEntidadFiltro('') })
+    if (montoMin || montoMax) {
+      c.push({
+        id: 'monto',
+        label: `Monto: S/ ${montoMin || '0'} – ${montoMax || 'sin tope'}`,
+        clear: () => { setMontoMin(''); setMontoMax('') },
+      })
+    }
+    if (region) c.push({ id: 'region', label: region, clear: () => setRegion('') })
+    if (departamento) c.push({ id: 'departamento', label: departamento, clear: () => setDepartamento('') })
+    if (distrito) c.push({ id: 'distrito', label: distrito, clear: () => setDistrito('') })
+    if (soloDesierto) c.push({ id: 'desierto', label: 'Solo desiertos', clear: () => setSoloDesierto(false) })
+    return c
+  }, [q, estado, categoria, modalidad, entidadFiltro, montoMin, montoMax, region, departamento, distrito, soloDesierto])
+
+  const limpiarTodo = () => {
+    setQ('')
     setEstado('')
     setModalidad('')
     setCategoria('')
@@ -199,7 +415,7 @@ export default function CotizarSeacePage() {
     setSoloDesierto(false)
   }
 
-
+  /* ---------- carga de datos ---------- */
   const cargar = useCallback(async () => {
     setLoading(true)
     try {
@@ -256,20 +472,42 @@ export default function CotizarSeacePage() {
     getUbicaciones().then(setUbicaciones).catch(() => {})
   }, [])
 
+  // Atajo: "/" enfoca el buscador
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      const el = e.target as HTMLElement | null
+      const escribiendo = el && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT' || el.isContentEditable)
+      if (e.key === '/' && !escribiendo) {
+        e.preventDefault()
+        inputBusquedaRef.current?.focus()
+      }
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [])
+
+  // Toast con cierre automático
+  useEffect(() => {
+    if (!toast) return
+    const t = setTimeout(() => setToast(null), 4500)
+    return () => clearTimeout(t)
+  }, [toast])
+
+  /* ---------- acciones ---------- */
   const handleActualizarEnVivo = async () => {
     setIniciandoScraper(true)
     try {
       const { job_id } = await iniciarScraperLive(String(new Date().getFullYear()))
       setJobIdActivo(job_id)
-    } catch (e) {
-      alert('No se pudo iniciar la actualización en vivo del SEACE. Intenta de nuevo en unos minutos.')
+    } catch {
+      setToast({
+        tipo: 'error',
+        msg: 'No se pudo iniciar la actualización en vivo del SEACE. Inténtalo de nuevo en unos minutos.',
+      })
     } finally {
       setIniciandoScraper(false)
     }
   }
-
-  const totalPages = Math.max(1, Math.ceil(total / limit))
-  const paginasVisibles = generarPaginasVisibles(page, totalPages)
 
   const toggleFavorito = (ocid: string) => {
     setFavoritos(prev => {
@@ -283,413 +521,629 @@ export default function CotizarSeacePage() {
   // TODO: implementar contra tu endpoint real de descarga de documentos
   // (ej. GET /api/seace/{ocid}/documentos/zip). Por ahora solo avisa.
   const handleDescargar = (p: ProcesoSeace) => {
-    alert(`Descarga de documentos para "${p.tender_id}" — pendiente de conectar al backend.`)
+    setToast({ tipo: 'info', msg: `La descarga de documentos de ${p.tender_id} aún no está conectada al backend.` })
   }
 
+  const abrirDetalle = (p: ProcesoSeace) => {
+    setSelectedOcid(p.ocid)
+    setSelectedTenderId(p.tender_id)
+  }
+
+  /* ---------- derivados ---------- */
+  const totalPages = Math.max(1, Math.ceil(total / limit))
+  const paginasVisibles = generarPaginasVisibles(page, totalPages)
+  const primeraCarga = loading && items.length === 0
+
+  const ultimaExtraccion = useMemo(() => {
+    let max = 0
+    for (const p of items) {
+      if (!p.scraped_at) continue
+      const t = new Date(p.scraped_at).getTime()
+      if (!Number.isNaN(t) && t > max) max = t
+    }
+    return max ? new Date(max).toISOString() : null
+  }, [items])
+
+  /* ---------- fragmentos reutilizables ---------- */
+  const iconBtn =
+    `flex h-8 w-8 items-center justify-center rounded-lg text-slate-400 transition-colors hover:bg-slate-100 hover:text-[#0B3D6E] ${focusRing}`
+
+  /* ---------------------------------------------------------------- */
   return (
-    <>
-      <div className="min-h-screen bg-slate-50 p-4 lg:p-8 space-y-5">
-        {/* encabezado */}
-        <div className="flex flex-wrap items-center gap-3">
-          <SidebarTrigger className="lg:hidden" />
-          <div>
-            <h1 className="text-xl font-bold text-slate-900">Buscador de Licitaciones del SEACE 2026</h1>
-            <p className="text-sm text-slate-500">
-              Busca y filtra contratos del Estado peruano en segundos. Palabra clave, entidad, departamento. Gratis y sin registro.
+    <div className="sx-root min-h-screen bg-[#F3F6FA] pb-16">
+      <style dangerouslySetInnerHTML={{ __html: ESTILOS }} />
+
+      {/* =============================== HERO =============================== */}
+      <header className="sx-dots relative overflow-hidden bg-[#0B3D6E]">
+        <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-[#F5B700]/60 to-transparent" />
+        <div className="mx-auto flex max-w-[1400px] flex-col gap-8 px-4 pb-24 pt-6 lg:flex-row lg:items-end lg:justify-between lg:px-8 lg:pt-8">
+          <div className="max-w-2xl">
+            <div className="sx-hero-a mb-5 flex items-center gap-3">
+              <SidebarTrigger className="text-white lg:hidden" />
+            </div>
+            <h1
+              className={`${fontDisplay.className} sx-hero-a text-4xl font-extrabold leading-[1.05] tracking-tight text-white sm:text-5xl`}
+            >
+              Licitaciones del SEACE 2026
+            </h1>
+            <p className="sx-hero-b mt-4 max-w-xl text-base leading-relaxed text-blue-100/90">
+              Encuentra contratos del Estado peruano por palabra clave, entidad o ubicación, y revisa cuáles siguen abiertos.
+            </p>
+            <div className="sx-hero-c mt-6 flex flex-wrap items-center gap-3">
+              <button
+                onClick={handleActualizarEnVivo}
+                disabled={iniciandoScraper || !!jobIdActivo}
+                className={`group flex items-center gap-2.5 rounded-xl bg-[#F5B700] px-5 py-3 text-sm font-bold text-[#0B3D6E] shadow-lg shadow-black/20 transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#ffc933] hover:shadow-xl active:translate-y-0 disabled:translate-y-0 disabled:cursor-not-allowed disabled:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B3D6E]`}
+              >
+                <RadioTower size={17} className={iniciandoScraper || jobIdActivo ? 'animate-pulse' : 'transition-transform group-hover:scale-110'} />
+                {iniciandoScraper ? 'Iniciando...' : jobIdActivo ? 'Actualizando...' : 'Actualizar en vivo'}
+              </button>
+              <VincularSeace />
+            </div>
+          </div>
+
+          <div className="sx-hero-c w-full max-w-sm rounded-2xl border border-white/15 bg-white/10 p-5 backdrop-blur-md lg:w-80">
+            <div className="flex items-center gap-2.5 text-sm font-medium text-blue-100">
+              <span className="relative flex h-2.5 w-2.5">
+                <span className="sx-ring absolute inline-flex h-full w-full rounded-full bg-emerald-400" />
+                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400" />
+              </span>
+              Procesos vigentes ahora
+            </div>
+            <p className={`${fontDisplay.className} mt-2 text-6xl font-extrabold tabular-nums leading-none text-white`}>
+              <Num value={kpis?.total} />
+            </p>
+            <p className="mt-3 flex items-center gap-1.5 text-xs text-blue-200/80">
+              <Clock size={12} />
+              Última extracción en vivo: {tiempoRelativo(ultimaExtraccion)}
             </p>
           </div>
-          <div className="ml-auto flex shrink-0 items-center gap-2">
+        </div>
+      </header>
+
+      <main className="relative z-10 mx-auto -mt-14 max-w-[1400px] space-y-5 px-4 lg:px-8">
+        {/* ============ PANEL DE BÚSQUEDA Y FILTROS ============ */}
+        <section
+          aria-label="Búsqueda y filtros"
+          className="overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-xl shadow-slate-900/5"
+        >
+          {/* pestañas de estado */}
+          <div role="tablist" aria-label="Estado del proceso" className="grid grid-cols-2 border-b border-slate-100 lg:grid-cols-4">
+            {TABS_ESTADO.map((t, i) => {
+              const activo = estado === t.value
+              return (
+                <button
+                  key={t.value || 'todos'}
+                  role="tab"
+                  aria-selected={activo}
+                  onClick={() => setEstado(prev => (prev === t.value && t.value !== '' ? '' : t.value))}
+                  className={`group relative px-5 py-4 text-left transition-colors hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0B3D6E] ${
+                    i > 0 ? 'lg:border-l lg:border-slate-100' : ''
+                  } ${i % 2 === 1 ? 'border-l border-slate-100 lg:border-l' : ''}`}
+                >
+                  <span className="flex items-center gap-2 text-sm font-medium text-slate-500">
+                    <span className={`h-2 w-2 rounded-full ${t.dot}`} />
+                    {t.label}
+                  </span>
+                  <span
+                    className={`${fontDisplay.className} mt-1 block text-3xl font-bold tabular-nums transition-colors duration-300 ${
+                      activo ? t.text : 'text-slate-800'
+                    }`}
+                  >
+                    <Num value={kpisEstados ? kpisEstados[t.key] : null} />
+                  </span>
+                  <span
+                    className={`absolute inset-x-0 bottom-0 h-[3px] origin-left transition-transform duration-300 ease-out ${t.bar} ${
+                      activo ? 'scale-x-100' : 'scale-x-0'
+                    }`}
+                  />
+                </button>
+              )
+            })}
+          </div>
+
+          {/* buscador */}
+          <div className="flex flex-col gap-3 p-4 sm:flex-row sm:items-center">
+            <div className="relative flex-1">
+              <Search size={18} className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+              <input
+                ref={inputBusquedaRef}
+                type="search"
+                value={q}
+                onChange={e => setQ(e.target.value)}
+                placeholder="Busca por palabra clave: uniformes, mantenimiento vial, software..."
+                aria-label="Buscar por palabra clave"
+                className="h-12 w-full rounded-xl border border-slate-200 bg-slate-50 pl-11 pr-12 text-[15px] text-slate-800 transition placeholder:text-slate-400 hover:border-slate-300 focus:border-[#0B3D6E] focus:bg-white focus:outline-none focus:ring-4 focus:ring-[#0B3D6E]/10 [&::-webkit-search-cancel-button]:hidden"
+              />
+              {q ? (
+                <button
+                  onClick={() => setQ('')}
+                  aria-label="Borrar búsqueda"
+                  className={`absolute right-3 top-1/2 flex h-6 w-6 -translate-y-1/2 items-center justify-center rounded-full text-slate-400 hover:bg-slate-200 hover:text-slate-600 ${focusRing}`}
+                >
+                  <X size={14} />
+                </button>
+              ) : (
+                <kbd className="pointer-events-none absolute right-3 top-1/2 hidden h-6 -translate-y-1/2 items-center rounded-md border border-slate-200 bg-white px-2 text-xs font-medium text-slate-400 sm:inline-flex">
+                  /
+                </kbd>
+              )}
+            </div>
+
             <button
-              onClick={handleActualizarEnVivo}
-              disabled={iniciandoScraper || !!jobIdActivo}
-              className="flex items-center gap-2 rounded-lg bg-[#F5B700] px-3.5 py-2 text-sm font-semibold text-[#0B3D6E] shadow-sm transition-colors hover:bg-[#F5B700]/90 disabled:cursor-not-allowed disabled:opacity-60"
+              onClick={() => setFiltrosAbiertos(v => !v)}
+              aria-expanded={filtrosAbiertos}
+              aria-controls="panel-filtros"
+              className={`flex h-12 shrink-0 items-center justify-center gap-2 rounded-xl border px-4 text-sm font-semibold transition-all duration-200 ${focusRing} ${
+                filtrosAbiertos || filtrosAvanzadosActivos > 0
+                  ? 'border-[#0B3D6E] bg-[#0B3D6E]/5 text-[#0B3D6E]'
+                  : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:bg-slate-50'
+              }`}
             >
-              <RadioTower size={15} className={iniciandoScraper ? 'animate-pulse' : ''} />
-              {iniciandoScraper ? 'Iniciando...' : 'Actualizar en vivo'}
+              <SlidersHorizontal size={16} />
+              Más filtros
+              {filtrosAvanzadosActivos > 0 && (
+                <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-[#0B3D6E] px-1.5 text-xs font-bold text-white">
+                  {filtrosAvanzadosActivos}
+                </span>
+              )}
+              <ChevronDown size={15} className={`transition-transform duration-300 ${filtrosAbiertos ? 'rotate-180' : ''}`} />
             </button>
-            <VincularSeace />
           </div>
-        </div>
 
-        {/* KPIs por estado */}
-        <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
-          <button
-            onClick={() => setEstado('')}
-            className={`flex flex-col items-start rounded-xl border p-3.5 text-left shadow-sm transition-colors
-              ${estado === '' ? 'border-[#0B3D6E] bg-[#0B3D6E]/5' : 'border-slate-200 bg-white hover:border-slate-300'}`}
-          >
-            <p className="text-xs font-medium text-slate-400">Total de contratos</p>
-            <p className="mt-1 text-xl font-bold text-[#0B3D6E]">{kpisEstados?.total ?? '—'}</p>
-          </button>
-          <button
-            onClick={() => setEstado(prev => (prev === 'vigente' ? '' : 'vigente'))}
-            className={`flex flex-col items-start rounded-xl border p-3.5 text-left shadow-sm transition-colors
-              ${estado === 'vigente' ? 'border-emerald-500 bg-emerald-50' : 'border-slate-200 bg-white hover:border-slate-300'}`}
-          >
-            <p className="text-xs font-medium text-slate-400">Vigentes</p>
-            <p className="mt-1 text-xl font-bold text-emerald-600">{kpisEstados?.vigente ?? '—'}</p>
-          </button>
-          <button
-            onClick={() => setEstado(prev => (prev === 'con_resultado' ? '' : 'con_resultado'))}
-            className={`flex flex-col items-start rounded-xl border p-3.5 text-left shadow-sm transition-colors
-              ${estado === 'con_resultado' ? 'border-blue-500 bg-blue-50' : 'border-slate-200 bg-white hover:border-slate-300'}`}
-          >
-            <p className="text-xs font-medium text-slate-400">Con resultado</p>
-            <p className="mt-1 text-xl font-bold text-blue-600">{kpisEstados?.con_resultado ?? '—'}</p>
-          </button>
-          <button
-            onClick={() => setEstado(prev => (prev === 'vencido_sin_resultado' ? '' : 'vencido_sin_resultado'))}
-            className={`flex flex-col items-start rounded-xl border p-3.5 text-left shadow-sm transition-colors
-              ${estado === 'vencido_sin_resultado' ? 'border-rose-500 bg-rose-50' : 'border-slate-200 bg-white hover:border-slate-300'}`}
-          >
-            <p className="text-xs font-medium text-slate-400">Vencidos</p>
-            <p className="mt-1 text-xl font-bold text-rose-500">{kpisEstados?.vencido_sin_resultado ?? '—'}</p>
-          </button>
-        </div>
-
-        {/* KPIs por objeto de contratación */}
-        <div className="grid grid-cols-2 gap-3 lg:grid-cols-5">
-          <div className="rounded-xl border border-slate-200 bg-white p-3.5 shadow-sm">
-            <p className="text-xs font-medium text-slate-400">Total vigentes</p>
-            <p className="mt-1 text-xl font-bold text-[#0B3D6E]">{kpis?.total ?? '—'}</p>
+          {/* objeto de contratación */}
+          <div className="flex flex-wrap items-center gap-2 px-4 pb-4">
+            <span className="mr-1 text-sm font-medium text-slate-500">Objeto</span>
+            {CATEGORIAS.map(c => {
+              const dato = kpis?.por_categoria.find(k => k.categoria === c.value)
+              const Icono = c.icon
+              const activo = categoria === c.value
+              return (
+                <button
+                  key={c.value}
+                  aria-pressed={activo}
+                  title="Cantidad de procesos vigentes"
+                  onClick={() => setCategoria(prev => (prev === c.value ? '' : c.value))}
+                  className={`inline-flex items-center gap-2 rounded-full border px-3.5 py-2 text-sm font-medium transition-all duration-200 ${focusRing} ${
+                    activo
+                      ? 'border-[#0B3D6E] bg-[#0B3D6E] text-white shadow-md shadow-[#0B3D6E]/25'
+                      : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:bg-slate-50'
+                  }`}
+                >
+                  <Icono size={15} className={activo ? 'text-[#F5B700]' : 'text-slate-400'} />
+                  {c.label}
+                  <span
+                    className={`rounded-full px-1.5 py-0.5 text-xs font-semibold tabular-nums ${
+                      activo ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-500'
+                    }`}
+                  >
+                    {dato?.total ?? 0}
+                  </span>
+                </button>
+              )
+            })}
           </div>
-          {CATEGORIAS.map(c => {
-            const dato = kpis?.por_categoria.find(k => k.categoria === c.value)
-            const Icono = c.icon
-            return (
+
+          {/* filtros avanzados (colapsable) */}
+          <div id="panel-filtros" className="sx-collapse" data-open={filtrosAbiertos}>
+            <div>
+              <div className="space-y-4 border-t border-slate-100 bg-slate-50/50 p-4">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                  <Field label="Entidad">
+                    <div className="relative">
+                      <Building2 size={16} className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+                      <input
+                        value={entidadFiltro}
+                        onChange={e => setEntidadFiltro(e.target.value)}
+                        placeholder="Mínimo 3 caracteres"
+                        className={`${controlBase} pl-10`}
+                      />
+                    </div>
+                  </Field>
+
+                  <Field label="Modalidad">
+                    <SelectBox label="Modalidad" value={modalidad} onChange={setModalidad}>
+                      <option value="">Todas</option>
+                      {MODALIDADES.map(m => <option key={m} value={m}>{m}</option>)}
+                    </SelectBox>
+                  </Field>
+
+                  <Field label="Monto (S/)">
+                    <div className="flex items-center gap-2">
+                      <input
+                        type="number"
+                        inputMode="numeric"
+                        min={0}
+                        value={montoMin}
+                        onChange={e => setMontoMin(e.target.value)}
+                        placeholder="Mínimo"
+                        aria-label="Monto mínimo"
+                        className={`${controlBase} min-w-0`}
+                      />
+                      <span className="text-slate-300">–</span>
+                      <input
+                        type="number"
+                        inputMode="numeric"
+                        min={0}
+                        value={montoMax}
+                        onChange={e => setMontoMax(e.target.value)}
+                        placeholder="Máximo"
+                        aria-label="Monto máximo"
+                        className={`${controlBase} min-w-0`}
+                      />
+                    </div>
+                  </Field>
+
+                  <Field label="Procesos desiertos">
+                    <button
+                      type="button"
+                      role="switch"
+                      aria-checked={soloDesierto}
+                      onClick={() => setSoloDesierto(v => !v)}
+                      className={`flex h-11 w-full items-center justify-between rounded-xl border px-3.5 text-sm transition-colors ${focusRing} ${
+                        soloDesierto
+                          ? 'border-[#F5B700] bg-[#F5B700]/10 text-[#0B3D6E]'
+                          : 'border-slate-200 bg-slate-50 text-slate-600 hover:border-slate-300'
+                      }`}
+                    >
+                      Mostrar solo desiertos
+                      <span
+                        className={`relative h-6 w-11 rounded-full transition-colors duration-300 ${
+                          soloDesierto ? 'bg-[#F5B700]' : 'bg-slate-300'
+                        }`}
+                      >
+                        <span
+                          className={`absolute left-0.5 top-0.5 h-5 w-5 rounded-full bg-white shadow transition-transform duration-300 ${
+                            soloDesierto ? 'translate-x-5' : ''
+                          }`}
+                        />
+                      </span>
+                    </button>
+                  </Field>
+                </div>
+
+                <div className="grid grid-cols-1 gap-4 border-t border-slate-200/70 pt-4 sm:grid-cols-3">
+                  <Field label="Región">
+                    <div className="relative">
+                      <MapPin size={15} className="pointer-events-none absolute left-3.5 top-1/2 z-10 -translate-y-1/2 text-slate-400" />
+                      <select
+                        aria-label="Región"
+                        value={region}
+                        onChange={e => setRegion(e.target.value)}
+                        className={`${controlBase} cursor-pointer appearance-none pl-10 pr-9`}
+                      >
+                        <option value="">Todas</option>
+                        {ubicaciones.regiones.map(r => <option key={r} value={r}>{r}</option>)}
+                      </select>
+                      <ChevronDown size={15} className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400" />
+                    </div>
+                  </Field>
+                  <Field label="Departamento">
+                    <SelectBox label="Departamento" value={departamento} onChange={setDepartamento}>
+                      <option value="">Todos</option>
+                      {ubicaciones.departamentos.map(d => <option key={d} value={d}>{d}</option>)}
+                    </SelectBox>
+                  </Field>
+                  <Field label="Distrito">
+                    <SelectBox label="Distrito" value={distrito} onChange={setDistrito}>
+                      <option value="">Todos</option>
+                      {ubicaciones.distritos.map(d => <option key={d} value={d}>{d}</option>)}
+                    </SelectBox>
+                  </Field>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* filtros aplicados */}
+          {chips.length > 0 && (
+            <div className="flex flex-wrap items-center gap-2 border-t border-slate-100 px-4 py-3">
+              <span className="text-xs font-medium text-slate-400">Aplicados</span>
+              {chips.map(c => (
+                <button
+                  key={c.id}
+                  onClick={c.clear}
+                  aria-label={`Quitar filtro: ${c.label}`}
+                  className={`sx-fade group inline-flex max-w-[260px] items-center gap-1.5 rounded-full bg-[#0B3D6E]/[0.07] py-1 pl-3 pr-2 text-xs font-medium text-[#0B3D6E] transition-colors hover:bg-rose-50 hover:text-rose-600 ${focusRing}`}
+                >
+                  <span className="truncate">{c.label}</span>
+                  <X size={13} className="shrink-0 opacity-60 transition-opacity group-hover:opacity-100" />
+                </button>
+              ))}
               <button
-                key={c.value}
-                onClick={() => setCategoria(prev => (prev === c.value ? '' : c.value))}
-                className={`flex flex-col items-start rounded-xl border p-3.5 text-left shadow-sm transition-colors
-                  ${categoria === c.value ? 'border-[#0B3D6E] bg-[#0B3D6E]/5' : 'border-slate-200 bg-white hover:border-slate-300'}`}
+                onClick={limpiarTodo}
+                className={`ml-auto inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs font-semibold text-slate-500 transition-colors hover:bg-slate-100 hover:text-[#0B3D6E] ${focusRing}`}
               >
-                <Icono size={15} className="text-slate-400" />
-                <p className="mt-1.5 text-xs font-medium text-slate-400">{c.label}</p>
-                <p className="text-xl font-bold text-slate-800">{dato?.total ?? 0}</p>
+                <RotateCcw size={12} />
+                Limpiar todo
               </button>
-            )
-          })}
-        </div>
-
-        {/* card: Filtros de Búsqueda */}
-        <div className="space-y-3 rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
-          <h2 className="text-base font-bold text-slate-900">Filtros de Búsqueda</h2>
-
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            <div>
-              <label className="mb-1 block text-xs font-semibold text-slate-600">Palabra Clave</label>
-              <div className="relative">
-                <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
-                <input
-                  value={q}
-                  onChange={e => setQ(e.target.value)}
-                  placeholder="Buscar..."
-                  className="w-full rounded-lg border border-slate-200 bg-slate-50 py-2.5 pl-9 pr-3 text-sm text-slate-800 placeholder:text-slate-400 focus:border-[#0B3D6E] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#0B3D6E]"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label className="mb-1 block text-xs font-semibold text-slate-600">Entidad</label>
-              <div className="relative">
-                <Building2 size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
-                <input
-                  value={entidadFiltro}
-                  onChange={e => setEntidadFiltro(e.target.value)}
-                  placeholder="Buscar entidad (mín. 3 caracteres)..."
-                  className="w-full rounded-lg border border-slate-200 bg-slate-50 py-2.5 pl-9 pr-3 text-sm text-slate-800 placeholder:text-slate-400 focus:border-[#0B3D6E] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#0B3D6E]"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label className="mb-1 block text-xs font-semibold text-slate-600">Objeto</label>
-              <select
-                value={categoria}
-                onChange={e => setCategoria(e.target.value)}
-                className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm text-slate-700 focus:border-[#0B3D6E] focus:bg-white focus:outline-none"
-              >
-                <option value="">Todos</option>
-                {CATEGORIAS.map(c => <option key={c.value} value={c.value}>{c.label}</option>)}
-              </select>
-            </div>
-
-            <div>
-              <label className="mb-1 block text-xs font-semibold text-slate-600">Estado</label>
-              <select
-                value={estado}
-                onChange={e => setEstado(e.target.value)}
-                className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm text-slate-700 focus:border-[#0B3D6E] focus:bg-white focus:outline-none"
-              >
-                {ESTADOS.map(e => <option key={e.value} value={e.value}>{e.label}</option>)}
-              </select>
-            </div>
-          </div>
-
-          <button
-            onClick={() => setMostrarGeo(v => !v)}
-            className="flex items-center gap-1 text-sm font-medium text-slate-500 hover:text-[#0B3D6E]"
-          >
-            <ChevronDown size={15} className={`transition-transform ${mostrarGeo ? 'rotate-180' : ''}`} />
-            Mostrar filtros geográficos
-          </button>
-
-          {mostrarGeo && (
-            <div className="grid grid-cols-1 gap-3 border-t border-slate-100 pt-3 sm:grid-cols-2 lg:grid-cols-4">
-              <select
-                value={region}
-                onChange={e => setRegion(e.target.value)}
-                className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm text-slate-700 focus:border-[#0B3D6E] focus:bg-white focus:outline-none"
-              >
-                <option value="">Región (todas)</option>
-                {ubicaciones.regiones.map(r => <option key={r} value={r}>{r}</option>)}
-              </select>
-              <select
-                value={departamento}
-                onChange={e => setDepartamento(e.target.value)}
-                className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm text-slate-700 focus:border-[#0B3D6E] focus:bg-white focus:outline-none"
-              >
-                <option value="">Departamento (todos)</option>
-                {ubicaciones.departamentos.map(d => <option key={d} value={d}>{d}</option>)}
-              </select>
-              <select
-                value={distrito}
-                onChange={e => setDistrito(e.target.value)}
-                className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm text-slate-700 focus:border-[#0B3D6E] focus:bg-white focus:outline-none"
-              >
-                <option value="">Distrito (todos)</option>
-                {ubicaciones.distritos.map(d => <option key={d} value={d}>{d}</option>)}
-              </select>
             </div>
           )}
+        </section>
 
-          <div className="flex flex-wrap items-center gap-2 border-t border-slate-100 pt-3">
-            <select
-              value={modalidad}
-              onChange={e => setModalidad(e.target.value)}
-              className="shrink-0 rounded-lg border border-slate-200 bg-white px-2.5 py-2 text-xs font-medium text-slate-700 focus:border-[#0B3D6E] focus:outline-none"
-            >
-              <option value="">Modalidad</option>
-              {MODALIDADES.map(m => <option key={m} value={m}>{m}</option>)}
-            </select>
+        {/* ============ BARRA DE RESULTADOS (sticky) ============ */}
+        <div className="sticky top-2 z-20 flex flex-wrap items-center justify-between gap-3 overflow-hidden rounded-2xl border border-slate-200/80 bg-white/85 px-4 py-2.5 shadow-sm backdrop-blur-md">
+          <p className="text-sm text-slate-600" aria-live="polite">
+            <span className="font-bold tabular-nums text-slate-900">{total.toLocaleString('es-PE')}</span>{' '}
+            {total === 1 ? 'proceso' : 'procesos'}
+            {chips.length > 0 && ' con tus filtros'}
+          </p>
 
-            <div className="flex shrink-0 items-center gap-1 rounded-lg border border-slate-200 bg-white px-2 py-1">
-              <span className="text-xs text-slate-400">S/</span>
-              <input type="number" value={montoMin} onChange={e => setMontoMin(e.target.value)} placeholder="Mín"
-                className="w-14 text-xs text-slate-700 placeholder:text-slate-400 focus:outline-none" />
-              <span className="text-slate-300">—</span>
-              <input type="number" value={montoMax} onChange={e => setMontoMax(e.target.value)} placeholder="Máx"
-                className="w-14 text-xs text-slate-700 placeholder:text-slate-400 focus:outline-none" />
-            </div>
-
-            <select
+          <div className="flex flex-wrap items-center gap-2">
+            <SelectBox
+              label="Ordenar por"
               value={orden}
-              onChange={e => setOrden(e.target.value as typeof orden)}
-              className="shrink-0 rounded-lg border border-slate-200 bg-white px-2.5 py-2 text-xs font-medium text-slate-700 focus:border-[#0B3D6E] focus:outline-none"
+              onChange={v => setOrden(v as typeof orden)}
+              className="w-48"
             >
               {ORDENES.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
-            </select>
+            </SelectBox>
 
-            <label className="flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-lg border border-slate-200 bg-white px-2.5 py-2 text-xs font-medium text-slate-600">
-              <input type="checkbox" checked={soloDesierto} onChange={e => setSoloDesierto(e.target.checked)}
-                className="h-3.5 w-3.5 rounded border-slate-300 accent-[#F5B700]" />
-              Desierto
-            </label>
+            <SelectBox label="Resultados por página" value={String(limit)} onChange={v => setLimit(Number(v))} className="w-36">
+              {TAMANOS_PAGINA.map(n => <option key={n} value={n}>{n} por página</option>)}
+            </SelectBox>
 
-            {(activeFilters > 0 || estado || q || entidadFiltro || region || departamento || distrito) && (
-              <button onClick={limpiarFiltros} className="flex shrink-0 items-center gap-1 whitespace-nowrap rounded-lg px-2 py-2 text-xs font-medium text-slate-400 transition-colors hover:text-[#0B3D6E]">
-                <RotateCcw size={12} /> Limpiar
+            <div className="relative grid grid-cols-2 rounded-xl bg-slate-100 p-1" role="group" aria-label="Tipo de vista">
+              <span
+                aria-hidden
+                className={`absolute inset-y-1 left-1 w-[calc(50%-4px)] rounded-lg bg-white shadow-sm transition-transform duration-300 ease-out ${
+                  vista === 'cuadricula' ? 'translate-x-full' : ''
+                }`}
+              />
+              <button
+                onClick={() => setVista('tabla')}
+                aria-pressed={vista === 'tabla'}
+                className={`relative z-10 flex h-9 w-24 items-center justify-center gap-1.5 rounded-lg text-sm font-medium transition-colors ${focusRing} ${
+                  vista === 'tabla' ? 'text-[#0B3D6E]' : 'text-slate-500 hover:text-slate-700'
+                }`}
+              >
+                <Table2 size={14} /> Tabla
+              </button>
+              <button
+                onClick={() => setVista('cuadricula')}
+                aria-pressed={vista === 'cuadricula'}
+                className={`relative z-10 flex h-9 w-24 items-center justify-center gap-1.5 rounded-lg text-sm font-medium transition-colors ${focusRing} ${
+                  vista === 'cuadricula' ? 'text-[#0B3D6E]' : 'text-slate-500 hover:text-slate-700'
+                }`}
+              >
+                <LayoutGrid size={14} /> Tarjetas
+              </button>
+            </div>
+          </div>
+
+          {loading && (
+            <div className="absolute inset-x-0 bottom-0 h-0.5 overflow-hidden bg-[#0B3D6E]/10">
+              <div className="sx-bar h-full w-1/3 rounded-full bg-[#0B3D6E]" />
+            </div>
+          )}
+        </div>
+
+        {/* ============ RESULTADOS ============ */}
+        {items.length === 0 && !loading ? (
+          <div className="sx-fade flex flex-col items-center gap-3 rounded-2xl border border-dashed border-slate-300 bg-white px-6 py-20 text-center">
+            <span className="flex h-14 w-14 items-center justify-center rounded-full bg-slate-100 text-slate-400">
+              <SearchX size={26} />
+            </span>
+            <div>
+              <p className="text-base font-semibold text-slate-800">No hay procesos con estos filtros</p>
+              <p className="mt-1 text-sm text-slate-500">Prueba con otra palabra clave o quita algún filtro.</p>
+            </div>
+            {chips.length > 0 && (
+              <button
+                onClick={limpiarTodo}
+                className={`mt-1 inline-flex items-center gap-2 rounded-xl bg-[#0B3D6E] px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#0a3460] ${focusRing}`}
+              >
+                <RotateCcw size={14} /> Limpiar filtros
               </button>
             )}
           </div>
-        </div>
-
-        {/* barra: vista + mostrar N */}
-        <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-slate-200 bg-white px-3 py-2">
-          <div className="flex items-center gap-1 rounded-lg border border-slate-200 bg-slate-50 p-1">
-            <button onClick={() => setVista('tabla')}
-              className={`flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-xs font-medium transition-colors ${vista === 'tabla' ? 'bg-white text-[#0B3D6E] shadow-sm' : 'text-slate-500'}`}>
-              <Table2 size={13} /> Tabla
-            </button>
-            <button onClick={() => setVista('cuadricula')}
-              className={`flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-xs font-medium transition-colors ${vista === 'cuadricula' ? 'bg-white text-[#0B3D6E] shadow-sm' : 'text-slate-500'}`}>
-              <LayoutGrid size={13} /> Cuadrícula
-            </button>
-          </div>
-
-          <select
-            value={limit}
-            onChange={e => setLimit(Number(e.target.value))}
-            className="shrink-0 rounded-lg border border-slate-200 bg-white px-2.5 py-2 text-xs font-medium text-slate-700 focus:border-[#0B3D6E] focus:outline-none"
-          >
-            {TAMANOS_PAGINA.map(n => <option key={n} value={n}>Mostrar: {n}</option>)}
-          </select>
-        </div>
-
-        {/* resultados */}
-        {items.length === 0 && !loading ? (
-          <div className="flex flex-col items-center gap-2 rounded-xl border border-slate-200 bg-white py-20 text-center">
-            <X size={20} className="text-slate-300" />
-            <p className="text-sm text-slate-500">No se encontraron convocatorias con estos filtros.</p>
-          </div>
-        ) : vista === 'cuadricula' ? (
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
-            {loading
-              ? Array.from({ length: 8 }).map((_, i) => <SkeletonCard key={i} />)
-              : items.map(p => (
-                  <ContratoSeaceCard
-                    key={p.ocid}
-                    proceso={p}
-                    isLoading={false}
-                    disabled={false}
-                    onClick={() => { setSelectedOcid(p.ocid); setSelectedTenderId(p.tender_id) }}
-                  />
-                ))}
-          </div>
         ) : (
-          <div className="overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-sm">
-            <table className="w-full min-w-[820px] text-left text-sm">
-              <thead>
-                <tr className="border-b border-slate-100 bg-slate-50 text-[11px] font-semibold uppercase tracking-wide text-slate-500">
-                  <th className="px-4 py-3">Código</th>
-                  <th className="px-4 py-3">Entidad</th>
-                  <th className="px-4 py-3">Objeto</th>
-                  <th className="px-4 py-3">Estado</th>
-                  <th className="px-4 py-3">Publicación</th>
-                  <th className="px-4 py-3">Acciones</th>
-                </tr>
-              </thead>
-              <tbody>
-                {loading
-                  ? Array.from({ length: 8 }).map((_, i) => <SkeletonRow key={i} />)
-                  : items.map(p => (
-                      <tr key={p.ocid} className="border-t border-slate-100 transition-colors hover:bg-slate-50/60">
-                        <td className="px-4 py-3">
-                          <p className="font-semibold text-slate-800">{p.nomenclatura || p.tender_id || '—'}</p>
-                          <p className="text-xs text-slate-400">
-                            N° {(p.nomenclatura || p.tender_id)?.split('-')[1] || '—'}
-                          </p>
-                        </td>
-                        <td className="max-w-[240px] px-4 py-3 text-slate-600">
-                          <p className="truncate">{p.entidad}</p>
-                          {(p.departamento || p.distrito) && (
-                            <p className="text-xs text-slate-400">
-                              {[p.distrito, p.departamento].filter(Boolean).join(', ')}
-                            </p>
-                          )}
-                        </td>
-                        <td className="px-4 py-3 text-slate-600">
-                          <p className="font-medium">{etiquetaCategoria(p.categoria)}</p>
-                          {p.modalidad && (
-                            <span className="mt-0.5 inline-flex w-fit rounded-full bg-blue-50 px-2 py-0.5 text-[10px] font-medium text-[#0B3D6E]">
-                              {p.modalidad}
-                            </span>
-                          )}
-                          <p className="max-w-[280px] truncate text-xs text-slate-400">{p.titulo}</p>
-                        </td>
-                        <td className="px-4 py-3">
-                          <div className="flex flex-col gap-1">
-                            {badgeEstado(p.estado)}
-                            <span
-                              className={`inline-flex w-fit rounded-full px-2 py-0.5 text-[10px] font-medium ${
-                                p.origen === 'scraper'
-                                  ? 'bg-amber-50 text-amber-600'
-                                  : 'bg-slate-100 text-slate-500'
-                              }`}
-                            >
-                              {p.origen === 'scraper' ? 'En vivo' : 'API'}
-                            </span>
-                          </div>
-                        </td>
-                        <td className="px-4 py-3 text-xs text-slate-500">
-                          {tiempoRelativo(p.published_date)}
-                          {p.origen === 'scraper' && p.scraped_at && (
-                            <p className="mt-0.5 text-[10px] text-amber-600">
-                              Extraído {tiempoRelativo(p.scraped_at)}
-                            </p>
-                          )}
-                        </td>
-                        <td className="px-4 py-3">
-                          <div className="flex items-center gap-1.5">
-                            <button
-                              title="Ver cronograma"
-                              onClick={() => { setSelectedOcid(p.ocid); setSelectedTenderId(p.tender_id) }}
-                              className="flex h-7 w-7 items-center justify-center rounded-md text-slate-400 hover:bg-slate-100 hover:text-slate-600"
-                            >
-                              <History size={14} />
-                            </button>
-                            <button
-                              title="Ver detalle"
-                              onClick={() => { setSelectedOcid(p.ocid); setSelectedTenderId(p.tender_id) }}
-                              className="flex h-7 w-7 items-center justify-center rounded-md bg-[#0B3D6E] text-white hover:bg-[#0B3D6E]/90"
-                            >
-                              <Eye size={14} />
-                            </button>
-                            <button
-                              title="Descargar documentos"
-                              onClick={() => handleDescargar(p)}
-                              className="flex h-7 w-7 items-center justify-center rounded-md text-slate-400 hover:bg-slate-100 hover:text-slate-600"
-                            >
-                              <Download size={14} />
-                            </button>
-                            <button
-                              title={favoritos.has(p.ocid) ? 'Quitar de favoritos' : 'Marcar como favorito'}
-                              onClick={() => toggleFavorito(p.ocid)}
-                              className={`flex h-7 w-7 items-center justify-center rounded-md hover:bg-slate-100 ${favoritos.has(p.ocid) ? 'text-[#F5B700]' : 'text-slate-400 hover:text-slate-600'}`}
-                            >
-                              <Star size={14} fill={favoritos.has(p.ocid) ? 'currentColor' : 'none'} />
-                            </button>
-                          </div>
-                        </td>
+          <div className={`transition-opacity duration-200 ${loading && !primeraCarga ? 'opacity-60' : 'opacity-100'}`}>
+            {/* ---------- tarjetas (vista cuadrícula y móvil) ---------- */}
+            <div className={`${vista === 'tabla' ? 'md:hidden' : ''} grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4`}>
+              {primeraCarga
+                ? Array.from({ length: 8 }).map((_, i) => <SkeletonCard key={i} />)
+                : items.map((p, i) => (
+                    <div
+                      key={p.ocid}
+                      className="sx-rise transition-transform duration-300 hover:-translate-y-1"
+                      style={{ animationDelay: `${Math.min(i, 12) * 35}ms` }}
+                    >
+                      <ContratoSeaceCard
+                        proceso={p}
+                        isLoading={false}
+                        disabled={false}
+                        onClick={() => abrirDetalle(p)}
+                      />
+                    </div>
+                  ))}
+            </div>
+
+            {/* ---------- tabla (escritorio) ---------- */}
+            {vista === 'tabla' && (
+              <div className="hidden overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm md:block">
+                <div className="overflow-x-auto">
+                  <table className="w-full min-w-[900px] text-left text-sm">
+                    <thead>
+                      <tr className="border-b border-slate-100 bg-slate-50/80 text-xs font-semibold text-slate-500">
+                        <th className="px-5 py-3.5">Proceso</th>
+                        <th className="px-4 py-3.5">Entidad</th>
+                        <th className="px-4 py-3.5">Objeto y modalidad</th>
+                        <th className="px-4 py-3.5">Estado</th>
+                        <th className="px-4 py-3.5">Publicación</th>
+                        <th className="px-4 py-3.5 text-right">Acciones</th>
                       </tr>
-                    ))}
-              </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                      {primeraCarga
+                        ? Array.from({ length: 8 }).map((_, i) => <SkeletonRow key={i} />)
+                        : items.map((p, i) => {
+                            const Icono = iconoCategoria(p.categoria)
+                            const fav = favoritos.has(p.ocid)
+                            const stripe = ESTADO_UI[p.estado ?? '']?.stripe ?? 'bg-slate-300'
+                            return (
+                              <tr
+                                key={p.ocid}
+                                onClick={() => abrirDetalle(p)}
+                                className="sx-fade group cursor-pointer border-t border-slate-100 transition-colors duration-200 hover:bg-[#0B3D6E]/[0.035]"
+                                style={{ animationDelay: `${Math.min(i, 12) * 30}ms` }}
+                              >
+                                <td className="relative px-5 py-4 align-top">
+                                  <span
+                                    className={`absolute inset-y-3 left-0 w-1 origin-center scale-y-50 rounded-r-full opacity-60 transition-all duration-300 group-hover:scale-y-100 group-hover:opacity-100 ${stripe}`}
+                                  />
+                                  <p className="font-semibold text-slate-900">{p.nomenclatura || p.tender_id || '—'}</p>
+                                  <p className="mt-0.5 text-xs text-slate-400">
+                                    N.º {(p.nomenclatura || p.tender_id)?.split('-')[1] || '—'}
+                                  </p>
+                                </td>
+
+                                <td className="max-w-[260px] px-4 py-4 align-top">
+                                  <p className="line-clamp-2 font-medium text-slate-700" title={p.entidad}>{p.entidad}</p>
+                                  {(p.departamento || p.distrito) && (
+                                    <p className="mt-1 flex items-center gap-1 text-xs text-slate-400">
+                                      <MapPin size={11} className="shrink-0" />
+                                      <span className="truncate">{[p.distrito, p.departamento].filter(Boolean).join(', ')}</span>
+                                    </p>
+                                  )}
+                                </td>
+
+                                <td className="px-4 py-4 align-top">
+                                  <p className="flex items-center gap-1.5 font-medium text-slate-700">
+                                    <Icono size={14} className="text-slate-400" />
+                                    {etiquetaCategoria(p.categoria)}
+                                  </p>
+                                  {p.modalidad && (
+                                    <span className="mt-1.5 inline-flex w-fit rounded-full bg-[#0B3D6E]/[0.07] px-2.5 py-0.5 text-[11px] font-medium text-[#0B3D6E]">
+                                      {p.modalidad}
+                                    </span>
+                                  )}
+                                  <p className="mt-1.5 line-clamp-2 max-w-[300px] text-xs leading-relaxed text-slate-500" title={p.titulo}>
+                                    {p.titulo}
+                                  </p>
+                                </td>
+
+                                <td className="px-4 py-4 align-top">
+                                  <div className="flex flex-col gap-1.5">
+                                    <BadgeEstado estado={p.estado} />
+                                    <BadgeOrigen origen={p.origen} />
+                                  </div>
+                                </td>
+
+                                <td className="px-4 py-4 align-top text-xs text-slate-500">
+                                  <p className="text-sm text-slate-600">{tiempoRelativo(p.published_date)}</p>
+                                  {p.origen === 'scraper' && p.scraped_at && (
+                                    <p className="mt-1 flex items-center gap-1 text-[11px] text-amber-600">
+                                      <Clock size={10} />
+                                      Extraído {tiempoRelativo(p.scraped_at)}
+                                    </p>
+                                  )}
+                                </td>
+
+                                <td className="px-4 py-4 align-top" onClick={e => e.stopPropagation()}>
+                                  <div className="flex items-center justify-end gap-1">
+                                    <button
+                                      title="Ver cronograma"
+                                      aria-label={`Ver cronograma de ${p.tender_id}`}
+                                      onClick={() => abrirDetalle(p)}
+                                      className={iconBtn}
+                                    >
+                                      <History size={15} />
+                                    </button>
+                                    <button
+                                      title="Descargar documentos"
+                                      aria-label={`Descargar documentos de ${p.tender_id}`}
+                                      onClick={() => handleDescargar(p)}
+                                      className={iconBtn}
+                                    >
+                                      <Download size={15} />
+                                    </button>
+                                    <button
+                                      title={fav ? 'Quitar de favoritos' : 'Guardar en favoritos'}
+                                      aria-label={fav ? 'Quitar de favoritos' : 'Guardar en favoritos'}
+                                      aria-pressed={fav}
+                                      onClick={() => toggleFavorito(p.ocid)}
+                                      className={`flex h-8 w-8 items-center justify-center rounded-lg transition-colors hover:bg-amber-50 ${focusRing} ${
+                                        fav ? 'text-[#F5B700]' : 'text-slate-400 hover:text-[#F5B700]'
+                                      }`}
+                                    >
+                                      <Star key={String(fav)} size={15} fill={fav ? 'currentColor' : 'none'} className={fav ? 'sx-pop' : ''} />
+                                    </button>
+                                    <button
+                                      onClick={() => abrirDetalle(p)}
+                                      className={`ml-1 inline-flex h-8 items-center gap-1.5 rounded-lg bg-[#0B3D6E] px-3 text-xs font-semibold text-white shadow-sm transition-all duration-200 hover:bg-[#0a3460] hover:shadow-md active:scale-95 ${focusRing}`}
+                                    >
+                                      <Eye size={14} />
+                                      Ver detalle
+                                    </button>
+                                  </div>
+                                </td>
+                              </tr>
+                            )
+                          })}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
           </div>
         )}
 
-        {/* paginación numerada */}
+        {/* ============ PAGINACIÓN ============ */}
         {items.length > 0 && (
-          <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-slate-200 bg-white px-4 py-3">
-            <p className="text-xs text-slate-500">
-              <span className="font-medium text-slate-700">{(page - 1) * limit + 1}</span>–
-              <span className="font-medium text-slate-700">{Math.min(page * limit, total)}</span> de{' '}
-              <span className="font-medium text-slate-700">{total.toLocaleString('es-PE')}</span>
+          <nav
+            aria-label="Paginación"
+            className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-slate-200/80 bg-white px-4 py-3 shadow-sm"
+          >
+            <p className="text-sm text-slate-500">
+              Mostrando <span className="font-semibold text-slate-800 tabular-nums">{(page - 1) * limit + 1}</span> a{' '}
+              <span className="font-semibold text-slate-800 tabular-nums">{Math.min(page * limit, total)}</span> de{' '}
+              <span className="font-semibold text-slate-800 tabular-nums">{total.toLocaleString('es-PE')}</span>
             </p>
+
             <div className="flex items-center gap-1">
               <button
                 onClick={() => setPage(p => Math.max(1, p - 1))}
                 disabled={page === 1}
-                className="flex items-center gap-1 rounded-lg border border-slate-200 px-2.5 py-1.5 text-sm font-medium text-[#0B3D6E] transition-colors hover:border-[#0B3D6E] disabled:cursor-not-allowed disabled:opacity-30"
+                aria-label="Página anterior"
+                className={`flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 text-[#0B3D6E] transition-all hover:border-[#0B3D6E] hover:bg-[#0B3D6E]/5 active:scale-90 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:border-slate-200 disabled:hover:bg-transparent ${focusRing}`}
               >
-                <ChevronLeft size={14} />
+                <ChevronLeft size={16} />
               </button>
+
               {paginasVisibles.map((p, i) =>
                 p === '...' ? (
-                  <span key={`dots-${i}`} className="px-1.5 text-xs text-slate-400">…</span>
+                  <span key={`dots-${i}`} className="w-8 text-center text-sm text-slate-400">…</span>
                 ) : (
                   <button
                     key={p}
                     onClick={() => setPage(p as number)}
-                    className={`min-w-[30px] rounded-md px-2 py-1.5 text-xs font-semibold transition-colors
-                      ${page === p ? 'bg-[#0B3D6E] text-white' : 'text-slate-600 hover:bg-slate-100'}`}
+                    aria-current={page === p ? 'page' : undefined}
+                    className={`h-9 min-w-9 rounded-lg px-2.5 text-sm font-semibold tabular-nums transition-all duration-200 active:scale-90 ${focusRing} ${
+                      page === p
+                        ? 'bg-[#0B3D6E] text-white shadow-md shadow-[#0B3D6E]/25'
+                        : 'text-slate-600 hover:bg-slate-100'
+                    }`}
                   >
                     {p}
                   </button>
                 )
               )}
+
               <button
                 onClick={() => setPage(p => Math.min(totalPages, p + 1))}
                 disabled={page >= totalPages}
-                className="flex items-center gap-1 rounded-lg border border-slate-200 px-2.5 py-1.5 text-sm font-medium text-[#0B3D6E] transition-colors hover:border-[#0B3D6E] disabled:cursor-not-allowed disabled:opacity-30"
+                aria-label="Página siguiente"
+                className={`flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 text-[#0B3D6E] transition-all hover:border-[#0B3D6E] hover:bg-[#0B3D6E]/5 active:scale-90 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:border-slate-200 disabled:hover:bg-transparent ${focusRing}`}
               >
-                <ChevronRightIcon size={14} />
+                <ChevronRightIcon size={16} />
               </button>
             </div>
-          </div>
+          </nav>
         )}
-      </div>
+      </main>
 
+      {/* ============ DRAWER, LOADER Y TOAST ============ */}
       <DetalleProcesoDrawer
         ocid={selectedOcid}
         tenderId={selectedTenderId}
@@ -704,6 +1158,26 @@ export default function CotizarSeacePage() {
           onCompletado={() => { cargar(); cargarKpis() }}
         />
       )}
-    </>
+
+      {toast && (
+        <div
+          role="status"
+          className={`sx-toast fixed bottom-6 right-6 z-[60] flex max-w-sm items-start gap-3 rounded-xl border px-4 py-3 text-sm shadow-2xl ${
+            toast.tipo === 'error'
+              ? 'border-rose-200 bg-rose-50 text-rose-800'
+              : 'border-slate-200 bg-white text-slate-700'
+          }`}
+        >
+          <span className="flex-1 leading-relaxed">{toast.msg}</span>
+          <button
+            onClick={() => setToast(null)}
+            aria-label="Cerrar aviso"
+            className={`mt-0.5 shrink-0 rounded text-slate-400 hover:text-slate-700 ${focusRing}`}
+          >
+            <X size={15} />
+          </button>
+        </div>
+      )}
+    </div>
   )
 }
