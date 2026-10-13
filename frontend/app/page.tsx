@@ -176,11 +176,15 @@ const ESTILOS = `
 .sx-toast{animation:sx-toast .4s var(--sx-ease)}
 @keyframes sx-slide{from{transform:translateX(100%)}to{transform:none}}
 .sx-slide{animation:sx-slide .38s var(--sx-ease)}
-@keyframes sx-modal{from{opacity:0;transform:translateY(12px) scale(.96)}to{opacity:1;transform:none}}
+@keyframes sx-modal{from{opacity:0;transform:translateY(16px) scale(.97)}to{opacity:1;transform:none}}
 .sx-modal{animation:sx-modal .4s var(--sx-ease)}
 .sx-collapse{display:grid;grid-template-rows:0fr;opacity:0;visibility:hidden;transition:grid-template-rows .32s var(--sx-ease),opacity .22s ease,visibility 0s linear .32s}
 .sx-collapse[data-open="true"]{grid-template-rows:1fr;opacity:1;visibility:visible;transition:grid-template-rows .32s var(--sx-ease),opacity .25s ease .05s,visibility 0s}
 .sx-collapse>div{min-height:0;overflow:hidden}
+.sx-noscroll{scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.sx-noscroll::-webkit-scrollbar{display:none}
+.sx-lift{transition:transform .3s var(--sx-ease)}
+@media (hover:hover){.sx-lift:hover{transform:translateY(-4px)}}
 @media (prefers-reduced-motion:reduce){
   .sx-root *,.sx-root *::before,.sx-root *::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;transition-delay:0s!important}
 }
@@ -192,8 +196,9 @@ const focusRing =
 const focusRingDark =
   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A2F55]'
 
+// text-base en móvil evita el zoom automático de iOS al enfocar un campo
 const controlBase =
-  'h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 text-sm text-slate-700 transition hover:border-slate-300 focus:border-[#0B3D6E] focus:bg-white focus:outline-none focus:ring-4 focus:ring-[#0B3D6E]/10 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-300 disabled:hover:border-slate-200'
+  'h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 text-base text-slate-700 transition hover:border-slate-300 focus:border-[#0B3D6E] focus:bg-white focus:outline-none focus:ring-4 focus:ring-[#0B3D6E]/10 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-300 disabled:hover:border-slate-200 sm:text-sm'
 
 /* ------------------------------------------------------------------ */
 /*  Utilidades de UI                                                   */
@@ -245,7 +250,7 @@ function generarPaginasVisibles(actual: number, total: number): (number | '...')
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <label className="block">
+    <label className="block min-w-0">
       <span className="mb-1.5 block text-xs font-semibold text-slate-600">{label}</span>
       {children}
     </label>
@@ -323,13 +328,13 @@ function CotizacionesPanel({
         className="sx-fade absolute inset-0 bg-slate-900/50 backdrop-blur-sm"
         onClick={onClose}
       />
-      <div className="sx-slide relative ml-auto flex h-full w-full max-w-md flex-col bg-white shadow-2xl">
-        <div className="flex shrink-0 items-center gap-3 bg-emerald-700 px-5 py-4">
+      <div className="sx-slide relative ml-auto flex h-full w-full max-w-md flex-col bg-white shadow-2xl sm:rounded-l-3xl">
+        <div className="flex shrink-0 items-center gap-3 bg-emerald-700 px-4 py-4 sm:px-5 sm:rounded-tl-3xl">
           <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/15 text-white">
             <ShoppingCart size={17} />
           </span>
-          <div className="flex-1">
-            <p className={`${fontDisplay.className} text-base font-bold text-white`}>Mis cotizaciones</p>
+          <div className="min-w-0 flex-1">
+            <p className={`${fontDisplay.className} truncate text-base font-bold text-white`}>Mis cotizaciones</p>
             <p className="text-xs text-emerald-100">
               {items.length} contrato{items.length !== 1 ? 's' : ''} seleccionado{items.length !== 1 ? 's' : ''}
             </p>
@@ -337,13 +342,13 @@ function CotizacionesPanel({
           <button
             onClick={onClose}
             aria-label="Cerrar"
-            className={`flex h-8 w-8 items-center justify-center rounded-lg bg-white/10 text-white transition-colors hover:bg-white/20 ${focusRingDark}`}
+            className={`flex h-10 w-10 items-center justify-center rounded-xl bg-white/10 text-white transition-colors hover:bg-white/20 sm:h-8 sm:w-8 sm:rounded-lg ${focusRingDark}`}
           >
-            <X size={15} />
+            <X size={16} />
           </button>
         </div>
 
-        <div className="flex-1 space-y-3 overflow-y-auto bg-slate-50/60 p-4">
+        <div className="flex-1 space-y-3 overflow-y-auto overscroll-contain bg-slate-50/60 p-3 sm:p-4">
           {items.length === 0 ? (
             <div className="flex h-full flex-col items-center justify-center gap-3 text-center text-slate-400">
               <span className="flex h-16 w-16 items-center justify-center rounded-full bg-slate-100">
@@ -372,15 +377,15 @@ function CotizacionesPanel({
                 <button
                   onClick={() => onRemove(c.id)}
                   aria-label="Quitar de cotizaciones"
-                  className={`mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-rose-50 text-rose-400 transition-colors hover:bg-rose-100 hover:text-rose-600 ${focusRing}`}
+                  className={`mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-rose-50 text-rose-400 transition-colors hover:bg-rose-100 hover:text-rose-600 sm:h-7 sm:w-7 ${focusRing}`}
                 >
-                  <X size={13} />
+                  <X size={14} />
                 </button>
               </div>
               {c.cotizar && (
                 <button
                   onClick={() => onCotizar(c)}
-                  className={`w-full rounded-lg bg-emerald-600 py-2 text-xs font-bold text-white transition-all hover:bg-emerald-500 active:scale-[0.98] ${focusRing}`}
+                  className={`w-full rounded-lg bg-emerald-600 py-2.5 text-xs font-bold text-white transition-all hover:bg-emerald-500 active:scale-[0.98] sm:py-2 ${focusRing}`}
                 >
                   Cotizar en SEACE
                 </button>
@@ -390,10 +395,10 @@ function CotizacionesPanel({
         </div>
 
         {items.length > 0 && (
-          <div className="shrink-0 border-t border-slate-100 bg-white p-4">
+          <div className="shrink-0 border-t border-slate-100 bg-white p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] sm:p-4 sm:pb-4">
             <button
               onClick={() => { if (confirm('¿Limpiar todas las cotizaciones?')) items.forEach(i => onRemove(i.id)) }}
-              className={`flex w-full items-center justify-center gap-2 rounded-xl border border-slate-200 py-2.5 text-sm font-medium text-slate-500 transition-colors hover:bg-slate-50 hover:text-rose-600 ${focusRing}`}
+              className={`flex w-full items-center justify-center gap-2 rounded-xl border border-slate-200 py-3 text-sm font-medium text-slate-500 transition-colors hover:bg-slate-50 hover:text-rose-600 sm:py-2.5 ${focusRing}`}
             >
               <RotateCcw size={13} /> Limpiar todo
             </button>
@@ -744,7 +749,7 @@ export default function Home() {
   const adaptados = contratos.map(adaptarContrato)
 
   // ── Extras de UI (no tocan la lógica de datos) ────────────────────────────
-  // Atajo: "/" enfoca el buscador
+  // Atajo: "/" enfoca el buscador (útil en teclado; en móvil no estorba)
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       const el = e.target as HTMLElement | null
@@ -798,24 +803,30 @@ export default function Home() {
   const paginasVisibles = generarPaginasVisibles(page, totalPages)
 
   const toggleBase =
-    'inline-flex items-center gap-1.5 rounded-full border px-3.5 py-2 text-sm font-medium transition-all duration-200'
+    'inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border px-3.5 py-2.5 text-sm font-medium transition-all duration-200 sm:py-2'
+
+  const botonPagina =
+    `flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 text-[#0B3D6E] transition-all hover:border-[#0B3D6E] hover:bg-[#0B3D6E]/5 active:scale-90 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:border-slate-200 disabled:hover:bg-transparent sm:h-9 sm:w-9 ${focusRing}`
 
   return (
-    <div className="sx-root min-h-screen bg-[#F3F6FA] pb-16">
+    <div
+      className="sx-root min-h-screen bg-[#F3F6FA] pb-28 md:pb-16"
+      style={{ minHeight: '100dvh' }}
+    >
       <style dangerouslySetInnerHTML={{ __html: ESTILOS }} />
 
-      {/* MODAL: Plan requerido */}
+      {/* MODAL: Plan requerido (hoja inferior en móvil, centrado en pantallas grandes) */}
       {showPlanModal && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4" role="dialog" aria-modal="true">
+        <div className="fixed inset-0 z-[100] flex items-end justify-center sm:items-center sm:p-4" role="dialog" aria-modal="true">
           <div className="sx-fade absolute inset-0 bg-slate-950/60 backdrop-blur-sm" onClick={() => setShowPlanModal(false)} />
-          <div className="sx-modal relative mx-4 w-full max-w-sm overflow-hidden rounded-3xl border border-slate-100 bg-white shadow-2xl">
+          <div className="sx-modal relative max-h-[92dvh] w-full max-w-md overflow-y-auto rounded-t-3xl border border-slate-100 bg-white shadow-2xl sm:max-w-sm sm:rounded-3xl">
             <div className="flex flex-col items-center gap-3 bg-[#0A2F55] px-6 py-6">
               <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#F5B700] text-[#0A2F55]">
                 <Lock size={20} />
               </span>
               <p className={`${fontDisplay.className} text-lg font-bold text-white`}>Plan Premium</p>
             </div>
-            <div className="space-y-4 px-6 py-5 text-center">
+            <div className="space-y-4 px-5 py-5 text-center sm:px-6">
               <div>
                 <h3 className="text-base font-bold text-slate-800">Esta función no está disponible en tu plan</h3>
                 <p className="mt-1.5 text-sm leading-relaxed text-slate-500">
@@ -823,20 +834,20 @@ export default function Home() {
                 </p>
               </div>
               <div className="space-y-1.5 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-left text-sm">
-                <p className="flex items-center gap-2 font-medium text-emerald-700"><CheckCircle2 size={15} /> Extracción de vigentes: gratis</p>
-                <p className="flex items-center gap-2 font-medium text-amber-800"><Lock size={14} /> Extracción total: requiere plan</p>
+                <p className="flex items-center gap-2 font-medium text-emerald-700"><CheckCircle2 size={15} className="shrink-0" /> Extracción de vigentes: gratis</p>
+                <p className="flex items-center gap-2 font-medium text-amber-800"><Lock size={14} className="shrink-0" /> Extracción total: requiere plan</p>
               </div>
             </div>
-            <div className="flex gap-2 px-6 pb-6">
+            <div className="flex gap-2 px-5 pb-[calc(1.25rem+env(safe-area-inset-bottom))] sm:px-6 sm:pb-6">
               <button
                 onClick={() => setShowPlanModal(false)}
-                className={`flex-1 rounded-xl border border-slate-200 py-2.5 text-sm font-medium text-slate-500 transition-colors hover:bg-slate-50 ${focusRing}`}
+                className={`flex-1 rounded-xl border border-slate-200 py-3 text-sm font-medium text-slate-500 transition-colors hover:bg-slate-50 sm:py-2.5 ${focusRing}`}
               >
                 Cerrar
               </button>
               <button
                 onClick={() => setShowPlanModal(false)}
-                className={`flex-1 rounded-xl bg-[#F5B700] py-2.5 text-sm font-bold text-[#0A2F55] shadow-sm transition-all hover:bg-[#ffc933] active:scale-[0.98] ${focusRing}`}
+                className={`flex-1 rounded-xl bg-[#F5B700] py-3 text-sm font-bold text-[#0A2F55] shadow-sm transition-all hover:bg-[#ffc933] active:scale-[0.98] sm:py-2.5 ${focusRing}`}
               >
                 Contactar
               </button>
@@ -847,9 +858,9 @@ export default function Home() {
 
       {/* OVERLAY BLOQUEANTE mientras scraper corre */}
       {scraperRunning && (
-        <div className="sx-fade fixed inset-0 z-[100] flex items-center justify-center bg-slate-950/70 backdrop-blur-sm" role="alertdialog" aria-live="polite">
-          <div className="sx-modal mx-4 flex w-full max-w-sm flex-col items-center gap-6 rounded-3xl border border-slate-100 bg-white px-8 py-8 shadow-2xl">
-            <div className="relative flex h-16 w-16 items-center justify-center">
+        <div className="sx-fade fixed inset-0 z-[100] flex items-center justify-center bg-slate-950/70 p-4 backdrop-blur-sm" role="alertdialog" aria-live="polite">
+          <div className="sx-modal flex max-h-[92dvh] w-full max-w-sm flex-col items-center gap-5 overflow-y-auto rounded-3xl border border-slate-100 bg-white px-5 py-7 shadow-2xl sm:gap-6 sm:px-8 sm:py-8">
+            <div className="relative flex h-16 w-16 shrink-0 items-center justify-center">
               <div className="absolute inset-0 rounded-full border-4 border-blue-100" />
               <div className="absolute inset-0 animate-spin rounded-full border-4 border-transparent border-t-[#0B3D6E]" />
               <div className="absolute inset-[6px] animate-spin rounded-full border-4 border-transparent border-t-[#F5B700]" style={{ animationDuration: '0.9s', animationDirection: 'reverse' }} />
@@ -864,27 +875,27 @@ export default function Home() {
             </div>
 
             <div className="grid w-full grid-cols-2 gap-3">
-              <div className="flex flex-col items-center gap-1 rounded-xl border border-slate-100 bg-slate-50 px-3 py-3">
+              <div className="flex min-w-0 flex-col items-center gap-1 rounded-xl border border-slate-100 bg-slate-50 px-2 py-3">
                 <div className="flex items-center gap-1.5 text-slate-400">
                   <Timer size={12} />
                   <span className="text-xs font-medium">Transcurrido</span>
                 </div>
-                <p className="text-lg font-bold tabular-nums text-slate-800">{formatDuracion(elapsedSeconds)}</p>
+                <p className="text-base font-bold tabular-nums text-slate-800 sm:text-lg">{formatDuracion(elapsedSeconds)}</p>
               </div>
-              <div className="flex flex-col items-center gap-1 rounded-xl border border-slate-100 bg-slate-50 px-3 py-3">
+              <div className="flex min-w-0 flex-col items-center gap-1 rounded-xl border border-slate-100 bg-slate-50 px-2 py-3">
                 <div className="flex items-center gap-1.5 text-slate-400">
                   <TrendingUp size={12} />
                   <span className="text-xs font-medium">
                     {estimatedSeconds ? 'Restante est.' : 'Referencia'}
                   </span>
                 </div>
-                <p className="text-lg font-bold tabular-nums text-slate-800">
+                <p className="text-base font-bold tabular-nums text-slate-800 sm:text-lg">
                   {estimatedSeconds ? formatDuracion(Math.max(estimatedSeconds - elapsedSeconds, 0)) : '—'}
                 </p>
               </div>
             </div>
 
-            <div className="h-2 w-full overflow-hidden rounded-full bg-slate-100">
+            <div className="h-2 w-full shrink-0 overflow-hidden rounded-full bg-slate-100">
               {estimatedSeconds ? (
                 <div
                   className="h-full rounded-full bg-[#0B3D6E] transition-all duration-1000"
@@ -903,11 +914,11 @@ export default function Home() {
         </div>
       )}
 
-      {/* TOAST notificación scraper */}
+      {/* TOAST: ancho completo en móvil (sobre el botón flotante), esquina en pantallas grandes */}
       {scraperToast && !scraperRunning && (
         <div
           role="status"
-          className={`sx-toast fixed bottom-6 right-6 z-[90] flex max-w-sm items-center gap-3 rounded-2xl border px-5 py-3.5 text-sm font-medium shadow-2xl
+          className={`sx-toast fixed inset-x-4 bottom-[calc(6rem+env(safe-area-inset-bottom))] z-[90] flex items-center gap-3 rounded-2xl border px-4 py-3.5 text-sm font-medium shadow-2xl sm:inset-x-auto sm:right-6 sm:max-w-sm md:bottom-6 sm:px-5
           ${scraperToast.tone === 'success' ? 'border-emerald-800 bg-emerald-950 text-emerald-100' : ''}
           ${scraperToast.tone === 'warning' ? 'border-amber-800 bg-amber-950 text-amber-100' : ''}
           ${scraperToast.tone === 'error'   ? 'border-rose-800 bg-rose-950 text-rose-100' : ''}
@@ -917,21 +928,41 @@ export default function Home() {
           {scraperToast.tone === 'warning' && <AlertTriangle size={16} className="shrink-0" />}
           {scraperToast.tone === 'error'   && <ShieldAlert size={16} className="shrink-0" />}
           {scraperToast.tone === 'info'    && <Loader2 size={16} className="shrink-0 animate-spin" />}
-          <span className="leading-snug">{scraperToast.text}</span>
+          <span className="min-w-0 flex-1 leading-snug">{scraperToast.text}</span>
           <button
             onClick={() => setScraperToast(null)}
             aria-label="Cerrar aviso"
-            className="ml-1 shrink-0 opacity-60 transition-opacity hover:opacity-100"
+            className="-mr-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg opacity-60 transition-opacity hover:opacity-100"
           >
-            <X size={13} />
+            <X size={14} />
           </button>
         </div>
       )}
 
-      {/* HEADER */}
-      <header className="sticky top-0 z-40 border-b border-white/10 bg-[#0A2F55]/95 shadow-lg backdrop-blur-md">
-        <div className="mx-auto flex max-w-[1600px] items-center justify-between gap-3 px-4 py-3 lg:px-6">
-          <div className="flex min-w-0 items-center gap-3">
+      {/* BOTÓN FLOTANTE de cotizaciones (solo móvil y tablet pequeña) */}
+      <button
+        onClick={() => setShowCotizaciones(true)}
+        disabled={scraperRunning}
+        aria-label={`Abrir cotizaciones (${cotizaciones.length})`}
+        className={`fixed bottom-[calc(1.25rem+env(safe-area-inset-bottom))] right-4 z-30 flex h-14 w-14 items-center justify-center rounded-full text-white shadow-xl shadow-emerald-900/30 transition-transform active:scale-90 md:hidden ${
+          scraperRunning ? 'cursor-not-allowed bg-slate-400' : 'bg-emerald-500'
+        } ${focusRing}`}
+      >
+        <ShoppingCart size={22} />
+        {cotizaciones.length > 0 && (
+          <span
+            key={cotizaciones.length}
+            className="sx-pop absolute -right-1 -top-1 flex h-6 min-w-6 items-center justify-center rounded-full bg-rose-500 px-1 text-xs font-bold text-white ring-2 ring-[#F3F6FA]"
+          >
+            {cotizaciones.length}
+          </span>
+        )}
+      </button>
+
+      {/* HEADER: dos filas en móvil, una fila fija desde tablet */}
+      <header className="z-40 border-b border-white/10 bg-[#0A2F55] shadow-lg md:sticky md:top-0 md:bg-[#0A2F55]/95 md:backdrop-blur-md">
+        <div className="mx-auto flex max-w-[1800px] flex-wrap items-center gap-x-3 gap-y-3 px-4 py-3 md:flex-nowrap md:justify-between lg:px-6">
+          <div className="flex min-w-0 flex-1 items-center gap-3">
             <SidebarTrigger className="text-white lg:hidden" />
             <span className="hidden h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#F5B700] text-[#0A2F55] sm:flex">
               <FileSearch size={19} />
@@ -940,20 +971,22 @@ export default function Home() {
               <h1 className={`${fontDisplay.className} truncate text-lg font-bold leading-tight tracking-tight text-white sm:text-xl`}>
                 Contratos del SEACE
               </h1>
-              <p className="hidden text-xs text-blue-200/80 sm:block">Busca, compara y cotiza en un solo lugar</p>
+              <p className="hidden truncate text-xs text-blue-200/80 lg:block">Busca, compara y cotiza en un solo lugar</p>
             </div>
           </div>
 
-          <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+          <div className="flex w-full flex-wrap items-center gap-2 md:w-auto md:shrink-0 md:flex-nowrap md:gap-3">
             {/* Selector de empresas vinculadas a SEACE */}
-            <EmpresaSelector onNotify={setScraperToast} disabled={scraperRunning} />
+            <div className="min-w-0 max-w-full">
+              <EmpresaSelector onNotify={setScraperToast} disabled={scraperRunning} />
+            </div>
 
             {/* Botón: Extraer Vigentes */}
             <button
               onClick={() => lanzarScraper('vigentes')}
               disabled={scraperRunning}
               title="Extraer solo contratos vigentes"
-              className={`flex items-center gap-2 rounded-xl px-3.5 py-2 text-sm font-bold transition-all duration-200 ${focusRingDark}
+              className={`flex flex-1 items-center justify-center gap-2 rounded-xl px-3.5 py-2.5 text-sm font-bold transition-all duration-200 md:flex-none md:py-2 ${focusRingDark}
                 ${scraperRunning
                   ? 'cursor-not-allowed bg-white/10 text-white/40'
                   : 'bg-[#F5B700] text-[#0A2F55] shadow-lg shadow-black/20 hover:-translate-y-0.5 hover:bg-[#ffc933] active:translate-y-0'
@@ -963,7 +996,7 @@ export default function Home() {
                 ? <Loader2 size={15} className="animate-spin" />
                 : <CheckCircle2 size={15} />
               }
-              <span className="hidden sm:inline">Extraer vigentes</span>
+              <span className="md:hidden lg:inline">Extraer vigentes</span>
             </button>
 
             {/* Botón: Extraer Todo */}
@@ -972,7 +1005,7 @@ export default function Home() {
                 onClick={() => lanzarScraper('todo')}
                 disabled={scraperRunning}
                 title="Extraer todos los contratos"
-                className={`flex items-center gap-2 rounded-xl border px-3.5 py-2 text-sm font-semibold transition-all duration-200 ${focusRingDark}
+                className={`flex flex-1 items-center justify-center gap-2 rounded-xl border px-3.5 py-2.5 text-sm font-semibold transition-all duration-200 md:flex-none md:py-2 ${focusRingDark}
                   ${scraperRunning
                     ? 'cursor-not-allowed border-white/10 bg-white/5 text-white/40'
                     : 'border-white/25 bg-white/10 text-white hover:-translate-y-0.5 hover:bg-white/20 active:translate-y-0'
@@ -982,31 +1015,32 @@ export default function Home() {
                   ? <Loader2 size={15} className="animate-spin" />
                   : <RotateCcw size={15} />
                 }
-                <span className="hidden sm:inline">Extraer todo</span>
+                <span className="md:hidden lg:inline">Extraer todo</span>
               </button>
             ) : (
               <button
                 onClick={() => setShowPlanModal(true)}
                 title="Requiere plan Premium"
-                className={`flex items-center gap-2 rounded-xl border border-white/15 bg-white/5 px-3.5 py-2 text-sm font-semibold text-white/70 transition-all duration-200 hover:bg-white/10 hover:text-white ${focusRingDark}`}
+                className={`flex flex-1 items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 px-3.5 py-2.5 text-sm font-semibold text-white/70 transition-all duration-200 hover:bg-white/10 hover:text-white md:flex-none md:py-2 ${focusRingDark}`}
               >
                 <Lock size={14} />
-                <span className="hidden sm:inline">Extraer todo</span>
+                <span className="md:hidden lg:inline">Extraer todo</span>
               </button>
             )}
 
-            {/* Botón cotizaciones */}
+            {/* Botón cotizaciones (en móvil se usa el botón flotante) */}
             <button
               onClick={() => setShowCotizaciones(true)}
               disabled={scraperRunning}
-              className={`relative flex items-center gap-2 rounded-xl px-3.5 py-2 text-sm font-bold transition-all duration-200 ${focusRingDark}
+              aria-label="Abrir cotizaciones"
+              className={`relative hidden items-center gap-2 rounded-xl px-3.5 py-2 text-sm font-bold transition-all duration-200 md:flex ${focusRingDark}
                 ${scraperRunning
                   ? 'cursor-not-allowed bg-white/10 text-white/40'
                   : 'bg-emerald-500 text-white shadow-lg shadow-black/20 hover:-translate-y-0.5 hover:bg-emerald-400 active:translate-y-0'
                 }`}
             >
               <ShoppingCart size={15} />
-              <span className="hidden sm:inline">Cotizaciones</span>
+              <span className="hidden lg:inline">Cotizaciones</span>
               {cotizaciones.length > 0 && (
                 <span
                   key={cotizaciones.length}
@@ -1020,14 +1054,14 @@ export default function Home() {
         </div>
       </header>
 
-      <main className="mx-auto max-w-[1600px] space-y-5 px-4 py-5 lg:px-6">
+      <main className="mx-auto max-w-[1800px] space-y-4 px-3 py-4 sm:space-y-5 sm:px-4 sm:py-5 lg:px-6">
 
         {/* ERROR */}
         {error && (
-          <div role="alert" className="sx-fade flex items-center gap-3 rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">
+          <div role="alert" className="sx-fade flex flex-wrap items-center gap-x-3 gap-y-2 rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">
             <AlertCircle size={16} className="shrink-0" />
-            <span className="flex-1">{error}</span>
-            <button onClick={cargarContratos} className={`rounded-md px-2 py-1 text-xs font-semibold underline hover:bg-rose-100 ${focusRing}`}>
+            <span className="min-w-0 flex-1">{error}</span>
+            <button onClick={cargarContratos} className={`rounded-md px-2 py-1.5 text-xs font-semibold underline hover:bg-rose-100 ${focusRing}`}>
               Reintentar
             </button>
           </div>
@@ -1036,7 +1070,7 @@ export default function Home() {
         {/* PANEL: KPIs (también filtran por estado) + búsqueda + filtros */}
         <section aria-label="Búsqueda y filtros" className="overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-xl shadow-slate-900/5">
 
-          {/* Pestañas de estado */}
+          {/* Pestañas de estado: 2x2 en móvil, 4 en una fila desde laptop */}
           <div role="tablist" aria-label="Estado del contrato" className="grid grid-cols-2 border-b border-slate-100 lg:grid-cols-4">
             {TABS_ESTADO.map((t, i) => {
               const activo = filter === t.value
@@ -1047,17 +1081,17 @@ export default function Home() {
                   role="tab"
                   aria-selected={activo}
                   onClick={() => setFilter(t.value as FilterStatus)}
-                  className={`group relative flex items-center gap-3.5 px-5 py-4 text-left transition-colors hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0B3D6E]
-                    ${i > 0 ? 'lg:border-l lg:border-slate-100' : ''} ${i % 2 === 1 ? 'border-l border-slate-100' : ''}`}
+                  className={`group relative flex min-w-0 items-center gap-2.5 px-3.5 py-3.5 text-left transition-colors hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0B3D6E] sm:gap-3.5 sm:px-5 sm:py-4
+                    ${i > 0 ? 'lg:border-l lg:border-slate-100' : ''} ${i % 2 === 1 ? 'border-l border-slate-100' : ''} ${i >= 2 ? 'border-t border-slate-100 lg:border-t-0' : ''}`}
                 >
-                  <span className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-105 ${t.iconBg}`}>
-                    <Icono size={19} />
+                  <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-105 sm:h-11 sm:w-11 ${t.iconBg}`}>
+                    <Icono size={18} />
                   </span>
-                  <span>
-                    <span className="block text-sm font-medium text-slate-500">{t.label}</span>
-                    <span className={`${fontDisplay.className} block text-3xl font-bold tabular-nums leading-tight transition-colors duration-300 ${activo ? t.text : 'text-slate-800'}`}>
+                  <span className="min-w-0">
+                    <span className="block truncate text-xs font-medium text-slate-500 sm:text-sm">{t.label}</span>
+                    <span className={`${fontDisplay.className} block text-2xl font-bold tabular-nums leading-tight transition-colors duration-300 sm:text-3xl ${activo ? t.text : 'text-slate-800'}`}>
                       {loadingStats
-                        ? <span className="sx-skel mt-1 inline-block h-7 w-14 rounded" />
+                        ? <span className="sx-skel mt-1 inline-block h-6 w-12 rounded sm:h-7 sm:w-14" />
                         : <Num value={stats ? stats[t.key] : 0} />}
                     </span>
                   </span>
@@ -1070,7 +1104,7 @@ export default function Home() {
           </div>
 
           {/* Buscador + más filtros */}
-          <div className="flex flex-col gap-3 p-4 sm:flex-row sm:items-center">
+          <div className="flex flex-col gap-3 p-3 sm:flex-row sm:items-center sm:p-4">
             <div className="relative flex-1">
               <Search size={18} className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
               <input
@@ -1078,20 +1112,20 @@ export default function Home() {
                 type="search"
                 value={search}
                 onChange={e => setSearch(e.target.value)}
-                placeholder="Busca por entidad, descripción o código de contratación..."
+                placeholder="Busca por entidad, descripción o código..."
                 aria-label="Buscar contratos"
-                className="h-12 w-full rounded-xl border border-slate-200 bg-slate-50 pl-11 pr-12 text-[15px] text-slate-800 transition placeholder:text-slate-400 hover:border-slate-300 focus:border-[#0B3D6E] focus:bg-white focus:outline-none focus:ring-4 focus:ring-[#0B3D6E]/10 [&::-webkit-search-cancel-button]:hidden"
+                className="h-12 w-full rounded-xl border border-slate-200 bg-slate-50 pl-11 pr-12 text-base text-slate-800 transition placeholder:text-slate-400 hover:border-slate-300 focus:border-[#0B3D6E] focus:bg-white focus:outline-none focus:ring-4 focus:ring-[#0B3D6E]/10 sm:text-[15px] [&::-webkit-search-cancel-button]:hidden"
               />
               {search ? (
                 <button
                   onClick={() => setSearch('')}
                   aria-label="Borrar búsqueda"
-                  className={`absolute right-3 top-1/2 flex h-6 w-6 -translate-y-1/2 items-center justify-center rounded-full text-slate-400 hover:bg-slate-200 hover:text-slate-600 ${focusRing}`}
+                  className={`absolute right-2 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full text-slate-400 hover:bg-slate-200 hover:text-slate-600 ${focusRing}`}
                 >
-                  <X size={14} />
+                  <X size={15} />
                 </button>
               ) : (
-                <kbd className="pointer-events-none absolute right-3 top-1/2 hidden h-6 -translate-y-1/2 items-center rounded-md border border-slate-200 bg-white px-2 text-xs font-medium text-slate-400 sm:inline-flex">
+                <kbd className="pointer-events-none absolute right-3 top-1/2 hidden h-6 -translate-y-1/2 items-center rounded-md border border-slate-200 bg-white px-2 text-xs font-medium text-slate-400 lg:inline-flex">
                   /
                 </kbd>
               )}
@@ -1101,7 +1135,7 @@ export default function Home() {
               onClick={() => setShowFilters(v => !v)}
               aria-expanded={showFilters}
               aria-controls="panel-filtros"
-              className={`flex h-12 shrink-0 items-center justify-center gap-2 rounded-xl border px-4 text-sm font-semibold transition-all duration-200 ${focusRing} ${
+              className={`flex h-12 w-full shrink-0 items-center justify-center gap-2 rounded-xl border px-4 text-sm font-semibold transition-all duration-200 sm:w-auto ${focusRing} ${
                 showFilters || filtrosAvanzadosActivos > 0
                   ? 'border-[#0B3D6E] bg-[#0B3D6E]/5 text-[#0B3D6E]'
                   : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:bg-slate-50'
@@ -1118,64 +1152,66 @@ export default function Home() {
             </button>
           </div>
 
-          {/* Tipo de contrato + atajos */}
-          <div className="flex flex-wrap items-center gap-2 px-4 pb-4">
-            <span className="mr-1 text-sm font-medium text-slate-500">Tipo</span>
-            {OBJETOS.map(o => {
-              const Icono = o.icon
-              const activo = objeto === o.value
-              return (
-                <button
-                  key={o.label}
-                  aria-pressed={activo}
-                  onClick={() => setObjeto(o.value)}
-                  className={`${toggleBase} ${focusRing} ${
-                    activo
-                      ? 'border-[#0B3D6E] bg-[#0B3D6E] text-white shadow-md shadow-[#0B3D6E]/25'
-                      : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:bg-slate-50'
-                  }`}
-                >
-                  <Icono size={15} className={activo ? 'text-[#F5B700]' : 'text-slate-400'} />
-                  {o.label}
-                </button>
-              )
-            })}
+          {/* Tipo de contrato + atajos: fila deslizable en móvil, se ajusta en pantallas grandes */}
+          <div className="pb-3 sm:pb-4">
+            <div className="sx-noscroll flex items-center gap-2 overflow-x-auto px-3 [mask-image:linear-gradient(to_right,transparent,black_12px,black_calc(100%-28px),transparent)] sm:flex-wrap sm:overflow-visible sm:px-4 sm:[mask-image:none]">
+              <span className="mr-1 hidden shrink-0 text-sm font-medium text-slate-500 sm:inline">Tipo</span>
+              {OBJETOS.map(o => {
+                const Icono = o.icon
+                const activo = objeto === o.value
+                return (
+                  <button
+                    key={o.label}
+                    aria-pressed={activo}
+                    onClick={() => setObjeto(o.value)}
+                    className={`${toggleBase} ${focusRing} ${
+                      activo
+                        ? 'border-[#0B3D6E] bg-[#0B3D6E] text-white shadow-md shadow-[#0B3D6E]/25'
+                        : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:bg-slate-50'
+                    }`}
+                  >
+                    <Icono size={15} className={activo ? 'text-[#F5B700]' : 'text-slate-400'} />
+                    {o.label}
+                  </button>
+                )
+              })}
 
-            <span className="mx-1 hidden h-6 w-px bg-slate-200 sm:block" />
+              <span className="mx-1 h-6 w-px shrink-0 bg-slate-200" />
 
-            <button
-              aria-pressed={showCotizablesOnly}
-              onClick={() => setShowCotizablesOnly(v => !v)}
-              className={`${toggleBase} ${focusRing} ${
-                showCotizablesOnly
-                  ? 'border-emerald-600 bg-emerald-600 text-white shadow-md shadow-emerald-600/25'
-                  : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:bg-slate-50'
-              }`}
-            >
-              <Clock size={15} className={showCotizablesOnly ? 'text-white' : 'text-slate-400'} />
-              Cotizables
-            </button>
+              <button
+                aria-pressed={showCotizablesOnly}
+                onClick={() => setShowCotizablesOnly(v => !v)}
+                className={`${toggleBase} ${focusRing} ${
+                  showCotizablesOnly
+                    ? 'border-emerald-600 bg-emerald-600 text-white shadow-md shadow-emerald-600/25'
+                    : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:bg-slate-50'
+                }`}
+              >
+                <Clock size={15} className={showCotizablesOnly ? 'text-white' : 'text-slate-400'} />
+                Cotizables
+              </button>
 
-            <button
-              aria-pressed={soloMios}
-              onClick={() => setSoloMios(v => !v)}
-              className={`${toggleBase} ${focusRing} ${
-                soloMios
-                  ? 'border-violet-600 bg-violet-600 text-white shadow-md shadow-violet-600/25'
-                  : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:bg-slate-50'
-              }`}
-            >
-              <Users size={15} className={soloMios ? 'text-white' : 'text-slate-400'} />
-              Míos
-            </button>
+              <button
+                aria-pressed={soloMios}
+                onClick={() => setSoloMios(v => !v)}
+                className={`${toggleBase} ${focusRing} ${
+                  soloMios
+                    ? 'border-violet-600 bg-violet-600 text-white shadow-md shadow-violet-600/25'
+                    : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:bg-slate-50'
+                }`}
+              >
+                <Users size={15} className={soloMios ? 'text-white' : 'text-slate-400'} />
+                Míos
+              </button>
+            </div>
           </div>
 
           {/* Sub-filtro de resultado: solo cuando el estado es "culminado" */}
           <div className="sx-collapse" data-open={filter === 'culminado'}>
             <div>
-              <div className="flex flex-wrap items-center gap-3 border-t border-slate-100 bg-rose-50/40 px-4 py-3">
+              <div className="flex flex-col gap-2 border-t border-slate-100 bg-rose-50/40 px-3 py-3 sm:flex-row sm:items-center sm:gap-3 sm:px-4">
                 <span className="text-sm font-medium text-slate-500">Resultado</span>
-                <div className="relative inline-flex rounded-xl bg-slate-100 p-1" role="group" aria-label="Resultado del contrato culminado">
+                <div className="flex w-full rounded-xl bg-slate-100 p-1 sm:inline-flex sm:w-auto" role="group" aria-label="Resultado del contrato culminado">
                   {(['', 'adjudicado', 'desierto'] as const).map(val => {
                     const activo = resultadoCotiza === val
                     const cuenta = resultadoStats
@@ -1186,7 +1222,7 @@ export default function Home() {
                         key={val || 'todos'}
                         aria-pressed={activo}
                         onClick={() => setResultadoCotiza(val)}
-                        className={`rounded-lg px-3.5 py-1.5 text-sm font-semibold transition-all duration-200 ${focusRing} ${
+                        className={`flex-1 rounded-lg px-2.5 py-2 text-xs font-semibold transition-all duration-200 sm:flex-none sm:px-3.5 sm:py-1.5 sm:text-sm ${focusRing} ${
                           activo
                             ? val === 'adjudicado'
                               ? 'bg-emerald-500 text-white shadow-sm'
@@ -1197,7 +1233,7 @@ export default function Home() {
                         }`}
                       >
                         {val === '' ? 'Todos' : val === 'adjudicado' ? 'Adjudicados' : 'Desiertos'}
-                        {cuenta !== null && <span className="ml-1.5 tabular-nums opacity-75">{cuenta.toLocaleString('es-PE')}</span>}
+                        {cuenta !== null && <span className="ml-1.5 hidden tabular-nums opacity-75 min-[400px]:inline">{cuenta.toLocaleString('es-PE')}</span>}
                       </button>
                     )
                   })}
@@ -1209,8 +1245,8 @@ export default function Home() {
           {/* Filtros avanzados */}
           <div id="panel-filtros" className="sx-collapse" data-open={showFilters}>
             <div>
-              <div className="space-y-4 border-t border-slate-100 bg-slate-50/50 p-4">
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+              <div className="space-y-4 border-t border-slate-100 bg-slate-50/50 p-3 sm:p-4">
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
                   <Field label="Departamento">
                     <SelectBox
                       label="Departamento"
@@ -1236,7 +1272,7 @@ export default function Home() {
                   </Field>
                 </div>
 
-                <div className="grid grid-cols-1 gap-4 border-t border-slate-200/70 pt-4 sm:grid-cols-3">
+                <div className="grid grid-cols-1 gap-3 border-t border-slate-200/70 pt-4 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
                   <Field label="Entidad">
                     <div className="relative">
                       <Search size={15} className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
@@ -1277,14 +1313,14 @@ export default function Home() {
 
           {/* Filtros aplicados */}
           {chips.length > 0 && (
-            <div className="flex flex-wrap items-center gap-2 border-t border-slate-100 px-4 py-3">
+            <div className="flex flex-wrap items-center gap-2 border-t border-slate-100 px-3 py-3 sm:px-4">
               <span className="text-xs font-medium text-slate-400">Aplicados</span>
               {chips.map(c => (
                 <button
                   key={c.id}
                   onClick={c.clear}
                   aria-label={`Quitar filtro: ${c.label}`}
-                  className={`sx-fade group inline-flex max-w-[260px] items-center gap-1.5 rounded-full bg-[#0B3D6E]/[0.07] py-1 pl-3 pr-2 text-xs font-medium text-[#0B3D6E] transition-colors hover:bg-rose-50 hover:text-rose-600 ${focusRing}`}
+                  className={`sx-fade group inline-flex max-w-full items-center gap-1.5 rounded-full bg-[#0B3D6E]/[0.07] py-1.5 pl-3 pr-2 text-xs font-medium text-[#0B3D6E] transition-colors hover:bg-rose-50 hover:text-rose-600 sm:max-w-[260px] sm:py-1 ${focusRing}`}
                 >
                   <span className="truncate">{c.label}</span>
                   <X size={13} className="shrink-0 opacity-60 transition-opacity group-hover:opacity-100" />
@@ -1292,7 +1328,7 @@ export default function Home() {
               ))}
               <button
                 onClick={clearFilters}
-                className={`ml-auto inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs font-semibold text-slate-500 transition-colors hover:bg-slate-100 hover:text-[#0B3D6E] ${focusRing}`}
+                className={`ml-auto inline-flex items-center gap-1.5 rounded-lg px-2.5 py-2 text-xs font-semibold text-slate-500 transition-colors hover:bg-slate-100 hover:text-[#0B3D6E] sm:py-1.5 ${focusRing}`}
               >
                 <RotateCcw size={12} />
                 Limpiar todo
@@ -1302,7 +1338,7 @@ export default function Home() {
         </section>
 
         {/* INFO RESULTADOS */}
-        <div className="relative flex flex-wrap items-center justify-between gap-2 px-1 pb-1">
+        <div className="relative flex flex-wrap items-center justify-between gap-x-4 gap-y-1 px-1 pb-1.5">
           <p className="text-sm text-slate-500" aria-live="polite">
             Mostrando <span className="font-bold tabular-nums text-slate-800">{adaptados.length}</span> de{' '}
             <span className="font-bold tabular-nums text-slate-800">{totalItems.toLocaleString('es-PE')}</span> contratos
@@ -1312,19 +1348,19 @@ export default function Home() {
             Página {page} de {totalPages}
           </p>
           {loadingData && (
-            <div className="absolute inset-x-0 -bottom-1 h-0.5 overflow-hidden rounded-full bg-[#0B3D6E]/10">
+            <div className="absolute inset-x-0 -bottom-0.5 h-0.5 overflow-hidden rounded-full bg-[#0B3D6E]/10">
               <div className="sx-bar h-full w-1/3 rounded-full bg-[#0B3D6E]" />
             </div>
           )}
         </div>
 
-        {/* GRID 4 columnas */}
+        {/* GRID: 1 columna en móvil, 2 en tablet, 3 en laptop, 4 en escritorio y 5 en monitores muy anchos */}
         {primeraCarga ? (
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3 xl:grid-cols-4 min-[1700px]:grid-cols-5">
             {Array.from({ length: 8 }).map((_, i) => <SkeletonCard key={i} />)}
           </div>
         ) : adaptados.length === 0 && !loadingData ? (
-          <div className="sx-fade flex flex-col items-center gap-3 rounded-2xl border border-dashed border-slate-300 bg-white px-6 py-20 text-center">
+          <div className="sx-fade flex flex-col items-center gap-3 rounded-2xl border border-dashed border-slate-300 bg-white px-5 py-16 text-center sm:px-6 sm:py-20">
             <span className="flex h-14 w-14 items-center justify-center rounded-full bg-slate-100 text-slate-400">
               <FileSearch size={26} />
             </span>
@@ -1334,43 +1370,45 @@ export default function Home() {
             </div>
             <button
               onClick={clearFilters}
-              className={`mt-1 inline-flex items-center gap-2 rounded-xl bg-[#0B3D6E] px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#0a3460] ${focusRing}`}
+              className={`mt-1 inline-flex items-center gap-2 rounded-xl bg-[#0B3D6E] px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#0a3460] sm:py-2.5 ${focusRing}`}
             >
               <RotateCcw size={14} /> Limpiar filtros
             </button>
           </div>
         ) : (
           <div
-            className={`grid grid-cols-1 gap-4 transition-opacity duration-200 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ${
+            className={`grid grid-cols-1 gap-3 transition-opacity duration-200 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3 xl:grid-cols-4 min-[1700px]:grid-cols-5 ${
               loadingData ? 'opacity-60' : 'opacity-100'
             }`}
           >
             {adaptados.map((contract, i) => (
               <div
                 key={contract.id}
-                className="sx-rise transition-transform duration-300 hover:-translate-y-1"
+                className="sx-rise min-w-0"
                 style={{ animationDelay: `${Math.min(i, 12) * 30}ms` }}
               >
-                <ContractCard
-                  contract={contract}
-                  onClick={setSelectedContract}
-                  onCotizar={toggleCotizar}
-                  onCotizarSeace={c => setCotizandoId(c.id)}
-                  inCotizar={cotizaciones.some(c => c.id === contract.id)}
-                  otrosUsuarios={otrosEnCarrito[contract.id]}
-                />
+                <div className="sx-lift h-full">
+                  <ContractCard
+                    contract={contract}
+                    onClick={setSelectedContract}
+                    onCotizar={toggleCotizar}
+                    onCotizarSeace={c => setCotizandoId(c.id)}
+                    inCotizar={cotizaciones.some(c => c.id === contract.id)}
+                    otrosUsuarios={otrosEnCarrito[contract.id]}
+                  />
+                </div>
               </div>
             ))}
           </div>
         )}
 
-        {/* PAGINACIÓN */}
+        {/* PAGINACIÓN: compacta en móvil (anterior / 3 de 20 / siguiente), numerada desde tablet */}
         {totalPages > 1 && !primeraCarga && (
           <nav
             aria-label="Paginación"
-            className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-slate-200/80 bg-white px-4 py-3 shadow-sm"
+            className="flex items-center justify-center gap-3 rounded-2xl border border-slate-200/80 bg-white px-3 py-3 shadow-sm sm:justify-between sm:px-4"
           >
-            <p className="text-sm text-slate-500">
+            <p className="hidden text-sm text-slate-500 sm:block">
               Página <span className="font-semibold tabular-nums text-slate-800">{page}</span> de{' '}
               <span className="font-semibold tabular-nums text-slate-800">{totalPages}</span>
             </p>
@@ -1380,37 +1418,43 @@ export default function Home() {
                 onClick={() => irAPagina(page - 1)}
                 disabled={page === 1}
                 aria-label="Página anterior"
-                className={`flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 text-[#0B3D6E] transition-all hover:border-[#0B3D6E] hover:bg-[#0B3D6E]/5 active:scale-90 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:border-slate-200 disabled:hover:bg-transparent ${focusRing}`}
+                className={botonPagina}
               >
-                <ChevronLeft size={16} />
+                <ChevronLeft size={17} />
               </button>
 
-              {paginasVisibles.map((p, i) =>
-                p === '...' ? (
-                  <span key={`dots-${i}`} className="w-8 text-center text-sm text-slate-400">…</span>
-                ) : (
-                  <button
-                    key={p}
-                    onClick={() => irAPagina(p as number)}
-                    aria-current={page === p ? 'page' : undefined}
-                    className={`h-9 min-w-9 rounded-lg px-2.5 text-sm font-semibold tabular-nums transition-all duration-200 active:scale-90 ${focusRing} ${
-                      page === p
-                        ? 'bg-[#0B3D6E] text-white shadow-md shadow-[#0B3D6E]/25'
-                        : 'text-slate-600 hover:bg-slate-100'
-                    }`}
-                  >
-                    {p}
-                  </button>
-                )
-              )}
+              <span className="min-w-[88px] px-2 text-center text-sm font-semibold tabular-nums text-slate-700 sm:hidden">
+                {page} / {totalPages}
+              </span>
+
+              <div className="hidden items-center gap-1 sm:flex">
+                {paginasVisibles.map((p, i) =>
+                  p === '...' ? (
+                    <span key={`dots-${i}`} className="w-8 text-center text-sm text-slate-400">…</span>
+                  ) : (
+                    <button
+                      key={p}
+                      onClick={() => irAPagina(p as number)}
+                      aria-current={page === p ? 'page' : undefined}
+                      className={`h-9 min-w-9 rounded-lg px-2.5 text-sm font-semibold tabular-nums transition-all duration-200 active:scale-90 ${focusRing} ${
+                        page === p
+                          ? 'bg-[#0B3D6E] text-white shadow-md shadow-[#0B3D6E]/25'
+                          : 'text-slate-600 hover:bg-slate-100'
+                      }`}
+                    >
+                      {p}
+                    </button>
+                  )
+                )}
+              </div>
 
               <button
                 onClick={() => irAPagina(page + 1)}
                 disabled={page === totalPages}
                 aria-label="Página siguiente"
-                className={`flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 text-[#0B3D6E] transition-all hover:border-[#0B3D6E] hover:bg-[#0B3D6E]/5 active:scale-90 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:border-slate-200 disabled:hover:bg-transparent ${focusRing}`}
+                className={botonPagina}
               >
-                <ChevronRight size={16} />
+                <ChevronRight size={17} />
               </button>
             </div>
           </nav>
