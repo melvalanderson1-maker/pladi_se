@@ -70,6 +70,11 @@ const TAMANOS_PAGINA = [10, 20, 32, 50]
 
 /* ------------------------------------------------------------------ */
 /*  Estilos y animaciones                                              */
+/*                                                                     */
+/*  Container queries (.sx-cq): la tabla, el selector de vista y el    */
+/*  KPI "vigentes ahora" al costado dependen del ANCHO REAL del        */
+/*  contenido, no de la pantalla. Así, cuando el sidebar se contrae    */
+/*  y sobra espacio, la página se adapta sola.                         */
 /* ------------------------------------------------------------------ */
 const ESTILOS = `
 .sx-root{--sx-ease:cubic-bezier(.22,1,.36,1)}
@@ -87,14 +92,44 @@ const ESTILOS = `
 .sx-bar{animation:sx-bar 1.1s ease-in-out infinite}
 @keyframes sx-toast{from{opacity:0;transform:translateY(14px) scale(.98)}to{opacity:1;transform:none}}
 .sx-toast{animation:sx-toast .4s var(--sx-ease)}
-@keyframes sx-hero{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-.sx-hero-a{opacity:0;animation:sx-hero .7s var(--sx-ease) .05s forwards}
-.sx-hero-b{opacity:0;animation:sx-hero .7s var(--sx-ease) .2s forwards}
-.sx-hero-c{opacity:0;animation:sx-hero .7s var(--sx-ease) .35s forwards}
+@keyframes sx-hero{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.sx-hero-a{opacity:0;animation:sx-hero .6s var(--sx-ease) .05s forwards}
+.sx-hero-b{opacity:0;animation:sx-hero .6s var(--sx-ease) .18s forwards}
 .sx-collapse{display:grid;grid-template-rows:0fr;opacity:0;visibility:hidden;transition:grid-template-rows .32s var(--sx-ease),opacity .22s ease,visibility 0s linear .32s}
 .sx-collapse[data-open="true"]{grid-template-rows:1fr;opacity:1;visibility:visible;transition:grid-template-rows .32s var(--sx-ease),opacity .25s ease .05s,visibility 0s}
 .sx-collapse>div{min-height:0;overflow:hidden}
 .sx-dots{background-image:radial-gradient(rgba(255,255,255,.09) 1px,transparent 1px);background-size:20px 20px}
+.sx-noscroll{scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.sx-noscroll::-webkit-scrollbar{display:none}
+
+/* ── Container queries ─────────────────────────────────────────── */
+.sx-cq{container-type:inline-size}
+
+/* KPI "vigentes ahora": angosto = franja arriba / ancho = costado de los KPIs */
+.sx-kpis{display:flex;flex-direction:column}
+.sx-live{order:-1;display:grid;grid-template-columns:1fr auto;column-gap:1rem;row-gap:.125rem;align-items:center}
+.sx-live-label{grid-column:1;grid-row:1}
+.sx-live-num{grid-column:2;grid-row:1 / span 2}
+.sx-live-sub{grid-column:1;grid-row:2}
+
+/* Tabla y selector de vista: solo cuando hay espacio real */
+.sx-tabla-wrap{display:none}
+.sx-toggle-vista{display:none}
+
+@container (min-width:1000px){
+  .sx-kpis{flex-direction:row}
+  .sx-live{order:1;width:19rem;grid-template-columns:1fr;row-gap:.25rem;align-content:center}
+  .sx-live-label{grid-row:1}
+  .sx-live-num{grid-column:1;grid-row:2}
+  .sx-live-sub{grid-column:1;grid-row:3}
+  .sx-tabla-wrap{display:block}
+  .sx-toggle-vista{display:grid}
+  .sx-cards-si-tabla{display:none}
+}
+@container (min-width:1500px){
+  .sx-live{width:22rem}
+}
+
 @media (prefers-reduced-motion:reduce){
   .sx-root *,.sx-root *::before,.sx-root *::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;transition-delay:0s!important}
 }
@@ -103,8 +138,9 @@ const ESTILOS = `
 const focusRing =
   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0B3D6E] focus-visible:ring-offset-2'
 
+// text-base en móvil evita el zoom automático de iOS al enfocar un campo
 const controlBase =
-  'h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 text-sm text-slate-700 transition hover:border-slate-300 focus:border-[#0B3D6E] focus:bg-white focus:outline-none focus:ring-4 focus:ring-[#0B3D6E]/10'
+  'h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 text-base text-slate-700 transition hover:border-slate-300 focus:border-[#0B3D6E] focus:bg-white focus:outline-none focus:ring-4 focus:ring-[#0B3D6E]/10 sm:text-sm'
 
 /* ------------------------------------------------------------------ */
 /*  Utilidades                                                         */
@@ -186,6 +222,13 @@ function tiempoRelativo(fecha: string | null | undefined) {
   return `hace ${dias} día${dias === 1 ? '' : 's'}`
 }
 
+// Número correlativo del proceso: primer segmento 100% numérico después del tipo
+// (LP-ABR-14-2026-MDASA-1 → 14). Evita mostrar "ABR" como número.
+function numeroProceso(codigo: string | null | undefined) {
+  const partes = (codigo || '').split('-').slice(1)
+  return partes.find(x => /^\d+$/.test(x)) ?? '—'
+}
+
 function generarPaginasVisibles(actual: number, total: number): (number | '...')[] {
   if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1)
   const paginas: (number | '...')[] = [1]
@@ -227,7 +270,7 @@ function BadgeEstado({ estado }: { estado: string | null | undefined }) {
     )
   }
   return (
-    <span className={`inline-flex w-fit items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium ring-1 ring-inset ${ui.badge}`}>
+    <span className={`inline-flex w-fit items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-1 text-xs font-medium ring-1 ring-inset ${ui.badge}`}>
       <span className={`h-1.5 w-1.5 rounded-full ${ui.dot}`} />
       {ui.label}
     </span>
@@ -238,7 +281,7 @@ function BadgeOrigen({ origen }: { origen: string | null | undefined }) {
   const vivo = origen === 'scraper'
   return (
     <span
-      className={`inline-flex w-fit items-center gap-1.5 rounded-full px-2 py-0.5 text-[11px] font-medium ${
+      className={`inline-flex w-fit items-center gap-1.5 whitespace-nowrap rounded-full px-2 py-0.5 text-[11px] font-medium ${
         vivo ? 'bg-amber-50 text-amber-700' : 'bg-slate-100 text-slate-500'
       }`}
     >
@@ -283,7 +326,7 @@ function SelectBox({
 
 function Field({ label, children }: { label: string; children: ReactNode }) {
   return (
-    <label className="block">
+    <label className="block min-w-0">
       <span className="mb-1.5 block text-xs font-semibold text-slate-600">{label}</span>
       {children}
     </label>
@@ -534,6 +577,11 @@ export default function CotizarSeacePage() {
   const paginasVisibles = generarPaginasVisibles(page, totalPages)
   const primeraCarga = loading && items.length === 0
 
+  const irAPagina = (n: number) => {
+    setPage(Math.min(Math.max(1, n), totalPages))
+    if (typeof window !== 'undefined') window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
   const ultimaExtraccion = useMemo(() => {
     let max = 0
     for (const p of items) {
@@ -546,104 +594,118 @@ export default function CotizarSeacePage() {
 
   /* ---------- fragmentos reutilizables ---------- */
   const iconBtn =
-    `flex h-8 w-8 items-center justify-center rounded-lg text-slate-400 transition-colors hover:bg-slate-100 hover:text-[#0B3D6E] ${focusRing}`
+    `flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-slate-400 transition-colors hover:bg-slate-100 hover:text-[#0B3D6E] ${focusRing}`
+
+  const botonPagina =
+    `flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 text-[#0B3D6E] transition-all hover:border-[#0B3D6E] hover:bg-[#0B3D6E]/5 active:scale-90 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:border-slate-200 disabled:hover:bg-transparent sm:h-9 sm:w-9 ${focusRing}`
+
+  const toggleBase =
+    'inline-flex shrink-0 items-center gap-2 whitespace-nowrap rounded-full border px-3.5 py-2.5 text-sm font-medium transition-all duration-200 sm:py-2'
+
+  // Grid de tarjetas que se acomoda solo al ancho disponible (con o sin sidebar contraído)
+  const gridTarjetas =
+    'grid grid-cols-[repeat(auto-fill,minmax(min(100%,300px),1fr))] gap-3 sm:gap-4'
 
   /* ---------------------------------------------------------------- */
   return (
-    <div className="sx-root min-h-screen bg-[#F3F6FA] pb-16">
+    <div className="sx-root min-h-screen bg-[#F3F6FA] pb-24 sm:pb-16" style={{ minHeight: '100dvh' }}>
       <style dangerouslySetInnerHTML={{ __html: ESTILOS }} />
 
-      {/* =============================== HERO =============================== */}
+      {/* =============================== HEADER COMPACTO =============================== */}
       <header className="sx-dots relative overflow-hidden bg-[#0B3D6E]">
         <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-[#F5B700]/60 to-transparent" />
-        <div className="mx-auto flex max-w-[1400px] flex-col gap-8 px-4 pb-24 pt-6 lg:flex-row lg:items-end lg:justify-between lg:px-8 lg:pt-8">
-          <div className="max-w-2xl">
-            <div className="sx-hero-a mb-5 flex items-center gap-3">
-              <SidebarTrigger className="text-white lg:hidden" />
-            </div>
-            <h1
-              className={`${fontDisplay.className} sx-hero-a text-4xl font-extrabold leading-[1.05] tracking-tight text-white sm:text-5xl`}
-            >
-              Licitaciones del SEACE 2026
-            </h1>
-            <p className="sx-hero-b mt-4 max-w-xl text-base leading-relaxed text-blue-100/90">
-              Encuentra contratos del Estado peruano por palabra clave, entidad o ubicación, y revisa cuáles siguen abiertos.
-            </p>
-            <div className="sx-hero-c mt-6 flex flex-wrap items-center gap-3">
-              <button
-                onClick={handleActualizarEnVivo}
-                disabled={iniciandoScraper || !!jobIdActivo}
-                className={`group flex items-center gap-2.5 rounded-xl bg-[#F5B700] px-5 py-3 text-sm font-bold text-[#0B3D6E] shadow-lg shadow-black/20 transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#ffc933] hover:shadow-xl active:translate-y-0 disabled:translate-y-0 disabled:cursor-not-allowed disabled:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B3D6E]`}
+        <div className="flex w-full flex-wrap items-center justify-between gap-x-4 gap-y-3 px-3 pb-10 pt-4 sm:px-4 lg:px-6 2xl:px-8">
+          <div className="sx-hero-a flex min-w-0 flex-1 basis-64 items-center gap-3">
+            <SidebarTrigger className="shrink-0 text-white lg:hidden" />
+            <div className="min-w-0">
+              <h1
+                className={`${fontDisplay.className} text-xl font-extrabold leading-tight tracking-tight text-white sm:text-2xl lg:text-3xl`}
               >
-                <RadioTower size={17} className={iniciandoScraper || jobIdActivo ? 'animate-pulse' : 'transition-transform group-hover:scale-110'} />
-                {iniciandoScraper ? 'Iniciando...' : jobIdActivo ? 'Actualizando...' : 'Actualizar en vivo'}
-              </button>
-              <VincularSeace />
+                Licitaciones del SEACE 2026
+              </h1>
+              <p className="mt-0.5 hidden truncate text-sm text-blue-100/85 md:block">
+                Encuentra contratos del Estado peruano por palabra clave, entidad o ubicación, y revisa cuáles siguen abiertos.
+              </p>
             </div>
           </div>
 
-          <div className="sx-hero-c w-full max-w-sm rounded-2xl border border-white/15 bg-white/10 p-5 backdrop-blur-md lg:w-80">
-            <div className="flex items-center gap-2.5 text-sm font-medium text-blue-100">
-              <span className="relative flex h-2.5 w-2.5">
-                <span className="sx-ring absolute inline-flex h-full w-full rounded-full bg-emerald-400" />
-                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400" />
-              </span>
-              Procesos vigentes ahora
-            </div>
-            <p className={`${fontDisplay.className} mt-2 text-6xl font-extrabold tabular-nums leading-none text-white`}>
-              <Num value={kpis?.total} />
-            </p>
-            <p className="mt-3 flex items-center gap-1.5 text-xs text-blue-200/80">
-              <Clock size={12} />
-              Última extracción en vivo: {tiempoRelativo(ultimaExtraccion)}
-            </p>
+          <div className="sx-hero-b flex w-full flex-wrap items-center gap-2 sm:w-auto sm:flex-nowrap">
+            <button
+              onClick={handleActualizarEnVivo}
+              disabled={iniciandoScraper || !!jobIdActivo}
+              className="group flex flex-1 items-center justify-center gap-2.5 whitespace-nowrap rounded-xl bg-[#F5B700] px-5 py-3 text-sm font-bold text-[#0B3D6E] shadow-lg shadow-black/20 transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#ffc933] hover:shadow-xl active:translate-y-0 disabled:translate-y-0 disabled:cursor-not-allowed disabled:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B3D6E] sm:flex-none sm:py-2.5"
+            >
+              <RadioTower size={17} className={iniciandoScraper || jobIdActivo ? 'animate-pulse' : 'transition-transform group-hover:scale-110'} />
+              {iniciandoScraper ? 'Iniciando...' : jobIdActivo ? 'Actualizando...' : 'Actualizar en vivo'}
+            </button>
+            <VincularSeace />
           </div>
         </div>
       </header>
 
-      <main className="relative z-10 mx-auto -mt-14 max-w-[1400px] space-y-5 px-4 lg:px-8">
-        {/* ============ PANEL DE BÚSQUEDA Y FILTROS ============ */}
+      {/* Contenido: ocupa todo el ancho disponible (se estira cuando el sidebar se contrae) */}
+      <div className="sx-cq relative z-10 -mt-5 w-full space-y-4 px-3 sm:space-y-5 sm:px-4 lg:px-6 2xl:px-8">
+
+        {/* ============ PANEL: KPIs + BÚSQUEDA + FILTROS ============ */}
         <section
           aria-label="Búsqueda y filtros"
           className="overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-xl shadow-slate-900/5"
         >
-          {/* pestañas de estado */}
-          <div role="tablist" aria-label="Estado del proceso" className="grid grid-cols-2 border-b border-slate-100 lg:grid-cols-4">
-            {TABS_ESTADO.map((t, i) => {
-              const activo = estado === t.value
-              return (
-                <button
-                  key={t.value || 'todos'}
-                  role="tab"
-                  aria-selected={activo}
-                  onClick={() => setEstado(prev => (prev === t.value && t.value !== '' ? '' : t.value))}
-                  className={`group relative px-5 py-4 text-left transition-colors hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0B3D6E] ${
-                    i > 0 ? 'lg:border-l lg:border-slate-100' : ''
-                  } ${i % 2 === 1 ? 'border-l border-slate-100 lg:border-l' : ''}`}
-                >
-                  <span className="flex items-center gap-2 text-sm font-medium text-slate-500">
-                    <span className={`h-2 w-2 rounded-full ${t.dot}`} />
-                    {t.label}
-                  </span>
-                  <span
-                    className={`${fontDisplay.className} mt-1 block text-3xl font-bold tabular-nums transition-colors duration-300 ${
-                      activo ? t.text : 'text-slate-800'
-                    }`}
+          {/* KPIs de estado + "vigentes ahora" (al costado cuando hay espacio) */}
+          <div className="sx-kpis border-b border-slate-100">
+            <div role="tablist" aria-label="Estado del proceso" className="grid flex-1 grid-cols-2 sm:grid-cols-4">
+              {TABS_ESTADO.map((t, i) => {
+                const activo = estado === t.value
+                return (
+                  <button
+                    key={t.value || 'todos'}
+                    role="tab"
+                    aria-selected={activo}
+                    onClick={() => setEstado(prev => (prev === t.value && t.value !== '' ? '' : t.value))}
+                    className={`group relative flex min-w-0 flex-col justify-center px-3.5 py-3.5 text-left transition-colors hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0B3D6E] sm:px-5 sm:py-4
+                      ${i > 0 ? 'sm:border-l sm:border-slate-100' : ''} ${i % 2 === 1 ? 'border-l border-slate-100' : ''} ${i >= 2 ? 'border-t border-slate-100 sm:border-t-0' : ''}`}
                   >
-                    <Num value={kpisEstados ? kpisEstados[t.key] : null} />
-                  </span>
-                  <span
-                    className={`absolute inset-x-0 bottom-0 h-[3px] origin-left transition-transform duration-300 ease-out ${t.bar} ${
-                      activo ? 'scale-x-100' : 'scale-x-0'
-                    }`}
-                  />
-                </button>
-              )
-            })}
+                    <span className="flex items-center gap-2 text-xs font-medium text-slate-500 sm:text-sm">
+                      <span className={`h-2 w-2 shrink-0 rounded-full ${t.dot}`} />
+                      <span className="truncate">{t.label}</span>
+                    </span>
+                    <span
+                      className={`${fontDisplay.className} mt-0.5 block text-2xl font-bold tabular-nums leading-tight transition-colors duration-300 sm:text-3xl ${
+                        activo ? t.text : 'text-slate-800'
+                      }`}
+                    >
+                      <Num value={kpisEstados ? kpisEstados[t.key] : null} />
+                    </span>
+                    <span
+                      className={`absolute inset-x-0 bottom-0 h-[3px] origin-left transition-transform duration-300 ease-out ${t.bar} ${
+                        activo ? 'scale-x-100' : 'scale-x-0'
+                      }`}
+                    />
+                  </button>
+                )
+              })}
+            </div>
+
+            <div className="sx-live sx-dots bg-[#0B3D6E] px-4 py-3 text-white sm:px-5">
+              <p className="sx-live-label flex items-center gap-2 text-sm font-medium text-blue-100">
+                <span className="relative flex h-2.5 w-2.5 shrink-0">
+                  <span className="sx-ring absolute inline-flex h-full w-full rounded-full bg-emerald-400" />
+                  <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400" />
+                </span>
+                Procesos vigentes ahora
+              </p>
+              <p className={`${fontDisplay.className} sx-live-num text-4xl font-extrabold tabular-nums leading-none text-white sm:text-5xl`}>
+                <Num value={kpis?.total} />
+              </p>
+              <p className="sx-live-sub flex items-center gap-1.5 text-xs text-blue-200/80">
+                <Clock size={12} className="shrink-0" />
+                <span>Última extracción en vivo: {tiempoRelativo(ultimaExtraccion)}</span>
+              </p>
+            </div>
           </div>
 
           {/* buscador */}
-          <div className="flex flex-col gap-3 p-4 sm:flex-row sm:items-center">
+          <div className="flex flex-col gap-3 p-3 sm:flex-row sm:items-center sm:p-4">
             <div className="relative flex-1">
               <Search size={18} className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
               <input
@@ -653,18 +715,18 @@ export default function CotizarSeacePage() {
                 onChange={e => setQ(e.target.value)}
                 placeholder="Busca por palabra clave: uniformes, mantenimiento vial, software..."
                 aria-label="Buscar por palabra clave"
-                className="h-12 w-full rounded-xl border border-slate-200 bg-slate-50 pl-11 pr-12 text-[15px] text-slate-800 transition placeholder:text-slate-400 hover:border-slate-300 focus:border-[#0B3D6E] focus:bg-white focus:outline-none focus:ring-4 focus:ring-[#0B3D6E]/10 [&::-webkit-search-cancel-button]:hidden"
+                className="h-12 w-full rounded-xl border border-slate-200 bg-slate-50 pl-11 pr-12 text-base text-slate-800 transition placeholder:text-slate-400 hover:border-slate-300 focus:border-[#0B3D6E] focus:bg-white focus:outline-none focus:ring-4 focus:ring-[#0B3D6E]/10 sm:text-[15px] [&::-webkit-search-cancel-button]:hidden"
               />
               {q ? (
                 <button
                   onClick={() => setQ('')}
                   aria-label="Borrar búsqueda"
-                  className={`absolute right-3 top-1/2 flex h-6 w-6 -translate-y-1/2 items-center justify-center rounded-full text-slate-400 hover:bg-slate-200 hover:text-slate-600 ${focusRing}`}
+                  className={`absolute right-2 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full text-slate-400 hover:bg-slate-200 hover:text-slate-600 ${focusRing}`}
                 >
-                  <X size={14} />
+                  <X size={15} />
                 </button>
               ) : (
-                <kbd className="pointer-events-none absolute right-3 top-1/2 hidden h-6 -translate-y-1/2 items-center rounded-md border border-slate-200 bg-white px-2 text-xs font-medium text-slate-400 sm:inline-flex">
+                <kbd className="pointer-events-none absolute right-3 top-1/2 hidden h-6 -translate-y-1/2 items-center rounded-md border border-slate-200 bg-white px-2 text-xs font-medium text-slate-400 lg:inline-flex">
                   /
                 </kbd>
               )}
@@ -674,7 +736,7 @@ export default function CotizarSeacePage() {
               onClick={() => setFiltrosAbiertos(v => !v)}
               aria-expanded={filtrosAbiertos}
               aria-controls="panel-filtros"
-              className={`flex h-12 shrink-0 items-center justify-center gap-2 rounded-xl border px-4 text-sm font-semibold transition-all duration-200 ${focusRing} ${
+              className={`flex h-12 w-full shrink-0 items-center justify-center gap-2 rounded-xl border px-4 text-sm font-semibold transition-all duration-200 sm:w-auto ${focusRing} ${
                 filtrosAbiertos || filtrosAvanzadosActivos > 0
                   ? 'border-[#0B3D6E] bg-[#0B3D6E]/5 text-[#0B3D6E]'
                   : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:bg-slate-50'
@@ -691,44 +753,46 @@ export default function CotizarSeacePage() {
             </button>
           </div>
 
-          {/* objeto de contratación */}
-          <div className="flex flex-wrap items-center gap-2 px-4 pb-4">
-            <span className="mr-1 text-sm font-medium text-slate-500">Objeto</span>
-            {CATEGORIAS.map(c => {
-              const dato = kpis?.por_categoria.find(k => k.categoria === c.value)
-              const Icono = c.icon
-              const activo = categoria === c.value
-              return (
-                <button
-                  key={c.value}
-                  aria-pressed={activo}
-                  title="Cantidad de procesos vigentes"
-                  onClick={() => setCategoria(prev => (prev === c.value ? '' : c.value))}
-                  className={`inline-flex items-center gap-2 rounded-full border px-3.5 py-2 text-sm font-medium transition-all duration-200 ${focusRing} ${
-                    activo
-                      ? 'border-[#0B3D6E] bg-[#0B3D6E] text-white shadow-md shadow-[#0B3D6E]/25'
-                      : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:bg-slate-50'
-                  }`}
-                >
-                  <Icono size={15} className={activo ? 'text-[#F5B700]' : 'text-slate-400'} />
-                  {c.label}
-                  <span
-                    className={`rounded-full px-1.5 py-0.5 text-xs font-semibold tabular-nums ${
-                      activo ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-500'
+          {/* objeto de contratación: fila deslizable en móvil, se ajusta en pantallas grandes */}
+          <div className="pb-3 sm:pb-4">
+            <div className="sx-noscroll flex items-center gap-2 overflow-x-auto px-3 [mask-image:linear-gradient(to_right,transparent,black_12px,black_calc(100%-28px),transparent)] sm:flex-wrap sm:overflow-visible sm:px-4 sm:[mask-image:none]">
+              <span className="mr-1 hidden shrink-0 text-sm font-medium text-slate-500 sm:inline">Objeto</span>
+              {CATEGORIAS.map(c => {
+                const dato = kpis?.por_categoria.find(k => k.categoria === c.value)
+                const Icono = c.icon
+                const activo = categoria === c.value
+                return (
+                  <button
+                    key={c.value}
+                    aria-pressed={activo}
+                    title="Cantidad de procesos vigentes"
+                    onClick={() => setCategoria(prev => (prev === c.value ? '' : c.value))}
+                    className={`${toggleBase} ${focusRing} ${
+                      activo
+                        ? 'border-[#0B3D6E] bg-[#0B3D6E] text-white shadow-md shadow-[#0B3D6E]/25'
+                        : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:bg-slate-50'
                     }`}
                   >
-                    {dato?.total ?? 0}
-                  </span>
-                </button>
-              )
-            })}
+                    <Icono size={15} className={activo ? 'text-[#F5B700]' : 'text-slate-400'} />
+                    {c.label}
+                    <span
+                      className={`rounded-full px-1.5 py-0.5 text-xs font-semibold tabular-nums ${
+                        activo ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-500'
+                      }`}
+                    >
+                      {dato?.total ?? 0}
+                    </span>
+                  </button>
+                )
+              })}
+            </div>
           </div>
 
           {/* filtros avanzados (colapsable) */}
           <div id="panel-filtros" className="sx-collapse" data-open={filtrosAbiertos}>
             <div>
-              <div className="space-y-4 border-t border-slate-100 bg-slate-50/50 p-4">
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              <div className="space-y-4 border-t border-slate-100 bg-slate-50/50 p-3 sm:p-4">
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 xl:grid-cols-4">
                   <Field label="Entidad">
                     <div className="relative">
                       <Building2 size={16} className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
@@ -780,15 +844,15 @@ export default function CotizarSeacePage() {
                       role="switch"
                       aria-checked={soloDesierto}
                       onClick={() => setSoloDesierto(v => !v)}
-                      className={`flex h-11 w-full items-center justify-between rounded-xl border px-3.5 text-sm transition-colors ${focusRing} ${
+                      className={`flex h-11 w-full items-center justify-between gap-2 rounded-xl border px-3.5 text-sm transition-colors ${focusRing} ${
                         soloDesierto
                           ? 'border-[#F5B700] bg-[#F5B700]/10 text-[#0B3D6E]'
                           : 'border-slate-200 bg-slate-50 text-slate-600 hover:border-slate-300'
                       }`}
                     >
-                      Mostrar solo desiertos
+                      <span className="truncate">Mostrar solo desiertos</span>
                       <span
-                        className={`relative h-6 w-11 rounded-full transition-colors duration-300 ${
+                        className={`relative h-6 w-11 shrink-0 rounded-full transition-colors duration-300 ${
                           soloDesierto ? 'bg-[#F5B700]' : 'bg-slate-300'
                         }`}
                       >
@@ -802,7 +866,7 @@ export default function CotizarSeacePage() {
                   </Field>
                 </div>
 
-                <div className="grid grid-cols-1 gap-4 border-t border-slate-200/70 pt-4 sm:grid-cols-3">
+                <div className="grid grid-cols-1 gap-3 border-t border-slate-200/70 pt-4 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
                   <Field label="Región">
                     <div className="relative">
                       <MapPin size={15} className="pointer-events-none absolute left-3.5 top-1/2 z-10 -translate-y-1/2 text-slate-400" />
@@ -837,14 +901,14 @@ export default function CotizarSeacePage() {
 
           {/* filtros aplicados */}
           {chips.length > 0 && (
-            <div className="flex flex-wrap items-center gap-2 border-t border-slate-100 px-4 py-3">
+            <div className="flex flex-wrap items-center gap-2 border-t border-slate-100 px-3 py-3 sm:px-4">
               <span className="text-xs font-medium text-slate-400">Aplicados</span>
               {chips.map(c => (
                 <button
                   key={c.id}
                   onClick={c.clear}
                   aria-label={`Quitar filtro: ${c.label}`}
-                  className={`sx-fade group inline-flex max-w-[260px] items-center gap-1.5 rounded-full bg-[#0B3D6E]/[0.07] py-1 pl-3 pr-2 text-xs font-medium text-[#0B3D6E] transition-colors hover:bg-rose-50 hover:text-rose-600 ${focusRing}`}
+                  className={`sx-fade group inline-flex max-w-full items-center gap-1.5 rounded-full bg-[#0B3D6E]/[0.07] py-1.5 pl-3 pr-2 text-xs font-medium text-[#0B3D6E] transition-colors hover:bg-rose-50 hover:text-rose-600 sm:max-w-[260px] sm:py-1 ${focusRing}`}
                 >
                   <span className="truncate">{c.label}</span>
                   <X size={13} className="shrink-0 opacity-60 transition-opacity group-hover:opacity-100" />
@@ -852,7 +916,7 @@ export default function CotizarSeacePage() {
               ))}
               <button
                 onClick={limpiarTodo}
-                className={`ml-auto inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs font-semibold text-slate-500 transition-colors hover:bg-slate-100 hover:text-[#0B3D6E] ${focusRing}`}
+                className={`ml-auto inline-flex items-center gap-1.5 rounded-lg px-2.5 py-2 text-xs font-semibold text-slate-500 transition-colors hover:bg-slate-100 hover:text-[#0B3D6E] sm:py-1.5 ${focusRing}`}
               >
                 <RotateCcw size={12} />
                 Limpiar todo
@@ -861,29 +925,35 @@ export default function CotizarSeacePage() {
           )}
         </section>
 
-        {/* ============ BARRA DE RESULTADOS (sticky) ============ */}
-        <div className="sticky top-2 z-20 flex flex-wrap items-center justify-between gap-3 overflow-hidden rounded-2xl border border-slate-200/80 bg-white/85 px-4 py-2.5 shadow-sm backdrop-blur-md">
+        {/* ============ BARRA DE RESULTADOS (sticky desde tablet) ============ */}
+        <div className="relative flex flex-wrap items-center justify-between gap-x-3 gap-y-2 overflow-hidden rounded-2xl border border-slate-200/80 bg-white/90 px-3 py-2.5 shadow-sm backdrop-blur-md sm:sticky sm:top-2 sm:z-20 sm:px-4">
           <p className="text-sm text-slate-600" aria-live="polite">
             <span className="font-bold tabular-nums text-slate-900">{total.toLocaleString('es-PE')}</span>{' '}
             {total === 1 ? 'proceso' : 'procesos'}
             {chips.length > 0 && ' con tus filtros'}
           </p>
 
-          <div className="flex flex-wrap items-center gap-2">
+          <div className="flex w-full items-center gap-2 sm:w-auto">
             <SelectBox
               label="Ordenar por"
               value={orden}
               onChange={v => setOrden(v as typeof orden)}
-              className="w-48"
+              className="min-w-0 flex-1 sm:w-48 sm:flex-none"
             >
               {ORDENES.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
             </SelectBox>
 
-            <SelectBox label="Resultados por página" value={String(limit)} onChange={v => setLimit(Number(v))} className="w-36">
+            <SelectBox
+              label="Resultados por página"
+              value={String(limit)}
+              onChange={v => setLimit(Number(v))}
+              className="min-w-0 flex-1 sm:w-36 sm:flex-none"
+            >
               {TAMANOS_PAGINA.map(n => <option key={n} value={n}>{n} por página</option>)}
             </SelectBox>
 
-            <div className="relative grid grid-cols-2 rounded-xl bg-slate-100 p-1" role="group" aria-label="Tipo de vista">
+            {/* Solo aparece cuando hay espacio para la tabla (container query) */}
+            <div className="sx-toggle-vista relative grid-cols-2 rounded-xl bg-slate-100 p-1" role="group" aria-label="Tipo de vista">
               <span
                 aria-hidden
                 className={`absolute inset-y-1 left-1 w-[calc(50%-4px)] rounded-lg bg-white shadow-sm transition-transform duration-300 ease-out ${
@@ -920,7 +990,7 @@ export default function CotizarSeacePage() {
 
         {/* ============ RESULTADOS ============ */}
         {items.length === 0 && !loading ? (
-          <div className="sx-fade flex flex-col items-center gap-3 rounded-2xl border border-dashed border-slate-300 bg-white px-6 py-20 text-center">
+          <div className="sx-fade flex flex-col items-center gap-3 rounded-2xl border border-dashed border-slate-300 bg-white px-5 py-16 text-center sm:px-6 sm:py-20">
             <span className="flex h-14 w-14 items-center justify-center rounded-full bg-slate-100 text-slate-400">
               <SearchX size={26} />
             </span>
@@ -931,7 +1001,7 @@ export default function CotizarSeacePage() {
             {chips.length > 0 && (
               <button
                 onClick={limpiarTodo}
-                className={`mt-1 inline-flex items-center gap-2 rounded-xl bg-[#0B3D6E] px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#0a3460] ${focusRing}`}
+                className={`mt-1 inline-flex items-center gap-2 rounded-xl bg-[#0B3D6E] px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#0a3460] sm:py-2.5 ${focusRing}`}
               >
                 <RotateCcw size={14} /> Limpiar filtros
               </button>
@@ -939,14 +1009,14 @@ export default function CotizarSeacePage() {
           </div>
         ) : (
           <div className={`transition-opacity duration-200 ${loading && !primeraCarga ? 'opacity-60' : 'opacity-100'}`}>
-            {/* ---------- tarjetas (vista cuadrícula y móvil) ---------- */}
-            <div className={`${vista === 'tabla' ? 'md:hidden' : ''} grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4`}>
+            {/* ---------- tarjetas: vista "Tarjetas" o, en vista tabla, cuando no hay espacio para la tabla ---------- */}
+            <div className={`${gridTarjetas} ${vista === 'tabla' ? 'sx-cards-si-tabla' : ''}`}>
               {primeraCarga
                 ? Array.from({ length: 8 }).map((_, i) => <SkeletonCard key={i} />)
                 : items.map((p, i) => (
                     <div
                       key={p.ocid}
-                      className="sx-rise transition-transform duration-300 hover:-translate-y-1"
+                      className="sx-rise min-w-0 transition-transform duration-300 hover:-translate-y-1"
                       style={{ animationDelay: `${Math.min(i, 12) * 35}ms` }}
                     >
                       <ContratoSeaceCard
@@ -959,9 +1029,9 @@ export default function CotizarSeacePage() {
                   ))}
             </div>
 
-            {/* ---------- tabla (escritorio) ---------- */}
+            {/* ---------- tabla (solo si hay ancho real suficiente) ---------- */}
             {vista === 'tabla' && (
-              <div className="hidden overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm md:block">
+              <div className="sx-tabla-wrap overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm">
                 <div className="overflow-x-auto">
                   <table className="w-full min-w-[900px] text-left text-sm">
                     <thead>
@@ -988,29 +1058,30 @@ export default function CotizarSeacePage() {
                                 className="sx-fade group cursor-pointer border-t border-slate-100 transition-colors duration-200 hover:bg-[#0B3D6E]/[0.035]"
                                 style={{ animationDelay: `${Math.min(i, 12) * 30}ms` }}
                               >
-                                <td className="relative px-5 py-4 align-top">
+                                <td className="relative min-w-[170px] px-5 py-4 align-top">
                                   <span
                                     className={`absolute inset-y-3 left-0 w-1 origin-center scale-y-50 rounded-r-full opacity-60 transition-all duration-300 group-hover:scale-y-100 group-hover:opacity-100 ${stripe}`}
                                   />
-                                  <p className="font-semibold text-slate-900">{p.nomenclatura || p.tender_id || '—'}</p>
+                                  <p className="break-words font-semibold text-slate-900">{p.nomenclatura || p.tender_id || '—'}</p>
                                   <p className="mt-0.5 text-xs text-slate-400">
-                                    N.º {(p.nomenclatura || p.tender_id)?.split('-')[1] || '—'}
+                                    N.º {numeroProceso(p.nomenclatura || p.tender_id)}
                                   </p>
                                 </td>
 
-                                <td className="max-w-[260px] px-4 py-4 align-top">
-                                  <p className="line-clamp-2 font-medium text-slate-700" title={p.entidad}>{p.entidad}</p>
+                                {/* Entidad: nombre COMPLETO, sin recortes (se acomoda en las líneas que necesite) */}
+                                <td className="min-w-[220px] px-4 py-4 align-top">
+                                  <p className="break-words font-medium leading-snug text-slate-700">{p.entidad}</p>
                                   {(p.departamento || p.distrito) && (
-                                    <p className="mt-1 flex items-center gap-1 text-xs text-slate-400">
-                                      <MapPin size={11} className="shrink-0" />
-                                      <span className="truncate">{[p.distrito, p.departamento].filter(Boolean).join(', ')}</span>
+                                    <p className="mt-1 flex items-start gap-1 text-xs text-slate-400">
+                                      <MapPin size={11} className="mt-0.5 shrink-0" />
+                                      <span className="break-words">{[p.distrito, p.departamento].filter(Boolean).join(', ')}</span>
                                     </p>
                                   )}
                                 </td>
 
-                                <td className="px-4 py-4 align-top">
+                                <td className="min-w-[260px] px-4 py-4 align-top">
                                   <p className="flex items-center gap-1.5 font-medium text-slate-700">
-                                    <Icono size={14} className="text-slate-400" />
+                                    <Icono size={14} className="shrink-0 text-slate-400" />
                                     {etiquetaCategoria(p.categoria)}
                                   </p>
                                   {p.modalidad && (
@@ -1018,7 +1089,7 @@ export default function CotizarSeacePage() {
                                       {p.modalidad}
                                     </span>
                                   )}
-                                  <p className="mt-1.5 line-clamp-2 max-w-[300px] text-xs leading-relaxed text-slate-500" title={p.titulo}>
+                                  <p className="mt-1.5 line-clamp-2 max-w-[420px] text-xs leading-relaxed text-slate-500" title={p.titulo}>
                                     {p.titulo}
                                   </p>
                                 </td>
@@ -1030,18 +1101,18 @@ export default function CotizarSeacePage() {
                                   </div>
                                 </td>
 
-                                <td className="px-4 py-4 align-top text-xs text-slate-500">
+                                <td className="min-w-[150px] px-4 py-4 align-top text-xs text-slate-500">
                                   <p className="text-sm text-slate-600">{tiempoRelativo(p.published_date)}</p>
                                   {p.origen === 'scraper' && p.scraped_at && (
-                                    <p className="mt-1 flex items-center gap-1 text-[11px] text-amber-600">
-                                      <Clock size={10} />
-                                      Extraído {tiempoRelativo(p.scraped_at)}
+                                    <p className="mt-1 flex items-start gap-1 text-[11px] text-amber-600">
+                                      <Clock size={10} className="mt-0.5 shrink-0" />
+                                      <span>Extraído {tiempoRelativo(p.scraped_at)}</span>
                                     </p>
                                   )}
                                 </td>
 
                                 <td className="px-4 py-4 align-top" onClick={e => e.stopPropagation()}>
-                                  <div className="flex items-center justify-end gap-1">
+                                  <div className="flex items-center justify-end gap-1 whitespace-nowrap">
                                     <button
                                       title="Ver cronograma"
                                       aria-label={`Ver cronograma de ${p.tender_id}`}
@@ -1063,7 +1134,7 @@ export default function CotizarSeacePage() {
                                       aria-label={fav ? 'Quitar de favoritos' : 'Guardar en favoritos'}
                                       aria-pressed={fav}
                                       onClick={() => toggleFavorito(p.ocid)}
-                                      className={`flex h-8 w-8 items-center justify-center rounded-lg transition-colors hover:bg-amber-50 ${focusRing} ${
+                                      className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg transition-colors hover:bg-amber-50 ${focusRing} ${
                                         fav ? 'text-[#F5B700]' : 'text-slate-400 hover:text-[#F5B700]'
                                       }`}
                                     >
@@ -1071,7 +1142,7 @@ export default function CotizarSeacePage() {
                                     </button>
                                     <button
                                       onClick={() => abrirDetalle(p)}
-                                      className={`ml-1 inline-flex h-8 items-center gap-1.5 rounded-lg bg-[#0B3D6E] px-3 text-xs font-semibold text-white shadow-sm transition-all duration-200 hover:bg-[#0a3460] hover:shadow-md active:scale-95 ${focusRing}`}
+                                      className={`ml-1 inline-flex h-8 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-lg bg-[#0B3D6E] px-3 text-xs font-semibold text-white shadow-sm transition-all duration-200 hover:bg-[#0a3460] hover:shadow-md active:scale-95 ${focusRing}`}
                                     >
                                       <Eye size={14} />
                                       Ver detalle
@@ -1089,59 +1160,65 @@ export default function CotizarSeacePage() {
           </div>
         )}
 
-        {/* ============ PAGINACIÓN ============ */}
+        {/* ============ PAGINACIÓN: compacta en móvil, numerada desde tablet ============ */}
         {items.length > 0 && (
           <nav
             aria-label="Paginación"
-            className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-slate-200/80 bg-white px-4 py-3 shadow-sm"
+            className="flex items-center justify-center gap-3 rounded-2xl border border-slate-200/80 bg-white px-3 py-3 shadow-sm sm:justify-between sm:px-4"
           >
-            <p className="text-sm text-slate-500">
-              Mostrando <span className="font-semibold text-slate-800 tabular-nums">{(page - 1) * limit + 1}</span> a{' '}
-              <span className="font-semibold text-slate-800 tabular-nums">{Math.min(page * limit, total)}</span> de{' '}
-              <span className="font-semibold text-slate-800 tabular-nums">{total.toLocaleString('es-PE')}</span>
+            <p className="hidden text-sm text-slate-500 sm:block">
+              Mostrando <span className="font-semibold tabular-nums text-slate-800">{(page - 1) * limit + 1}</span> a{' '}
+              <span className="font-semibold tabular-nums text-slate-800">{Math.min(page * limit, total)}</span> de{' '}
+              <span className="font-semibold tabular-nums text-slate-800">{total.toLocaleString('es-PE')}</span>
             </p>
 
             <div className="flex items-center gap-1">
               <button
-                onClick={() => setPage(p => Math.max(1, p - 1))}
+                onClick={() => irAPagina(page - 1)}
                 disabled={page === 1}
                 aria-label="Página anterior"
-                className={`flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 text-[#0B3D6E] transition-all hover:border-[#0B3D6E] hover:bg-[#0B3D6E]/5 active:scale-90 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:border-slate-200 disabled:hover:bg-transparent ${focusRing}`}
+                className={botonPagina}
               >
-                <ChevronLeft size={16} />
+                <ChevronLeft size={17} />
               </button>
 
-              {paginasVisibles.map((p, i) =>
-                p === '...' ? (
-                  <span key={`dots-${i}`} className="w-8 text-center text-sm text-slate-400">…</span>
-                ) : (
-                  <button
-                    key={p}
-                    onClick={() => setPage(p as number)}
-                    aria-current={page === p ? 'page' : undefined}
-                    className={`h-9 min-w-9 rounded-lg px-2.5 text-sm font-semibold tabular-nums transition-all duration-200 active:scale-90 ${focusRing} ${
-                      page === p
-                        ? 'bg-[#0B3D6E] text-white shadow-md shadow-[#0B3D6E]/25'
-                        : 'text-slate-600 hover:bg-slate-100'
-                    }`}
-                  >
-                    {p}
-                  </button>
-                )
-              )}
+              <span className="min-w-[88px] px-2 text-center text-sm font-semibold tabular-nums text-slate-700 sm:hidden">
+                {page} / {totalPages}
+              </span>
+
+              <div className="hidden items-center gap-1 sm:flex">
+                {paginasVisibles.map((p, i) =>
+                  p === '...' ? (
+                    <span key={`dots-${i}`} className="w-8 text-center text-sm text-slate-400">…</span>
+                  ) : (
+                    <button
+                      key={p}
+                      onClick={() => irAPagina(p as number)}
+                      aria-current={page === p ? 'page' : undefined}
+                      className={`h-9 min-w-9 rounded-lg px-2.5 text-sm font-semibold tabular-nums transition-all duration-200 active:scale-90 ${focusRing} ${
+                        page === p
+                          ? 'bg-[#0B3D6E] text-white shadow-md shadow-[#0B3D6E]/25'
+                          : 'text-slate-600 hover:bg-slate-100'
+                      }`}
+                    >
+                      {p}
+                    </button>
+                  )
+                )}
+              </div>
 
               <button
-                onClick={() => setPage(p => Math.min(totalPages, p + 1))}
+                onClick={() => irAPagina(page + 1)}
                 disabled={page >= totalPages}
                 aria-label="Página siguiente"
-                className={`flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 text-[#0B3D6E] transition-all hover:border-[#0B3D6E] hover:bg-[#0B3D6E]/5 active:scale-90 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:border-slate-200 disabled:hover:bg-transparent ${focusRing}`}
+                className={botonPagina}
               >
-                <ChevronRightIcon size={16} />
+                <ChevronRightIcon size={17} />
               </button>
             </div>
           </nav>
         )}
-      </main>
+      </div>
 
       {/* ============ DRAWER, LOADER Y TOAST ============ */}
       <DetalleProcesoDrawer
@@ -1162,17 +1239,17 @@ export default function CotizarSeacePage() {
       {toast && (
         <div
           role="status"
-          className={`sx-toast fixed bottom-6 right-6 z-[60] flex max-w-sm items-start gap-3 rounded-xl border px-4 py-3 text-sm shadow-2xl ${
+          className={`sx-toast fixed inset-x-4 bottom-[calc(1rem+env(safe-area-inset-bottom))] z-[60] flex items-start gap-3 rounded-xl border px-4 py-3 text-sm shadow-2xl sm:inset-x-auto sm:bottom-6 sm:right-6 sm:max-w-sm ${
             toast.tipo === 'error'
               ? 'border-rose-200 bg-rose-50 text-rose-800'
               : 'border-slate-200 bg-white text-slate-700'
           }`}
         >
-          <span className="flex-1 leading-relaxed">{toast.msg}</span>
+          <span className="min-w-0 flex-1 leading-relaxed">{toast.msg}</span>
           <button
             onClick={() => setToast(null)}
             aria-label="Cerrar aviso"
-            className={`mt-0.5 shrink-0 rounded text-slate-400 hover:text-slate-700 ${focusRing}`}
+            className={`-mr-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-slate-400 hover:text-slate-700 ${focusRing}`}
           >
             <X size={15} />
           </button>
