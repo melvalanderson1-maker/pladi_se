@@ -988,6 +988,11 @@ def _get_json(url, params=None, reintentos=3, referer=None):
                     continue
                 else:
                     return None
+            if r.status_code == 403:
+                espera = 30 * (intento + 1)
+                log(f"🚫 403 en listado - esperando {espera}s", "WARN")
+                time.sleep(espera)
+                continue
             if r.status_code == 200:
                 return r.json()
             log(f"   HTTP {r.status_code} en {url[:60]}", "WARN")
@@ -1015,14 +1020,76 @@ def _get_bytes(url, reintentos=3):
             time.sleep(1 + intento)
     return None, None
 
+
+# ─── CONTROL GLOBAL DE VELOCIDAD (anti-403) ──────────────────────────────────
+import random
+
+class _Throttle:
+    """
+    Limitador GLOBAL compartido por TODAS las peticiones del scraper masivo.
+    - Máximo `rps` peticiones por segundo.
+    - Un 403 pausa TODO (con jitter), baja la velocidad a la mitad y la sube
+      de a poco cuando hay peticiones exitosas seguidas.
+    """
+    def __init__(self, rps_ini=5.0, rps_min=1.0, rps_max=10.0):
+        self.rps_ini = rps_ini
+        self.rps_min = rps_min
+        self.rps_max = rps_max
+        self.reset()
+
+    def reset(self):
+        self.rps          = self.rps_ini
+        self._pausa_hasta = 0.0
+        self._proximo     = 0.0
+        self._ok_seguidos = 0
+        self._episodios   = 0
+        self._lock        = asyncio.Lock()   # se recrea en cada corrida
+
+    async def esperar_turno(self):
+        async with self._lock:
+            while True:
+                ahora   = time.monotonic()
+                destino = max(self._pausa_hasta, self._proximo)
+                if destino <= ahora:
+                    break
+                await asyncio.sleep(destino - ahora)
+            self._proximo = time.monotonic() + 1.0 / self.rps
+
+    def reportar_403(self):
+        ahora = time.monotonic()
+        if ahora < self._pausa_hasta:
+            return   # ya hay una pausa activa: ignorar respuestas rezagadas
+        self._episodios  += 1
+        self._ok_seguidos = 0
+        self.rps = max(self.rps_min, self.rps / 2)
+        pausa = min(20 * (2 ** (self._episodios - 1)), 300) + random.uniform(0, 5)
+        self._pausa_hasta = ahora + pausa
+        log(f"🚫 403 de SEACE → PAUSA GLOBAL {pausa:.0f}s | nueva velocidad {self.rps:.1f} req/s "
+            f"(episodio {self._episodios})", "WARN")
+
+    def reportar_ok(self):
+        self._ok_seguidos += 1
+        if self._ok_seguidos >= 40:
+            self._ok_seguidos = 0
+            self._episodios = max(0, self._episodios - 1)
+            if self.rps < self.rps_max:
+                self.rps = min(self.rps_max, self.rps + 0.5)
+                log(f"🟢 Velocidad subida a {self.rps:.1f} req/s", "INFO")
+
+_throttle = _Throttle()
+
+
+
 async def _async_get_bytes(session, url):
     headers = _headers_base()
-    for intento in range(3):
+    for intento in range(8):
         if _sesion_abortada:
             return None, None
         try:
+            await _throttle.esperar_turno()
             tok_usado = headers.get("authorization", "").replace("Bearer ", "")
-            async with session.get(url, headers=headers, timeout=aiohttp.ClientTimeout(total=300)) as r:
+            async with session.get(url, headers=headers,
+                                   timeout=aiohttp.ClientTimeout(total=300)) as r:
                 if r.status == 401:
                     if not await _recuperar_sesion(tok_usado):
                         return None, None
@@ -1030,16 +1097,20 @@ async def _async_get_bytes(session, url):
                     continue
 
                 if r.status == 403:
-                    log(f"🚫 Archivo bloqueado temporalmente", "WARN")
-                    await asyncio.sleep(10)
+                    _throttle.reportar_403()   # pausa global; el próximo turno espera
                     continue
+
                 if r.status == 200:
                     contenido = await r.read()
-                    mime = r.headers.get("content-type", "")
-                    return contenido, mime
+                    _throttle.reportar_ok()
+                    return contenido, r.headers.get("content-type", "")
+
+                log(f"   HTTP {r.status} en descarga {url[-30:]}", "WARN")
+                await asyncio.sleep(1 + intento)
         except Exception as e:
             log(f"   Error async descarga {url[-30:]}: {type(e).__name__}: {e}", "WARN")
             await asyncio.sleep(1 + intento)
+    log(f"   ❌ Descarga agotó reintentos: {url[-30:]}", "ERROR")
     return None, None
 
 
@@ -1113,17 +1184,19 @@ async def _recuperar_sesion(token_usado):
 
 async def _async_get_json(session, url, params=None, referer=None, ruc=None):
     """
-    Si `ruc` viene dado, usa la sesión de ESA empresa (multiempresa).
-    Si `ruc` es None, usa la cuenta principal (scraper masivo) con
-    recuperación de sesión centralizada (sin avalancha de refresh).
+    Si `ruc` viene dado, usa la sesión de ESA empresa (multiempresa, sin throttle
+    global para no frenar al usuario que cotiza).
+    Si `ruc` es None, es el scraper masivo: pasa por el limitador global.
     """
     headers = _headers_base_empresa(ruc) if ruc else _headers_base()
     if referer:
         headers["referer"] = referer
-    for intento in range(5):
+    for intento in range(8):
         if _sesion_abortada and not ruc:
             return None
         try:
+            if not ruc:
+                await _throttle.esperar_turno()
             tok_usado = headers.get("authorization", "").replace("Bearer ", "")
             async with session.get(url, params=params, headers=headers,
                                    timeout=aiohttp.ClientTimeout(total=120)) as r:
@@ -1140,17 +1213,24 @@ async def _async_get_json(session, url, params=None, referer=None, ruc=None):
                         headers["referer"] = referer
                     await asyncio.sleep(1)
                     continue
+
                 if r.status == 403:
-                    log(f"🚫 403 detectado - esperando 10 segundos", "WARN")
-                    await asyncio.sleep(10)
+                    if ruc:
+                        log(f"🚫 403 (empresa {ruc}) - esperando 10 segundos", "WARN")
+                        await asyncio.sleep(10)
+                    else:
+                        _throttle.reportar_403()
                     continue
 
                 if r.status == 200:
+                    if not ruc:
+                        _throttle.reportar_ok()
                     return await r.json(content_type=None)
+
                 log(f"   HTTP {r.status} en {url[:60]}", "WARN")
                 await asyncio.sleep(2 * (intento + 1))
         except asyncio.TimeoutError:
-            log(f"   TIMEOUT intento {intento+1}/5 en {url[:80]}", "WARN")
+            log(f"   TIMEOUT intento {intento+1}/8 en {url[:80]}", "WARN")
             await asyncio.sleep(3 * (intento + 1))
         except Exception as e:
             log(f"   Error async GET {url[:60]}: {type(e).__name__}: {e}", "WARN")
@@ -1356,8 +1436,8 @@ async def procesar_pagina_async(items, procesados, pg, semaforo_limit, semaforo_
     semaforo = asyncio.Semaphore(semaforo_limit)
     _semaforo_descargas = asyncio.Semaphore(semaforo_descargas)  # reducido para no saturar SEACE
     connector = aiohttp.TCPConnector(
-        limit=160,
-        limit_per_host=160,
+        limit=24,
+        limit_per_host=24,
         ssl=False
     )
     async with aiohttp.ClientSession(connector=connector) as session:
@@ -2082,6 +2162,7 @@ async def _ejecutar_scraper(solo_vigentes=False):
     _sesion_abortada = False
     _relogin_lock    = asyncio.Lock()
     _stop_refresh.clear()   # ← arregla que el auto-refresh muera en la 2.ª corrida
+    _throttle.reset()
     _tarea_activa["corriendo"] = True
     _tarea_activa["modo"]      = "vigentes" if solo_vigentes else "todo"
     try:
@@ -2109,8 +2190,8 @@ async def _ejecutar_scraper(solo_vigentes=False):
         log("⏰ Auto-refresh iniciado.")
 
         procesados        = cargar_json_existente()
-        SEMAFORO_LIMIT    = 140
-        SEMAFORO_DESCARGAS = 40
+        SEMAFORO_LIMIT    = 12
+        SEMAFORO_DESCARGAS = 4
         completados_total = 0
         errores_total     = 0
 
@@ -2164,7 +2245,7 @@ async def _ejecutar_scraper(solo_vigentes=False):
                             return item
                     return None
 
-                sem_sync = asyncio.Semaphore(50)  # 30 concurrent, no saturar SEACE
+                sem_sync = asyncio.Semaphore(8)
 
                 async def _sync_uno(session, row):
                     nonlocal cambios_estado
@@ -2247,7 +2328,7 @@ async def _ejecutar_scraper(solo_vigentes=False):
                             except Exception as e:
                                 log(f"   ⚠️ [{id_c}] Error extrayendo culminado: {e}", "WARN")
 
-                connector_sync = aiohttp.TCPConnector(limit=60, limit_per_host=60, ssl=False)
+                connector_sync = aiohttp.TCPConnector(limit=16, limit_per_host=16, ssl=False)
                 async with aiohttp.ClientSession(connector=connector_sync) as session_sync:
                     tareas_sync = [_sync_uno(session_sync, row) for row in contratos_activos]
                     await asyncio.gather(*tareas_sync)
