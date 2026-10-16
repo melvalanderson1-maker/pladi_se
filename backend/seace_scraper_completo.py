@@ -1026,12 +1026,13 @@ import random
 
 class _Throttle:
     """
-    Limitador GLOBAL compartido por TODAS las peticiones del scraper masivo.
-    - Máximo `rps` peticiones por segundo.
-    - Un 403 pausa TODO (con jitter), baja la velocidad a la mitad y la sube
-      de a poco cuando hay peticiones exitosas seguidas.
+    Limitador GLOBAL adaptativo (AIMD) para el scraper masivo.
+    - Sube rápido (+25% cada 30 peticiones OK) hasta `_techo`.
+    - Ante un 403: pausa GLOBAL, baja a 60% y fija el techo en 80% de la
+      velocidad a la que falló, para no volver a chocar en el mismo punto.
+    - Tras 300 peticiones OK seguidas, relaja el techo +10% (hasta rps_max).
     """
-    def __init__(self, rps_ini=5.0, rps_min=1.0, rps_max=10.0):
+    def __init__(self, rps_ini=25.0, rps_min=2.0, rps_max=80.0):
         self.rps_ini = rps_ini
         self.rps_min = rps_min
         self.rps_max = rps_max
@@ -1039,6 +1040,7 @@ class _Throttle:
 
     def reset(self):
         self.rps          = self.rps_ini
+        self._techo       = self.rps_max
         self._pausa_hasta = 0.0
         self._proximo     = 0.0
         self._ok_seguidos = 0
@@ -1061,23 +1063,25 @@ class _Throttle:
             return   # ya hay una pausa activa: ignorar respuestas rezagadas
         self._episodios  += 1
         self._ok_seguidos = 0
-        self.rps = max(self.rps_min, self.rps / 2)
-        pausa = min(20 * (2 ** (self._episodios - 1)), 300) + random.uniform(0, 5)
+        self._techo = max(self.rps_min, self.rps * 0.8)
+        self.rps    = max(self.rps_min, self.rps * 0.6)
+        pausa = min(15 * (2 ** (self._episodios - 1)), 240) + random.uniform(0, 5)
         self._pausa_hasta = ahora + pausa
-        log(f"🚫 403 de SEACE → PAUSA GLOBAL {pausa:.0f}s | nueva velocidad {self.rps:.1f} req/s "
-            f"(episodio {self._episodios})", "WARN")
+        log(f"🚫 403 de SEACE → PAUSA GLOBAL {pausa:.0f}s | velocidad {self.rps:.1f} req/s "
+            f"| techo {self._techo:.1f} (episodio {self._episodios})", "WARN")
 
     def reportar_ok(self):
         self._ok_seguidos += 1
-        if self._ok_seguidos >= 40:
+        if self._ok_seguidos % 30 == 0 and self.rps < self._techo:
+            self.rps = min(self._techo, self.rps * 1.25)
+            log(f"🟢 Velocidad subida a {self.rps:.1f} req/s (techo {self._techo:.1f})", "INFO")
+        if self._ok_seguidos >= 300:
             self._ok_seguidos = 0
             self._episodios = max(0, self._episodios - 1)
-            if self.rps < self.rps_max:
-                self.rps = min(self.rps_max, self.rps + 0.5)
-                log(f"🟢 Velocidad subida a {self.rps:.1f} req/s", "INFO")
+            if self._techo < self.rps_max:
+                self._techo = min(self.rps_max, self._techo * 1.1)
 
 _throttle = _Throttle()
-
 
 
 async def _async_get_bytes(session, url):
@@ -1436,8 +1440,8 @@ async def procesar_pagina_async(items, procesados, pg, semaforo_limit, semaforo_
     semaforo = asyncio.Semaphore(semaforo_limit)
     _semaforo_descargas = asyncio.Semaphore(semaforo_descargas)  # reducido para no saturar SEACE
     connector = aiohttp.TCPConnector(
-        limit=24,
-        limit_per_host=24,
+        limit=100,
+        limit_per_host=100,
         ssl=False
     )
     async with aiohttp.ClientSession(connector=connector) as session:
@@ -2190,8 +2194,8 @@ async def _ejecutar_scraper(solo_vigentes=False):
         log("⏰ Auto-refresh iniciado.")
 
         procesados        = cargar_json_existente()
-        SEMAFORO_LIMIT    = 12
-        SEMAFORO_DESCARGAS = 4
+        SEMAFORO_LIMIT    = 40
+        SEMAFORO_DESCARGAS = 10
         completados_total = 0
         errores_total     = 0
 
@@ -2221,6 +2225,8 @@ async def _ejecutar_scraper(solo_vigentes=False):
                 # Buscar cada uno por palabra clave (des_contratacion)
                 # en lotes de 1 para no sobrecargar, pero usando asyncio concurrente
                 cambios_estado = 0
+                revisados = 0
+                total_activos = len(contratos_activos)
 
                 async def _verificar_estado_contrato(session, id_c, des_c, estado_actual):
                     """Busca el contrato por palabra clave y devuelve el estado actual en SEACE."""
@@ -2245,15 +2251,18 @@ async def _ejecutar_scraper(solo_vigentes=False):
                             return item
                     return None
 
-                sem_sync = asyncio.Semaphore(8)
+                sem_sync = asyncio.Semaphore(60)
 
                 async def _sync_uno(session, row):
-                    nonlocal cambios_estado
+                    nonlocal cambios_estado, revisados
                     id_c, des_c, estado_actual = row
                     if not des_c:
                         return
                     async with sem_sync:
                         item_seace = await _verificar_estado_contrato(session, id_c, des_c, estado_actual)
+                    revisados += 1
+                    if revisados % 500 == 0:
+                        log(f"   ⏳ FASE 1: {revisados}/{total_activos} revisados, {cambios_estado} cambios | {_throttle.rps:.1f} req/s")
                     if not item_seace:
                         return
                     nuevo_estado  = item_seace.get("idEstadoContrato")
@@ -2328,7 +2337,7 @@ async def _ejecutar_scraper(solo_vigentes=False):
                             except Exception as e:
                                 log(f"   ⚠️ [{id_c}] Error extrayendo culminado: {e}", "WARN")
 
-                connector_sync = aiohttp.TCPConnector(limit=16, limit_per_host=16, ssl=False)
+                connector_sync = aiohttp.TCPConnector(limit=80, limit_per_host=80, ssl=False)
                 async with aiohttp.ClientSession(connector=connector_sync) as session_sync:
                     tareas_sync = [_sync_uno(session_sync, row) for row in contratos_activos]
                     await asyncio.gather(*tareas_sync)
